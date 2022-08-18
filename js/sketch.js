@@ -21,7 +21,28 @@ function quad_line(begin, end, width, height, spacing, use_color=color(255, 255,
             vertex(draw_x_middle["x"] + width, draw_x_middle["y"] + height/2);
         endShape(CLOSE)
 
-        draw_x_middle["x"] = draw_x_middle["x"] + width + spacing
+        draw_x_middle["x"] = draw_x_middle["x"] + width + spacing;
+    }
+
+};
+
+function quad_vert_line(begin, end, width, height, spacing, use_color=color(255, 255, 255)){
+    let line_path = end - begin["x"];
+    let draw_x_middle = {"x": begin["x"], "y": begin["y"]};
+
+    console.log(draw_x_middle)
+    console.log(line_path)
+    while (draw_x_middle["y"] < line_path){
+        console.log(draw_x_middle)
+        fill(use_color);
+        beginShape();
+            vertex(draw_x_middle["x"] - height/2, draw_x_middle["y"]);
+            vertex(draw_x_middle["x"] + height/2, draw_x_middle["y"]);
+            vertex(draw_x_middle["x"] + height/2, draw_x_middle["y"] + width);
+            vertex(draw_x_middle["x"] - height/2, draw_x_middle["y"] + width);
+        endShape(CLOSE)
+
+        draw_x_middle["y"] = draw_x_middle["y"] + width + spacing;
     }
 
 };
@@ -43,6 +64,10 @@ function setup() {
 
     // image(img, pos["x"], pos["y"]);
     quad_line({"x": 25, "y": 25}, 330, 20, 5, 10);
+    quad_line({"x": 25, "y": 325}, 330, 20, 5, 10);
+    console.log("vert_line");
+    quad_vert_line({"x": 25, "y": 25}, 330, 20, 5, 10);
+    quad_vert_line({"x": 315, "y": 25}, 630, 20, 5, 10);   
 };
 
 function draw() {
