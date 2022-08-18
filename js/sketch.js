@@ -5,6 +5,8 @@ let pos;
 
 // idea >> person of interest identifier reticle
 // Square and Triangle
+// https://personofinterest.fandom.com/wiki/The_Machine/MPOV#Season_1
+
 function quad_line(begin, end, width, height, spacing, use_color=color(255, 255, 255)){
     let line_path = end - begin["x"];
     let draw_x_middle = {"x": begin["x"], "y": begin["y"]};
@@ -47,6 +49,10 @@ function quad_vert_line(begin, end, width, height, spacing, use_color=color(255,
 
 };
 
+function setLineDash(list) {
+    drawingContext.setLineDash(list);
+  }
+
 function preload() {
   img = loadImage('grass.png');
   pos = {"x": random(x_max), "y": random(y_max)};
@@ -68,6 +74,22 @@ function setup() {
     console.log("vert_line");
     quad_vert_line({"x": 25, "y": 25}, 330, 20, 5, 10);
     quad_vert_line({"x": 315, "y": 25}, 630, 20, 5, 10);   
+
+    stroke(255);
+    // strokeWeight(2);
+    noFill();
+    // setLineDash([40, 10]); //create the dashed line pattern here
+    
+    rect(25, 25, 290, 300);
+
+    fill(255);
+    let quad_height = 10;
+    let quad_width = 40;
+    rect(25, 180, quad_width, quad_height);
+    rect(165, 25, quad_height, quad_width);
+    rect(275, 180, quad_width, quad_height);
+    rect(165, 285, quad_height, quad_width);
+
 };
 
 function draw() {
