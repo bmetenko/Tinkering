@@ -49,6 +49,46 @@ function quad_vert_line(begin, end, width, height, spacing, use_color=color(255,
 
 };
 
+function corner_cap(position, corner){
+
+    corner_x = position["x"]
+    corner_y = position["y"]
+
+    switch (corner) {
+        case "top_left":
+            fill(color(255,255,255));
+            strokeWeight(5);
+            // stroke(25);
+            arc(corner_x, corner_y, 20, 20, PI, -HALF_PI, PIE);
+        break;
+
+        case "top_right":
+            fill(color(255,255,255));
+            strokeWeight(5);
+            // stroke(25);
+            arc(corner_x, corner_y, 20, 20, PI + HALF_PI, PI + PI, PIE);
+        break;
+        
+        case "bottom_left":
+            fill(color(255,255,255));
+            strokeWeight(5);
+            // stroke(25);
+            arc(corner_x, corner_y, 20, 20, HALF_PI, PI, PIE);
+        break;
+
+        case "bottom_right":
+            fill(color(255,255,255));
+            strokeWeight(5);
+            // stroke(25);
+            arc(corner_x, corner_y, 20, 20, PI + PI, PI - HALF_PI, PIE);
+        break;
+    
+        // default:
+        // break;
+    }
+
+}
+
 function setLineDash(list) {
     drawingContext.setLineDash(list);
   }
@@ -90,8 +130,17 @@ function setup() {
     rect(275, 180, quad_width, quad_height);
     rect(165, 285, quad_height, quad_width);
 
+    corner_cap({"x": 30, "y": 30}, "top_left");
+    corner_cap({"x": 310, "y": 30}, "top_right");
+    corner_cap({"x": 30, "y": 320}, "bottom_left");
+    corner_cap({"x": 310, "y": 320}, "bottom_right");
+
 };
 
 function draw() {
 
 };
+
+// CustomShape(QUADS)
+// Curve vertices
+// Pixel based approximations for bounds.
