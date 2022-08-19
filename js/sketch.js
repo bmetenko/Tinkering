@@ -53,6 +53,10 @@ function corner_cap(position, corner){
 
     corner_x = position["x"]
     corner_y = position["y"]
+    use_color=color(255, 255, 255)
+
+    width = 10
+    height = 20
 
     switch (corner) {
         case "top_left":
@@ -60,6 +64,22 @@ function corner_cap(position, corner){
             strokeWeight(5);
             // stroke(25);
             arc(corner_x, corner_y, 20, 20, PI, -HALF_PI, PIE);
+
+
+            fill(use_color);
+            beginShape();
+                vertex(corner_x - height/2 + 10, corner_y - 10);
+                vertex(corner_x + height/2 + 3, corner_y - 10);
+                vertex(corner_x + height/2 + 3, corner_y + width - 10);
+                vertex(corner_x - height/2 + 3, corner_y + width - 10);
+            endShape(CLOSE)
+            fill(use_color);
+            beginShape();
+                vertex(corner_x - height/2, corner_y + 10 + 3);
+                vertex(corner_x + height/2 - 10, corner_y + 10 + 3);
+                vertex(corner_x + height/2 - 10, corner_y + width - 7);
+                vertex(corner_x - height/2, corner_y + width - 7);
+            endShape(CLOSE)
         break;
 
         case "top_right":
@@ -67,6 +87,19 @@ function corner_cap(position, corner){
             strokeWeight(5);
             // stroke(25);
             arc(corner_x, corner_y, 20, 20, PI + HALF_PI, PI + PI, PIE);
+            beginShape();
+                vertex(corner_x - height/2 - 3, corner_y - 10);
+                vertex(corner_x - height/2 + 7, corner_y - 10);
+                vertex(corner_x - height/2 + 7, corner_y + width - 10);
+                vertex(corner_x - height/2 - 3 , corner_y + width - 10);
+            endShape(CLOSE)
+            fill(use_color);
+            beginShape();
+                vertex(corner_x - height/2 + 10, corner_y + 10 + 3);
+                vertex(corner_x + height/2, corner_y + 10 + 3);
+                vertex(corner_x + height/2, corner_y + width - 7);
+                vertex(corner_x - height/2 + 10, corner_y + width - 7);
+            endShape(CLOSE)
         break;
         
         case "bottom_left":
@@ -74,6 +107,19 @@ function corner_cap(position, corner){
             strokeWeight(5);
             // stroke(25);
             arc(corner_x, corner_y, 20, 20, HALF_PI, PI, PIE);
+            beginShape();
+                vertex(corner_x - height/2, corner_y - 10 - 3);
+                vertex(corner_x - height/2 + 10, corner_y - 10 - 3);
+                vertex(corner_x - height/2 + 10, corner_y + width - 10);
+                vertex(corner_x - height/2, corner_y + width - 10);
+            endShape(CLOSE)
+            fill(use_color);
+            beginShape();
+                vertex(corner_x - height/2 + 10 + 3, corner_y + 10);
+                vertex(corner_x + height/2 + 3, corner_y + 10);
+                vertex(corner_x + height/2 + 3, corner_y + width - 10);
+                vertex(corner_x - height/2 + 10 + 3, corner_y + width - 10);
+            endShape(CLOSE)
         break;
 
         case "bottom_right":
@@ -81,6 +127,19 @@ function corner_cap(position, corner){
             strokeWeight(5);
             // stroke(25);
             arc(corner_x, corner_y, 20, 20, PI + PI, PI - HALF_PI, PIE);
+            beginShape();
+                vertex(corner_x - height/2 + 10, corner_y - 10 - 2.5);
+                vertex(corner_x - height/2 + 10 + 10, corner_y - 10 - 2.5);
+                vertex(corner_x - height/2 + 10 + 10, corner_y + width - 10);
+                vertex(corner_x - height/2 + 10, corner_y + width - 10);
+            endShape(CLOSE)
+            fill(use_color);
+            beginShape();
+                vertex(corner_x - height/2, corner_y + 10);
+                vertex(corner_x + height/2 - 10, corner_y + 10);
+                vertex(corner_x + height/2 - 10, corner_y + width - 10);
+                vertex(corner_x - height/2, corner_y + width - 10);
+            endShape(CLOSE)
         break;
     
         // default:
@@ -109,6 +168,7 @@ function setup() {
     // ellipse(width/2, height/2, 50, 50);
 
     // image(img, pos["x"], pos["y"]);
+    stroke(255)
     quad_line({"x": 25, "y": 25}, 330, 20, 5, 10);
     quad_line({"x": 25, "y": 325}, 330, 20, 5, 10);
     console.log("vert_line");
@@ -120,7 +180,7 @@ function setup() {
     noFill();
     // setLineDash([40, 10]); //create the dashed line pattern here
     
-    rect(25, 25, 290, 300);
+    // rect(25, 25, 290, 300);
 
     fill(255);
     let quad_height = 10;
