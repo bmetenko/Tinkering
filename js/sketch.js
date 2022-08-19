@@ -135,10 +135,10 @@ function corner_cap(position, corner){
             endShape(CLOSE)
             fill(use_color);
             beginShape();
-                vertex(corner_x - height/2, corner_y + 10);
+                vertex(corner_x - height/2 - 3, corner_y + 10);
                 vertex(corner_x + height/2 - 10, corner_y + 10);
                 vertex(corner_x + height/2 - 10, corner_y + width - 10);
-                vertex(corner_x - height/2, corner_y + width - 10);
+                vertex(corner_x - height/2 - 3, corner_y + width - 10);
             endShape(CLOSE)
         break;
     
