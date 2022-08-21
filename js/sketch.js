@@ -49,20 +49,19 @@ function quad_vert_line(begin, end, width, height, spacing, use_color=color(255,
 
 };
 
-function corner_cap(position, corner){
+function corner_cap(position, corner, use_color=color(255, 255, 255)){
 
     corner_x = position["x"]
     corner_y = position["y"]
-    use_color=color(255, 255, 255)
 
     width = 10
     height = 20
 
     switch (corner) {
         case "top_left":
-            fill(color(255,255,255));
+            fill(use_color);
             strokeWeight(5);
-            // stroke(25);
+            stroke(use_color);
             arc(corner_x, corner_y, 20, 20, PI, -HALF_PI, PIE);
 
 
@@ -83,9 +82,9 @@ function corner_cap(position, corner){
         break;
 
         case "top_right":
-            fill(color(255,255,255));
+            fill(use_color);
             strokeWeight(5);
-            // stroke(25);
+            stroke(use_color);
             arc(corner_x, corner_y, 20, 20, PI + HALF_PI, PI + PI, PIE);
             beginShape();
                 vertex(corner_x - height/2 - 3, corner_y - 10);
@@ -103,9 +102,9 @@ function corner_cap(position, corner){
         break;
         
         case "bottom_left":
-            fill(color(255,255,255));
+            fill(use_color);
             strokeWeight(5);
-            // stroke(25);
+            stroke(use_color);
             arc(corner_x, corner_y, 20, 20, HALF_PI, PI, PIE);
             beginShape();
                 vertex(corner_x - height/2, corner_y - 10 - 3);
@@ -123,9 +122,9 @@ function corner_cap(position, corner){
         break;
 
         case "bottom_right":
-            fill(color(255,255,255));
+            fill(use_color);
             strokeWeight(5);
-            // stroke(25);
+            stroke(use_color);
             arc(corner_x, corner_y, 20, 20, PI + PI, PI - HALF_PI, PIE);
             beginShape();
                 vertex(corner_x - height/2 + 10, corner_y - 10 - 2.5);
@@ -190,10 +189,10 @@ function setup() {
     rect(275, 180, quad_width, quad_height);
     rect(165, 285, quad_height, quad_width);
 
-    corner_cap({"x": 30, "y": 30}, "top_left");
-    corner_cap({"x": 310, "y": 30}, "top_right");
-    corner_cap({"x": 30, "y": 320}, "bottom_left");
-    corner_cap({"x": 310, "y": 320}, "bottom_right");
+    corner_cap({"x": 30, "y": 30}, "top_left", color(255, 0, 0));
+    corner_cap({"x": 310, "y": 30}, "top_right", color(255, 0, 0));
+    corner_cap({"x": 30, "y": 320}, "bottom_left", color(255, 0, 0));
+    corner_cap({"x": 310, "y": 320}, "bottom_right", color(255, 0, 0));
 
 };
 
