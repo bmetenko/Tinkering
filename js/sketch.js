@@ -174,14 +174,14 @@ function setup() {
     quad_vert_line({"x": 25, "y": 25}, 330, 20, 5, 10);
     quad_vert_line({"x": 315, "y": 25}, 630, 20, 5, 10);   
 
-    stroke(255);
+    stroke(color(255, 0, 0));
     // strokeWeight(2);
     noFill();
     // setLineDash([40, 10]); //create the dashed line pattern here
     
     // rect(25, 25, 290, 300);
 
-    fill(255);
+    fill(color(255, 0, 0));
     let quad_height = 10;
     let quad_width = 40;
     rect(25, 180, quad_width, quad_height);
