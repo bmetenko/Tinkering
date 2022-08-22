@@ -175,19 +175,24 @@ function setup() {
     quad_vert_line({"x": 315, "y": 25}, 630, 20, 5, 10);   
 
     stroke(color(255, 0, 0));
-    // strokeWeight(2);
     noFill();
+    // strokeWeight(2);
     // setLineDash([40, 10]); //create the dashed line pattern here
-    
     // rect(25, 25, 290, 300);
 
-    fill(color(255, 0, 0));
+    function middle_rects(quad_height, quad_width, start, box_end, use_color=color(255, 0, 0)){
+        fill(use_color);
+
+        rect(start["x"], (box_end["y"] - start["y"])/2 + start["y"], quad_width, quad_height);
+        rect((box_end["x"] - start["x"])/2 + start["y"], start["y"], quad_height, quad_width);
+        rect(box_end["x"] - start["x"], (box_end["y"] - start["y"])/2 + start["y"], quad_width, quad_height);
+        rect((box_end["x"] - start["x"])/2 + start["y"], box_end["y"] - start["y"] + quad_height, quad_height, quad_width);
+    }
+
     let quad_height = 10;
     let quad_width = 40;
-    rect(25, 180, quad_width, quad_height);
-    rect(165, 25, quad_height, quad_width);
-    rect(275, 180, quad_width, quad_height);
-    rect(165, 285, quad_height, quad_width);
+
+    middle_rects(quad_height, quad_width, start = {"x": 25, "y": 25}, box_end = {"x": 300, "y": 300})
 
     corner_cap({"x": 30, "y": 30}, "top_left", color(255, 0, 0));
     corner_cap({"x": 310, "y": 30}, "top_right", color(255, 0, 0));
