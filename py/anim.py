@@ -7,16 +7,16 @@ from matplotlib import rc
 
 rc('animation', html='html5')
 n = 200
-tightness = 1.35
+tightness = 1.05
 k_min = 1
-k_max = 25
+k_max = 5
 num_frames = 100
 theta = np.linspace(-0.85 * np.pi, 0.85 * np.pi, n)
 
 
 def plot(k):
     # For every plot we change the theta
-    _theta = theta*k
+    _theta = theta*k ** 2
 
     # Polar Equation of each spiral
     r = tightness*_theta
@@ -24,8 +24,8 @@ def plot(k):
     df = pd.DataFrame({
         'theta': _theta,
         'r': r,
-        'x': r*np.sin(_theta) ** np.sin(_theta),
-        'y': r*np.cos(_theta)
+        'x': r*np.sin(_theta)*r,
+        'y': r*np.cos(_theta) ** (1/(np.cos(_theta) + 1))
     })
 
     p = (
@@ -36,8 +36,8 @@ def plot(k):
                 show_legend=False
             )
             + lims(
-                x=(-75, 75),
-                y=(-75, 75),
+                x=(-50, 50),
+                y=(-25, 25),
                 color=(-k_max * np.pi, k_max * np.pi)
             )
             + theme_void()
@@ -48,7 +48,6 @@ def plot(k):
     )
     return p
 
-
 plots = (plot(k) for k in np.linspace(k_min, k_max, num_frames))
-ani = PlotnineAnimation(plots, interval=100, repeat_delay=500)
-ani.save('test.gif')
+ani = PlotnineAnimation(plots, interval=100, repeat_delay=0)
+ani.save('test2.gif')
