@@ -194,12 +194,29 @@ function setup() {
 
     middle_rects(quad_height, quad_width, start = {"x": 25, "y": 25}, box_end = {"x": 300, "y": 300})
 
-    corner_cap({"x": 30, "y": 30}, "top_left", color(255, 0, 0));
-    corner_cap({"x": 310, "y": 30}, "top_right", color(255, 0, 0));
-    corner_cap({"x": 30, "y": 320}, "bottom_left", color(255, 0, 0));
-    corner_cap({"x": 310, "y": 320}, "bottom_right", color(255, 0, 0));
+    // corner_cap({"x": 30, "y": 30}, "top_left", color(255, 0, 0));
+    // corner_cap({"x": 310, "y": 30}, "top_right", color(255, 0, 0));
+    // corner_cap({"x": 30, "y": 320}, "bottom_left", color(255, 0, 0));
+    // corner_cap({"x": 310, "y": 320}, "bottom_right", color(255, 0, 0));
+
+    all_corners({"x": 30, "y": 30}, {"x": 320, "y": 320});
 
 };
+
+function all_corners(start, end){
+    start_y = start["y"] // 30
+    start_x = start["x"] // 30
+
+    end_y = end["y"] // 320
+    end_x = end["x"] // 320
+
+
+    corner_cap({"x": start_x, "y": start_y}, "top_left", color(255, 0, 0));
+    corner_cap({"x": end_x - start_x/3, "y": start_y}, "top_right", color(255, 0, 0));
+    corner_cap({"x": start_x, "y": end_y}, "bottom_left", color(255, 0, 0));
+    corner_cap({"x": end_x - start_x/3, "y": end_y}, "bottom_right", color(255, 0, 0));
+
+}
 
 function draw() {
 
