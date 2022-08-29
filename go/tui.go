@@ -30,22 +30,22 @@ func main() {
 	t.SetStyle("label.emphasis", tui.Style{Bold: tui.DecorationOn, Underline: tui.DecorationOn, Bg: tui.ColorRed})
 	t.SetStyle("bsod", tui.Style{Bg: tui.ColorCyan, Fg: tui.ColorWhite})
 
-	okay := tui.NewLabel("Everything is fine.")
+	okay := tui.NewLabel("Everything will be fine.")
 
 	l := tui.NewList()
 	l.SetFocused(true)
-	l.AddItems("First row", "Second row", "Third row", "Fourth row", "Fifth row", "Sixth row")
+	l.AddItems("1st row", "2nd row", "3rd row", "4th row", "5th row", "6th row")
 	l.SetSelected(0)
 
-	warning := tui.NewLabel("WARNING: This is a warning")
+	warning := tui.NewLabel("WARNING: TUI overloaded.")
 	warning.SetStyleName("warning")
 
-	fatal := tui.NewLabel("FATAL: Cats and dogs are now living together.")
+	fatal := tui.NewLabel("FATAL: Frame.")
 	fatal.SetStyleName("fatal")
 
 	message1 := tui.NewLabel("This is an ")
 	emphasis := tui.NewLabel("important")
-	message2 := tui.NewLabel(" message from our sponsors.")
+	message2 := tui.NewLabel(" message, in general.")
 	message := &StyledBox{
 		Style: "bsod",
 		Box:   tui.NewHBox(message1, emphasis, message2, tui.NewSpacer()),
@@ -53,7 +53,7 @@ func main() {
 
 	emphasis.SetStyleName("emphasis")
 
-	okay2 := tui.NewLabel("Everything is still fine.")
+	okay2 := tui.NewLabel("Don't forget your towel, and you'll be okay.")
 
 	root := tui.NewVBox(okay, l, warning, fatal, message, okay2)
 
