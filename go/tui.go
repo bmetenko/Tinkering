@@ -76,11 +76,12 @@ func main() {
 
 	ui.SetKeybinding("o", func() {
 		// println(l.Selected())
-		if l.Selected()-1 != -1 {
-
+		current := l.Selected()
+		if current-1 == -1 {
+			current = l.Length()
 		}
 
-		l.SetSelected((l.Selected() - 1) % l.Length())
+		l.SetSelected((current - 1) % l.Length())
 
 		return
 	})
