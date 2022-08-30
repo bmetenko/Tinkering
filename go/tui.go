@@ -17,6 +17,22 @@ func (s *StyledBox) Draw(p *tui.Painter) {
 	})
 }
 
+func cycle_up(l *tui.List) {
+	l.SetSelected((l.Selected() + 1) % l.Length())
+	return
+}
+
+func cycle_down(l *tui.List) {
+	current := l.Selected()
+
+	if (current - 1) < 0 {
+		current = current + l.Length()
+	}
+
+	l.SetSelected((current - 1) % l.Length())
+	return
+}
+
 func main() {
 
 	t := tui.NewTheme()
@@ -68,23 +84,9 @@ func main() {
 	ui.SetKeybinding("q", func() { ui.Quit() })
 	ui.SetKeybinding("Ctrl+C", func() { ui.Quit() })
 
-	ui.SetKeybinding("p", func() {
-		// println(l.Selected())
-		l.SetSelected((l.Selected() + 1) % l.Length())
-		return
-	})
+	ui.SetKeybinding("p", func() { cycle_up(l) })
 
-	ui.SetKeybinding("o", func() {
-		// println(l.Selected())
-		current := l.Selected()
-		if current-1 == -1 {
-			current = l.Length()
-		}
-
-		l.SetSelected((current - 1) % l.Length())
-
-		return
-	})
+	ui.SetKeybinding("o", func() { cycle_down(l) })
 
 	if err := ui.Run(); err != nil {
 		log.Fatal(err)
