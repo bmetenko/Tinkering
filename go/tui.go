@@ -71,7 +71,18 @@ func main() {
 
 	okay2 := tui.NewLabel("Don't forget your towel, and you'll be okay.")
 
+	l2 := tui.NewLabel(`Scroll me with 't' or 'r'.`)
+
+	scroll := tui.NewScrollArea(l2)
+	scroll_container := tui.NewVBox(scroll)
+	scroll_container.SetBorder(true)
+
 	root := tui.NewVBox(okay, l, warning, fatal, message, okay2)
+
+	root.Append(tui.NewVBox(tui.NewSpacer()))
+	root.Append(scroll_container)
+	root.Append(tui.NewVBox(tui.NewSpacer()))
+	root.SetBorder(true)
 
 	ui, err := tui.New(root)
 
@@ -87,6 +98,9 @@ func main() {
 	ui.SetKeybinding("p", func() { cycle_up(l) })
 
 	ui.SetKeybinding("o", func() { cycle_down(l) })
+
+	ui.SetKeybinding("t", func() { scroll.ScrollToTop() })
+	ui.SetKeybinding("r", func() { scroll.ScrollToBottom() })
 
 	if err := ui.Run(); err != nil {
 		log.Fatal(err)
