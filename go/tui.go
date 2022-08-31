@@ -111,6 +111,15 @@ func main() {
 		t.SetStyle("bsod", tui.Style{Fg: tui.ColorCyan, Bg: tui.ColorWhite})
 	})
 
+	ui.SetKeybinding("e", func() {
+		t.SetStyle("list.item", tui.Style{Bg: tui.ColorYellow, Fg: tui.ColorCyan})
+		t.SetStyle("list.item.selected", tui.Style{Bg: tui.ColorRed, Fg: tui.ColorYellow})
+		t.SetStyle("label.warning", tui.Style{Bg: tui.ColorWhite, Fg: tui.ColorBlack})
+		t.SetStyle("label.fatal", tui.Style{Bg: tui.ColorDefault, Fg: tui.ColorRed})
+		t.SetStyle("label.emphasis", tui.Style{Bold: tui.DecorationOn, Underline: tui.DecorationOn, Bg: tui.ColorRed})
+		t.SetStyle("bsod", tui.Style{Bg: tui.ColorCyan, Fg: tui.ColorWhite})
+	})
+
 	if err := ui.Run(); err != nil {
 		log.Fatal(err)
 	}
