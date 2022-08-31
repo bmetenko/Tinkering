@@ -102,6 +102,15 @@ func main() {
 	ui.SetKeybinding("t", func() { scroll.ScrollToTop() })
 	ui.SetKeybinding("r", func() { scroll.ScrollToBottom() })
 
+	ui.SetKeybinding("w", func() {
+		t.SetStyle("list.item", tui.Style{Fg: tui.ColorYellow, Bg: tui.ColorCyan})
+		t.SetStyle("list.item.selected", tui.Style{Fg: tui.ColorRed, Bg: tui.ColorYellow})
+		t.SetStyle("label.warning", tui.Style{Fg: tui.ColorWhite, Bg: tui.ColorBlack})
+		t.SetStyle("label.fatal", tui.Style{Fg: tui.ColorDefault, Bg: tui.ColorRed})
+		t.SetStyle("label.emphasis", tui.Style{Bold: tui.DecorationOn, Underline: tui.DecorationOn, Fg: tui.ColorRed})
+		t.SetStyle("bsod", tui.Style{Fg: tui.ColorCyan, Bg: tui.ColorWhite})
+	})
+
 	if err := ui.Run(); err != nil {
 		log.Fatal(err)
 	}
