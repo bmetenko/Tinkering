@@ -50,7 +50,7 @@ func main() {
 
 	l := tui.NewList()
 	l.SetFocused(true)
-	l.AddItems("1st row", "2nd row", "3rd row", "4th row", "5th row", "6th row")
+	l.AddItems("1st row", "2nd row", "3rd row", "4th row")
 	l.SetSelected(0)
 
 	warning := tui.NewLabel("WARNING: TUI overloaded.")
@@ -83,6 +83,17 @@ func main() {
 	root.Append(scroll_container)
 	root.Append(tui.NewVBox(tui.NewSpacer()))
 	root.SetBorder(true)
+
+	b1 := tui.NewButton("Press Enter, currently 'focused'.")
+
+	root.Append(b1)
+	b1.SetFocused(true)
+
+	b1.OnActivated(func(b *tui.Button) {
+		okay2.SetText("Focused on below 'button' and submitted.")
+	})
+
+	tui.DefaultFocusChain.Set(l, b1)
 
 	ui, err := tui.New(root)
 
