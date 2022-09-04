@@ -11,6 +11,8 @@
 
 <div id="output" width=50%>
 <div id="output-line"></div>
+<canvas id="line-canvas" width=300px height=300px>
+</canvas>
     
 </div>
 
@@ -38,6 +40,35 @@
         });
         console.log(dfd.toJSON(df));
 
+
+const canvas = document.getElementById('line-canvas');
+const ctx = canvas.getContext('2d');
+
+let path1 = new Path2D();
+path1.rect(10, 10, 100,100);
+path1.ellipse(100, 100, 50, 75, Math.PI / 4, 0, 2 * Math.PI);
+
+
+let path2 = new Path2D(path1);
+// path2.moveTo(220, 60);
+// path1.arc(169, 60, 50, 0, 2 * Math.PI);
+
+// ctx.fillStyle = 'green';
+// ctx.beginPath();
+// ctx.ellipse(170, 60, 50, 0, 2 * Math.PI, 0, Math.PI, true);
+// ctx.fill();
+
+
+ctx.stroke(path2);
+ctx.beginPath();
+ctx.strokeStyle = 'gray';
+ctx.lineWidth=3;
+ctx.moveTo(170, 75);
+ctx.lineTo(170, 130);
+ctx.lineTo(130, 75);
+ctx.lineTo(170, 75);
+ctx.lineTo(170, 130); // without it, no corner draw
+ctx.stroke();
 
     </script>
 
