@@ -1,4 +1,5 @@
-import asyncio
+import re
+import time
 
 from shiny import App, render, ui, reactive
 import rich
@@ -19,31 +20,38 @@ app_ui = ui.page_fluid(
 
 def server(input, output, session):
 
-    x = reactive.Value("")
+    x = reactive.Value("No timer started.")
 
     @output
     @render.text
+    @reactive.poll(x)
     def txt():
-        return f"n*2 is {input.n() * 2}"
+        print(x())
+        # return f"x*2 is {x() * 2}"
 
     @reactive.Effect
     @reactive.event(input.start_timer)
-    async def timer_run():
+    def timer_run():
         time_to_wait = 0
         print(input.time_choice())
         for val in input.time_choice():
             time_to_wait += seconds_map[val]
+            print(time_to_wait)
         
         while time_to_wait > 0:
             x.set(f"waiting: {time_to_wait} seconds")
+            print(x())
             time_to_wait -= 1
-            await asyncio.sleep(1)
+            time.sleep(1)
 
-        x.set("Timer Done.")
+        else:
+            print("timer done...")
+            x.set("Timer Done.")
 
         
     @output
     @render.text
+    @reactive.Calc
     def timer():
         return str(x())
 
