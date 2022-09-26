@@ -28,6 +28,11 @@ func main() {
 		intY, errY := strconv.ParseInt(strings.TrimSpace(inputY), 10, 64)
 		if errY == nil {
 			now = now.AddDate(0, 0, int(intY))
+		} else {
+			fmt.Println(
+				"Input could not be parsed as integer,",
+				"time delta not modified for years.",
+			)
 		}
 	}
 
@@ -37,6 +42,11 @@ func main() {
 		intD, errD := strconv.ParseInt(strings.TrimSpace(inputD), 10, 32)
 		if errD == nil {
 			now = now.AddDate(int(intD), 0, 0)
+		} else {
+			fmt.Println(
+				"Input could not be parsed as integer,",
+				"time delta not modified for days.",
+			)
 		}
 	}
 
