@@ -9,7 +9,29 @@ import (
 	"time"
 )
 
+func swap(x *float64, y *float64) {
+	// Benefit: No need to return and create new objects,
+	// Hence more efficient computationally.
+	*x, *y = *y, *x
+}
+
+func printSwap() {
+	fmt.Println("---")
+	fmt.Println("Pointer based swap example:")
+	a := 123.5
+	b := 345.2
+
+	fmt.Printf("a originally: %.1f\nb originally %.1f \n", a, b)
+
+	swap(&a, &b)
+
+	fmt.Printf("a now: %.1f\nb now %.1f \n", a, b)
+	fmt.Println("---")
+}
+
 func main() {
+
+	printSwap()
 
 	stdReader := bufio.NewReader(os.Stdin)
 	// fmt.Print("Enter some text: ")
