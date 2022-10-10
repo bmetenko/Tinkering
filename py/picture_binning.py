@@ -10,6 +10,19 @@ def rgb_distance(x: tuple[int], y: tuple[int]):
     d = np.sqrt((r2-r1)**2+(g2-g1)**2+(b2-b1)**2)
     return d
 
+def palette_distance(pal1, pal2, check_iterations=1):
+
+    max_iterations = min(len(pal1), len(pal2))
+
+    if max_iterations < check_iterations:
+        check_iterations = max_iterations
+
+    out = 0
+
+    for i in range(check_iterations):
+        out += rgb_distance(pal1[i], pal2[1])
+
+    return out
 
 parser = argparse.ArgumentParser(description="Image histogram creator.")
 
