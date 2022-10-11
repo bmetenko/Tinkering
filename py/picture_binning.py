@@ -7,12 +7,19 @@ import colorthief
 def rgb_distance(x: tuple[int], y: tuple[int]):
     r1, g1, b1 = x
     r2, g2, b2 = y
-    d = np.sqrt((r2-r1)**2+(g2-g1)**2+(b2-b1)**2)
+    
+    d = np.sqrt((
+        r2-r1)**2+(g2-g1)**2+(b2-b1)**2
+    )
+
     return d
 
 def palette_distance(pal1, pal2, check_iterations=1):
 
     max_iterations = min(len(pal1), len(pal2))
+
+    if max_iterations == 0:
+        raise IndexError("Can't compare with empty palettes.")
 
     if max_iterations < check_iterations:
         check_iterations = max_iterations
