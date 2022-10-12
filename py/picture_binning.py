@@ -1,4 +1,5 @@
 from enum import Enum, auto
+from typing import Union
 
 from PIL import Image
 import argparse
@@ -10,14 +11,15 @@ class PalCalc(Enum):
     Sum = auto()
     Mean = auto()
     Multiply = auto()
+    Matrix = auto()
     
 
 def rgb_distance(x: tuple[int], y: tuple[int]):
     r1, g1, b1 = x
     r2, g2, b2 = y
 
-    d = np.sqrt((
-        r2-r1)**2+(g2-g1)**2+(b2-b1)**2
+    d = np.sqrt(
+        (r2-r1)**2 + (g2-g1)**2 + (b2-b1)**2
     )
 
     return d
@@ -27,7 +29,7 @@ def palette_distance(
     pal2, 
     check_iterations: int = 1,
     calculation: PalCalc = PalCalc.Sum
-    ):
+    ) -> Union[float, np.array]:
 
     max_iterations = min(len(pal1), len(pal2))
 
@@ -56,6 +58,18 @@ def palette_distance(
             ]
         )
 
+    if calculation == PalCalc.Matrix:
+        # expand.grid like to matrix
+        out = np.array(
+            [
+                rgb_distance(pal1[x], pal2[y]) 
+                for x in range(max_iterations)
+                for y in range(max_iterations)
+            ]
+        ).reshape(
+            max_iterations, max_iterations
+        )
+
     return out
 
 parser = argparse.ArgumentParser(description="Image histogram creator.")
@@ -71,6 +85,8 @@ def main():
     plt.imshow(([[img.get_color(quality=1)]]))
 
     plt.imshow([[i for i in img.get_palette(5)]])
+    plt.pause(0.001)
+    input("Press [enter] to continue.")
 
 
 
