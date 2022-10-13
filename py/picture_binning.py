@@ -1,5 +1,5 @@
 from enum import Enum, auto
-from typing import Union
+from typing import Union, Iterable
 
 from PIL import Image
 import argparse
@@ -74,19 +74,32 @@ def palette_distance(
 
 parser = argparse.ArgumentParser(description="Image histogram creator.")
 
-parser.add_argument("-i", "--image_path", dest="image_path", help="Image path", required=True)
+parser.add_argument(
+    "-i", 
+    "--image_path", 
+    dest="image_path", 
+    help="Image path", 
+    required=True,
+    nargs='*'
+    )
 
 def main():
     args = parser.parse_args()
     print(args)
 
-    img = colorthief.ColorThief('%s'%(args.image_path))
+    images_to_check = args.image_path
 
-    plt.imshow(([[img.get_color(quality=1)]]))
+    if not isinstance(images_to_check, Iterable):
+        images_to_check = [images_to_check]
 
-    plt.imshow([[i for i in img.get_palette(5)]])
-    plt.pause(0.001)
-    input("Press [enter] to continue.")
+    for img_path in args.image_path:
+        img = colorthief.ColorThief('%s' % img_path)
+
+        plt.imshow(([[img.get_color(quality=1)]]))
+
+        plt.imshow([[i for i in img.get_palette(5)]])
+        plt.pause(0.001)
+        input("Press [enter] to continue.")
 
 
 
