@@ -1,3 +1,4 @@
+import re
 from enum import Enum, auto
 from typing import Union, Iterable
 
@@ -14,7 +15,7 @@ class PalCalc(Enum):
     Matrix = auto()
     
 
-def rgb_distance(x: tuple[int], y: tuple[int]):
+def rgb_distance(x: tuple[int], y: tuple[int]) -> float:
     r1, g1, b1 = x
     r2, g2, b2 = y
 
@@ -92,14 +93,21 @@ def main():
     if not isinstance(images_to_check, Iterable):
         images_to_check = [images_to_check]
 
-    for img_path in args.image_path:
+    palette_data = {}
+    for img_path in images_to_check:
         img = colorthief.ColorThief('%s' % img_path)
 
         plt.imshow(([[img.get_color(quality=1)]]))
 
         plt.imshow([[i for i in img.get_palette(5)]])
         plt.pause(0.001)
-        input("Press [enter] to continue.")
+
+        img_short = re.split("/", img_path)[-1]
+        # input("Press [enter] to continue.")
+
+        palette_data[img_short] = img.get_palette(5)
+
+    print(palette_data)
 
 
 
