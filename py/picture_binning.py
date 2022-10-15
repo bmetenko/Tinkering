@@ -2,12 +2,12 @@ import re
 from enum import Enum, auto
 from typing import Union, Iterable
 
-from PIL import Image
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import colorthief
 import pandas as pd
+
 
 class PalCalc(Enum):
     Sum = auto()
@@ -16,7 +16,7 @@ class PalCalc(Enum):
     Matrix = auto()
     
 
-def rgb_distance(x: tuple[int], y: tuple[int]) -> float:
+def rgb_distance(x: tuple[int, int, int], y: tuple[int, int, int]) -> float:
     r1, g1, b1 = x
     r2, g2, b2 = y
 
@@ -26,12 +26,13 @@ def rgb_distance(x: tuple[int], y: tuple[int]) -> float:
 
     return d
 
+
 def palette_distance(
     pal1, 
     pal2, 
     check_iterations: int = 1,
     calculation: PalCalc = PalCalc.Sum
-    ) -> Union[float, np.array]:
+) -> Union[float, np.array]:
 
     max_iterations = min(len(pal1), len(pal2))
 
@@ -43,7 +44,6 @@ def palette_distance(
 
     out = 0 if calculation == PalCalc.Sum else 1
 
-    
     if calculation == PalCalc.Sum:
         for i in range(check_iterations):
             out += rgb_distance(pal1[i], pal2[i])
@@ -74,6 +74,7 @@ def palette_distance(
 
     return out
 
+
 parser = argparse.ArgumentParser(description="Image histogram creator.")
 
 parser.add_argument(
@@ -84,6 +85,7 @@ parser.add_argument(
     required=True,
     nargs='*'
     )
+
 
 def main():
     args = parser.parse_args()
@@ -103,20 +105,18 @@ def main():
 
         palette_data[img_short] = img.get_palette(5)
 
-
     print(palette_data)
 
     palette_frame = pd.DataFrame(palette_data)
     plt.imshow(
         [
-        palette_frame.iloc[:,i].to_list() 
-        for i 
-        in range(len(palette_frame.columns))
+            palette_frame.iloc[:, i].to_list()
+            for i
+            in range(len(palette_frame.columns))
         ]
     )
     
     plt.pause(0.01)
-
 
 
 if __name__ == "__main__":
