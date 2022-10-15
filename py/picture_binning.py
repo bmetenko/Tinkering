@@ -7,6 +7,7 @@ import argparse
 import numpy as np
 import matplotlib.pyplot as plt
 import colorthief
+import pandas as pd
 
 class PalCalc(Enum):
     Sum = auto()
@@ -97,17 +98,24 @@ def main():
     for img_path in images_to_check:
         img = colorthief.ColorThief('%s' % img_path)
 
-        plt.imshow(([[img.get_color(quality=1)]]))
-
-        plt.imshow([[i for i in img.get_palette(5)]])
-        plt.pause(0.001)
-
         img_short = re.split("/", img_path)[-1]
         # input("Press [enter] to continue.")
 
         palette_data[img_short] = img.get_palette(5)
 
+
     print(palette_data)
+
+    palette_frame = pd.DataFrame(palette_data)
+    plt.imshow(
+        [
+        palette_frame.iloc[:,i].to_list() 
+        for i 
+        in range(len(palette_frame.columns))
+        ]
+    )
+    
+    plt.pause(0.01)
 
 
 
