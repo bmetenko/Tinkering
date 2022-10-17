@@ -74,6 +74,16 @@ def palette_distance(
 
     return out
 
+def heatmap(array: np.ndarray, cmap='viridis'):
+    fig, ax = plt.subplots()
+    im = ax.imshow(array, cmap=cmap)
+    ax.figure.colorbar(im)
+    for i in range(array.shape[0]):
+        for j in range(array.shape[1]):
+            text = ax.text(j, i, np.round(array[i, j]),
+            ha="center", va="center", color="w")
+    plt.show()
+
 
 parser = argparse.ArgumentParser(description="Image histogram creator.")
 
@@ -108,15 +118,23 @@ def main():
     print(palette_data)
 
     palette_frame = pd.DataFrame(palette_data)
-    plt.imshow(
-        [
-            palette_frame.iloc[:, i].to_list()
-            for i
-            in range(len(palette_frame.columns))
-        ]
-    )
+    stacked_palettes = [
+        palette_frame.iloc[:, i].to_list()
+        for i in range(len(palette_frame.columns))
+    ]
+
+    plt.imshow(stacked_palettes)
     
     plt.pause(0.01)
+
+    ## Simple two palette heatmap, how to handle odd ones?
+    ## How to make this useful.
+    if len(stacked_palettes) >= 2:
+        heatmap(
+            palette_distance(
+                stacked_palettes[0], stacked_palettes[1], 5, PalCalc.Matrix
+                )
+            )
 
 
 if __name__ == "__main__":
