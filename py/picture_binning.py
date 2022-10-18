@@ -1,6 +1,7 @@
 import re
 from enum import Enum, auto
 from typing import Union, Iterable
+import itertools
 
 import argparse
 import numpy as np
@@ -135,6 +136,12 @@ def main():
                 stacked_palettes[0], stacked_palettes[1], 5, PalCalc.Matrix
                 )
             )
+
+        file_grid = np.stack(
+            list(itertools.combinations(images_to_check, r=2))
+            ).tolist()
+
+        print(file_grid)
 
 
 if __name__ == "__main__":
