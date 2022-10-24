@@ -4,6 +4,7 @@ format:
   html:
     code-fold: true
 jupyter: python3
+engine: knitr
 ---
 
 For a demonstration of a line plot on a polar axis, see @fig-polar.
@@ -26,7 +27,17 @@ ax.grid(True)
 plt.show()
 ```
 
+## Annotation
+
+@fig-polar is just a simple polar plot run using python and matplotlib.
+@fig-iris is just a simple bar and scatter plot of iris data using R and ggplot2.
+
+
 ```{r}
+#| label: fig-iris
+#| fig-cap: Iris dataset preview.
+#| code-fold: show
+
 library(datasets)
 library(ggplot2)
 
@@ -35,3 +46,12 @@ geom_point(aes(x=`Sepal.Length`, y=`Petal.Length`, color=`Species`)) +
 geom_histogram(aes(x=`Sepal.Length`, color=`Species`), show.legend = F, bins=150, position='dodge')
 
 ```
+
+# Run Notebook (VS Code)
+Prereg: Virtual environment with matplotlib im terminal tab.
+
+`quarto preview file_path_to_test.qmd --no-browser --no-watch-inputs`
+
+or 
+
+`Cmd-Shift-P` + `Quarto: Render`
