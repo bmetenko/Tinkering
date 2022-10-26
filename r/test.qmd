@@ -47,6 +47,22 @@ geom_histogram(aes(x=`Sepal.Length`, color=`Species`), show.legend = F, bins=150
 
 ```
 
+```{r}
+library(gganimate)
+df = airquality
+
+p <- ggplot(
+  df,
+  aes(Day, Temp, group = Month, color = factor(Month))
+  ) +
+  geom_line() +
+  labs(x = "Day of Month", y = "Temperature") + 
+  theme_minimal() +
+  theme(legend.position = "bottom") 
+p + transition_reveal(Day)
+
+```
+
 # Run Notebook (VS Code)
 Prereg: Virtual environment with matplotlib im terminal tab.
 
@@ -55,3 +71,7 @@ Prereg: Virtual environment with matplotlib im terminal tab.
 or 
 
 `Cmd-Shift-P` + `Quarto: Render`
+
+
+### Note
+`gganimate` may need command line tools on mac: $`xcode-select --install` and also `gifski` R package. 
