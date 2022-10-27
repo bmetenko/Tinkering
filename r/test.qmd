@@ -50,12 +50,14 @@ geom_histogram(aes(x=`Sepal.Length`, color=`Species`), show.legend = F, bins=150
 ```{r}
 library(gganimate)
 df = airquality
+mean_temp = mean(df$Temp)
 
 p <- ggplot(
   df,
   aes(Day, Temp, group = Month, color = factor(Month))
   ) +
   geom_line() +
+  geom_point(aes(size=Temp/mean_temp * 2), show.legend = FALSE) +
   labs(x = "Day of Month", y = "Temperature") + 
   theme_minimal() +
   theme(legend.position = "bottom") 
@@ -74,4 +76,4 @@ or
 
 
 ### Note
-`gganimate` may need command line tools on mac: $`xcode-select --install` and also `gifski` R package. 
+`gganimate` may need command line tools on mac: $`xcode-select --install` and also `gifski` R package (note this may compile using rust).  
