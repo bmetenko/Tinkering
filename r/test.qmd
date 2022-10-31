@@ -87,3 +87,35 @@ or
 \left(\iint_{0}^{n} f(x)f(t)\,dx\,dt \right) &= g(x)
 
 \end{align}
+
+<div style="display: flex; justify-content: space-between;">
+<svg>
+<circle class="modify0" style="fill: #053210" stroke="yellow" cx=50 cy=50 r=40></circle>
+</svg>
+
+<svg>
+<circle class="modify1" style="fill: #053210" stroke="yellow" cx=50 cy=50 r=40></circle>
+</svg>
+
+<svg>
+<circle class="modify2" style="fill: #053210" stroke="yellow" cx=50 cy=50 r=40></circle>
+</svg>
+</div>
+
+```{ojs}
+d3 = require("d3@7")
+
+d3
+.select(".modify0")
+.style("stroke-width", 8)
+
+d3
+.select(".modify1")
+.style("fill", "#00FF22")
+
+d3
+.select(".modify2")
+.style("stroke", "#00F022")
+.style("stroke-width", 8)
+
+```
