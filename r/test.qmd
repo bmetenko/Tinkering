@@ -102,20 +102,68 @@ or
 </svg>
 </div>
 
-```{ojs}
-d3 = require("d3@7")
+<svg class="modify_sep0">
+</svg>
+
+```{ojs, echo=FALSE}
+d3 = require("d3@7");
 
 d3
 .select(".modify0")
-.style("stroke-width", 8)
+.style("stroke-width", 8);
 
 d3
 .select(".modify1")
-.style("fill", "#00FF22")
+.style("fill", "#00FF22");
 
 d3
 .select(".modify2")
 .style("stroke", "#00F022")
-.style("stroke-width", 8)
+.style("stroke-width", 8);
 
+```
+
+```{ojs, echo=FALSE}
+d3
+.select(".modify_sep0")
+.append("circle")
+.attr("cx", 10)
+.attr("cy", 10)
+.attr("r", 30)
+.style("fill", "red");
+
+d3
+.select(".modify_sep0")
+.append("circle")
+.attr("cx", 100)
+.attr("cy", 100)
+.attr("r", 30)
+.style("fill", "red");
+
+d3
+.select(".modify_sep0")
+.append("circle")
+.attr("cx", 150)
+.attr("cy", 150)
+.attr("r", 50)
+.style("fill", "red");
+
+d3
+.select(".modify_sep0")
+.append("circle")
+.attr("cx", 200)
+.attr("cy", 100)
+.attr("r", 30)
+.style("fill", "red");
+```
+
+```{ojs}
+svg = d3
+.select(".modify_sep0");
+
+x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
+
+svg.call(d3.axisBottom(x));
+
+console.log(x(20));
 ```
