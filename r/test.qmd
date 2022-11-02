@@ -65,18 +65,18 @@ p + transition_reveal(Day)
 
 ```
 
+::: {layout-ncol=2}
+
 # Run Notebook (VS Code)
-Prereg: Virtual environment with matplotlib im terminal tab.
-
+Prereg: Virtual environment with matplotlib in terminal tab.
 `quarto preview file_path_to_test.qmd --no-browser --no-watch-inputs`
-
 or 
-
 `Cmd-Shift-P` + `Quarto: Render`
 
-
-### Note
+# Note
 `gganimate` may need command line tools on mac: $`xcode-select --install` and also `gifski` R package (note this may compile using rust).  
+ 
+:::
 
 ### Test LaTeX
 
@@ -87,6 +87,8 @@ or
 \left(\iint_{0}^{n} f(x)f(t)\,dx\,dt \right) &= g(x)
 
 \end{align}
+
+### Test svg and D3 
 
 <div style="display: flex; justify-content: space-between;">
 <svg>
@@ -165,5 +167,5 @@ x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
 
 svg.call(d3.axisBottom(x));
 
-console.log(x(20));
+print(d3);
 ```
