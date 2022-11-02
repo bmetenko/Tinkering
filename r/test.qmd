@@ -167,5 +167,11 @@ x = d3.scaleLinear().domain([0, 100]).range([0, 400]);
 
 svg.call(d3.axisBottom(x));
 
-print(d3);
+svg
+.transition()
+.duration(2000)
+.attr("width", "1000")
+.duration(200)
+.attr("height", "500")
+
 ```
