@@ -7,3 +7,8 @@ var
 divmod(8, 5, x, y) # modifies x and y
 echo x
 echo y
+
+# run with `num js -r test-divmod.nim`
+# Lots of shims included for safety and memory 
+# allocation in resulting js
+# echo procedures seem to be only executed at compile time.

@@ -7,4 +7,4 @@ else:
   echo "Hi, ", name, "!"
 
 # run using nim c -r test_stdin.nim
-# JS crosspile attempt does not have 'stdin'
+# `nim js -r test_stdin.nim` fails :: JS crosspile attempt does not have 'stdin'
