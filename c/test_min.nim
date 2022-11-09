@@ -1,4 +1,4 @@
-proc intAdd(a: int, b: int): int {.discardable.} =
+proc intAdd*(a: int, b: int): int {.discardable.} =
     return a + b
 
 # run with `num js -r test-min.nim`
