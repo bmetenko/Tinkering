@@ -1,9 +1,9 @@
 # fopen not defined for non-c targets, staticRead didn't work.
-let fileContents: seq[string] = readLines("init_write.txt", 2)
+const fileContents: string = staticRead("init_write.txt")
 echo fileContents
 
 proc fileContent*(): string =
-    cast[string](fileContents)
+    string(fileContents)
 
 # C run output: @["Text sent from init.c, sort of...", "After running `gcc init.c` and `./a.out`"]
 
