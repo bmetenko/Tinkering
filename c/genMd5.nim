@@ -1,5 +1,6 @@
 import os
 import std/parseopt
+import md5
 
 
 
@@ -21,8 +22,11 @@ proc main =
 
         of cmdLongOption, cmdShortOption:
             case key
-            of "v", "n", "z", "w":
-                echo "Got a \"", key, "\" option with value: \"", value, "\""
+            of "string", "s":
+                echo key, " ", value
+                echo getMD5(value)
+                if value == "abc":
+                    assert $toMD5("abc") == "900150983cd24fb0d6963f7d28e17f72"
             else:
                 echo "Unknown option: ", key
 
