@@ -175,3 +175,42 @@ svg
 .attr("height", "500")
 
 ```
+
+
+```{julia}
+#| label: Julia-Fig-Parametric
+#| fig-cap: "Julia Parametric Figure"
+
+using Plots
+
+# Data Init
+xs = range(0, π, length = 21)
+xdata = [
+  sin.(xs) cos.(xs) 2sin.(xs)
+]
+
+xlabels = [
+  "sinx" "cosx" "2sinx"
+]
+
+xshapes = [
+  :circle,
+  :star,
+  :square,
+]
+
+xcolors = [
+  :green
+  :red
+  :blue
+]
+
+plot(
+  xs,
+  xdata,
+  label = xlabels,
+  shape = xshapes,
+  color = xcolors,
+  markersize = 10
+)
+```
