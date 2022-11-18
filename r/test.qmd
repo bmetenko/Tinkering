@@ -211,6 +211,14 @@ plot(
   label = xlabels,
   shape = xshapes,
   color = xcolors,
-  markersize = 10
+  markersize = 10,
+  xaxis = (
+    "x-axis label",
+    (0, π),
+    0:π/2:π,
+    font(10, "Courier New")
+  ),
+  markerstrokecolor=:yellow,
+  markerstrokewidth=2
 )
 ```
