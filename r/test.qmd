@@ -235,6 +235,11 @@ plot!(
 )
 ```
 
+
+Odd structure and update only on interaction with individual element...
+
+Failing attempts at dynamic range form below.
+
 ```{ojs}
 //| panel: sidebar
 
@@ -248,19 +253,35 @@ viewof example_slider = Inputs.range(
 )
 
 example_slider
-Array.from(Array(Number(example_slider)))
-Array.from(Array(Number(example_slider))).forEach(
-  i => Array.from({length: Number(i)}, (v, w) => w)
-)
 
-Array.from(Array(example_slider)).forEach(
+// [...example_slider]
+value_arr = Array(Number(example_slider)).fill(null).map((_, i) => i);
+value_arr
+
+inputs_arr = [];
+value_arr.forEach(
   function(i){
-    Inputs.select(Array.from({length: i}, (v, w) => w), {label: i})
+    inputs_arr.push(
+      Inputs.select(
+        Array.from({length: i}, (v, w) => w),
+        {label: i})
+    )
   }
 )
+viewof inputs = Inputs.form(
+  inputs_arr
+)
+
+inputs
+
+
 
 ```
 
+```{ojs}
+// | panel: fill
+inputs_arr
+```
 ::: {.panel-tabset}
 
 # Tab1
