@@ -234,3 +234,35 @@ plot!(
   marker_stroke_color=:orange
 )
 ```
+
+```{ojs}
+//| panel: sidebar
+
+viewof example_slider = Inputs.range(
+  [0, 5],
+  {
+    value: 1, 
+    step: 1,
+    label: "Example Value"
+  }
+)
+
+example_slider
+Array.from(Array(Number(example_slider)))
+Array.from(Array(Number(example_slider))).forEach(
+  i => Array.from({length: Number(i)}, (v, w) => w)
+)
+
+Array.from(Array(example_slider)).forEach(
+  function(i){
+    Inputs.select(Array.from({length: i}, (v, w) => w), {label: i})
+  }
+)
+
+```
+
+::: {.panel-tabset}
+
+# Tab1
+
+# Tab2
