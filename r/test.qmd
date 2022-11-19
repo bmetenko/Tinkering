@@ -219,6 +219,18 @@ plot(
     font(10, "Courier New")
   ),
   markerstrokecolor=:yellow,
-  markerstrokewidth=2
+  markerstrokewidth=3,
+  background_color=:pink
+)
+
+plot!(
+  xs,
+  tan.(xs) ./ (1.6 * 10^16),
+  label="tanx",
+  color=:red,
+  markersize=3,
+  shape=:circle,
+  marker_stroke_width=2,
+  marker_stroke_color=:orange
 )
 ```
