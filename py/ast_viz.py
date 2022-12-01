@@ -20,8 +20,23 @@ class NewVisitor(ast.NodeVisitor):
     
     def node_visit(self, node):
         for alias in node.names:
-            self.append(alias.name)
+            self.all_nodes.append(alias.name)
         
+        self.generic_visit(node)
+
+    def visit_Call(self, node):
+        self.all_nodes.append(node._fields)
+        fields = {}
+        for field in node._fields:
+            fields.update({
+                field: node.__dict__[field]
+            })
+
+        self.all_nodes.append(fields)
+        self.generic_visit(node)
+
+    def visit_Name(self, node):
+        self.all_nodes.append(node._fields)
         self.generic_visit(node)
 
     def print_all(self):
