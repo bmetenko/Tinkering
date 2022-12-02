@@ -8,9 +8,12 @@ def main():
     with open("paths.py", "r") as python_file:
         ast_tree = ast.parse(python_file.read())
 
-    visitor = NewVisitor()
-    visitor.visit(ast_tree)
-    visitor.print_all()
+    dump = ast.dump(ast_tree, indent=2)
+    print(dump)
+
+    # visitor = NewVisitor()
+    # visitor.visit(ast_tree)
+    # visitor.print_all()
 
 
 class NewVisitor(ast.NodeVisitor):
