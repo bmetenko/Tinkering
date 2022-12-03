@@ -27,6 +27,32 @@ ax.grid(True)
 plt.show()
 ```
 
+
+```{mermaid}
+classDiagram
+  Car <|-- Truck
+  Car <|-- SUV
+
+  class Car {
+    + make: str
+    + model: str
+    + cyl: int
+    + transmission: str
+    + honk()
+  }
+
+  class Truck {
+    + bed: bool
+    + extra_wheel_sets: int
+    + trailer: bool
+  }
+
+  class SUV {
+    + extra_seats_row: bool
+  }
+
+```
+
 ## Annotation
 
 @fig-polar is just a simple polar plot run using python and matplotlib.
