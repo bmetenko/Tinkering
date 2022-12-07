@@ -61,12 +61,13 @@ if __FILE__ == $0
     mg.say_goodbye
 
     a = ""
-    5.times {
+    (1..5).each do |item|
+        item.times {
         a = a + "."
-        print "Finished running#{a}\n"
-    }
-
-    print a + "\n"
+        print "Finishing running#{a}\n"
+        }
+    end
+    print "Done.\n"
 end
 
 exit
