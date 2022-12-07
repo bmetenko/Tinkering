@@ -59,6 +59,18 @@ if __FILE__ == $0
     mg.name = nil
     mg.say_hello
     mg.say_goodbye
+
+    a = ""
+    5.times {
+        a = a + "."
+        print "Finished running#{a}\n"
+    }
+
+    print a + "\n"
 end
 
 exit
+
+puts "Unreachable"
+# Continue:
+# https://poignant.guide/book/chapter-3.html
