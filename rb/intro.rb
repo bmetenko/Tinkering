@@ -68,6 +68,11 @@ if __FILE__ == $0
         }
     end
     print "Done.\n"
+
+    require "net/http"
+    Net::HTTP.start( 'www.google.com' ) do |http|
+        print( http.get( '/robots.txt' ).body )
+      end
 end
 
 exit
