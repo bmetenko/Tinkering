@@ -63,7 +63,7 @@ if __FILE__ == $0
     a = ""
     (1..5).each do |item|
         item.times {
-        a = a + "."
+        a << "."
         print "Finishing running#{a}\n"
         }
     end

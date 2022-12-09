@@ -5,7 +5,7 @@ def main():
     parsed = ast.parse("""print('hello world')""")
     print(ast.dump(parsed))
 
-    with open("paths.py", "r") as python_file:
+    with open("py/paths.py", "r") as python_file:
         ast_tree = ast.parse(python_file.read())
 
     dump = ast.dump(ast_tree, indent=2)
