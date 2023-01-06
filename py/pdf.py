@@ -1,5 +1,7 @@
 import fpdf
 
+TITLE_PAD = 4
+
 class ExPDF(fpdf.FPDF):
     def footer(self):
         self.set_y(-25)
@@ -9,14 +11,29 @@ class ExPDF(fpdf.FPDF):
 
     def header(self):
         self.set_font("helvetica", "B", 15)
-        self.cell(50)
-        self.cell(60, 10, "Example PDF after 50", border=1, align="C")
+        title_width = self.get_string_width(self.title) + TITLE_PAD
+        self.set_x(70)
+        self.set_draw_color(0, 34, 123)
+        self.set_fill_color(124, 255, 20)
+        self.set_text_color(45, 4, 200)
+        self.cell(
+            title_width,
+            10,
+            self.title,
+            border=1,
+            new_x="LMARGIN",
+            new_y="NEXT",
+            align="C",
+            fill=True,
+        )
+
+        self.cell(60, 10, "Example PDF again", border=1, align="C")
         self.ln(20)
-        self.cell(30)
-        self.cell(60, 10, "Example PDF after 30", border=1, align="C")
+        self.cell(60, 10, "Example PDF twice", border=1, align="C")
         self.ln(20)
 
 pdf = ExPDF()
+pdf.set_title("Example PDF override")
 pdf.add_page()
 pdf.set_font("helvetica", "B", 16)
 for x in range(10):
