@@ -1,8 +1,27 @@
 import fpdf
+import pandas as pd
 
 TITLE_PAD = 4
 
+data = {"Ounces": [375, 300, 3450], "Cost": [50, 40, 45]}
+
+#load data into a DataFrame object:
+df = pd.DataFrame(data)
+
 class ExPDF(fpdf.FPDF):
+
+    def simple_table(self, headings, rows):
+        for heading in headings:
+            self.cell(30, 12, heading, 1, align="C")
+        self.ln()
+        for row in rows:
+            for col in row:
+                self.cell(30, 10, col, 1, align="C")
+            self.ln()
+        
+        self.ln(20)
+
+
     def footer(self):
         self.set_y(-25)
         self.set_font("helvetica", "I", 16)
@@ -35,6 +54,7 @@ class ExPDF(fpdf.FPDF):
 pdf = ExPDF()
 pdf.set_title("Example PDF override")
 pdf.add_page()
+pdf.simple_table(headings=df.columns, rows=[df.iloc[i, :].astype(str).tolist() for i in range(len(df))])
 pdf.set_font("helvetica", "B", 16)
 for x in range(10):
     for y in range(10):
