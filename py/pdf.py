@@ -1,12 +1,19 @@
 import fpdf
 import pandas as pd
+import matplotlib.pyplot as plt
 
 TITLE_PAD = 4
 
-data = {"Ounces": [375, 300, 3450], "Cost": [50, 40, 45]}
+data = {"Ounces": [325, 337.5, 350, 362.5], "Cost": [50, 45, 40, 22]}
 
 #load data into a DataFrame object:
 df = pd.DataFrame(data)
+
+fig, ax = plt.subplots( nrows=1, ncols=1 )  # create figure & 1 axis
+ax.plot(data["Ounces"], data["Cost"])
+fig.savefig('plot.png')   # save the figure to file
+plt.close(fig)
+
 
 class ExPDF(fpdf.FPDF):
 
@@ -60,7 +67,10 @@ pdf = ExPDF()
 pdf.set_title("Example PDF override")
 pdf.add_page()
 pdf.simple_table(headings=df.columns, rows=[df.iloc[i, :].astype(str).tolist() for i in range(len(df))])
+pdf.image("plot.png", pdf.get_x(), pdf.get_y(), 50, 0)
+pdf.ln(50)
 pdf.set_font("helvetica", "B", 16)
+pdf.set_text_color(0)
 for x in range(10):
     for y in range(10):
         pdf.cell(
