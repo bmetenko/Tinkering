@@ -14,9 +14,14 @@ class ExPDF(fpdf.FPDF):
         for heading in headings:
             self.cell(30, 12, heading, 1, align="C")
         self.ln()
+        self.set_fill_color(23, 100, 100)
+        fill = False
         for row in rows:
+            fill = not fill
+            self.set_text_color(255 if fill else 0)
             for col in row:
-                self.cell(30, 10, col, 1, align="C")
+                self.cell(30, 10, col, 1, align="C", fill=fill)
+                
             self.ln()
         
         self.ln(20)
