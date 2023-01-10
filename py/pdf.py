@@ -66,9 +66,33 @@ class ExPDF(fpdf.FPDF):
 pdf = ExPDF()
 pdf.set_title("Example PDF override")
 pdf.add_page()
-pdf.simple_table(headings=df.columns, rows=[df.iloc[i, :].astype(str).tolist() for i in range(len(df))])
-pdf.image("plot.png", pdf.get_x(), pdf.get_y(), 50, 0)
+pdf.simple_table(
+    headings=df.columns, 
+    rows=[df.iloc[i, :].astype(str).tolist() for i in range(len(df))],
+    )
+pdf.image(
+    "plot.png", 
+    pdf.get_x(), pdf.get_y(), 
+    50, 0,
+    "Plot of cost per ounces",
+    "https://github.com/bmetenko"
+    )
 pdf.ln(50)
+
+pdf.write_html(
+"""
+html render:
+<br>
+<b>bolded</b>, <i>italicized</i>,
+<u>underlined</u>, and <b><i><u>all three</u></i></b>!
+<br><br>
+<a href="https://github.com/bmetenko">self.website</a>
+<br><br>
+Chart linked to the same website because it is clickable.
+"""
+)
+pdf.ln(20)
+
 pdf.set_font("helvetica", "B", 16)
 pdf.set_text_color(0)
 for x in range(10):
