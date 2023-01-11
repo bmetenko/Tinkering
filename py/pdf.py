@@ -1,6 +1,7 @@
 import fpdf
 import pandas as pd
 import matplotlib.pyplot as plt
+import numpy as np
 
 TITLE_PAD = 4
 
@@ -9,8 +10,21 @@ data = {"Ounces": [325, 337.5, 350, 362.5], "Cost": [50, 45, 40, 22]}
 #load data into a DataFrame object:
 df = pd.DataFrame(data)
 
-fig, ax = plt.subplots( nrows=1, ncols=1 )  # create figure & 1 axis
-ax.plot(data["Ounces"], data["Cost"])
+fig, ax = plt.subplots( nrows=2, ncols=1 )  # create figure & 1 axis
+
+x = np.linspace(-3, 3, 6)
+y = np.linspace(-3, 3, 6)
+X, Y = np.meshgrid(x, y)
+
+print(X, Y)
+U = X + Y
+V = Y - X
+ax[0].plot(data["Ounces"], data["Cost"])
+
+ax[1].quiver(X, Y, U, V, color="C1", angles='xy',
+          scale_units='xy', scale=3, width=.015)
+ax[1].set(xlim=(-5, 5), ylim=(-5, 5))
+
 fig.savefig('plot.png')   # save the figure to file
 plt.close(fig)
 
@@ -73,11 +87,11 @@ pdf.simple_table(
 pdf.image(
     "plot.png", 
     pdf.get_x(), pdf.get_y(), 
-    50, 0,
+    100, 0,
     "Plot of cost per ounces",
     "https://github.com/bmetenko"
     )
-pdf.ln(50)
+pdf.ln(100)
 
 pdf.write_html(
 """
