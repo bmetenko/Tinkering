@@ -33,5 +33,30 @@ def main(page: ft.Page):
         )
     )
 
+    container_1 = ft.Container(
+        width=100,
+        height=100,
+        bgcolor="Red",
+        border_radius=2,
+        animate_opacity=300,
+        border=ft.border.all(2, ft.colors.BLUE_300)
+    )
+
+    def opacity_container_1(e):
+        container_1.opacity = 0 \
+            if bool(container_1.opacity) \
+            else 1
+        container_1.update()
+
+    page.add(
+        container_1,
+        ft.ElevatedButton(
+            "Toggle container...",
+            on_click=opacity_container_1,
+            icon=ft.icons.FAVORITE_BORDER,
+            icon_color="blue"
+        )
+    )
+
 
 ft.app(target=main)
