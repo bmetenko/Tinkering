@@ -1,3 +1,5 @@
+import math
+
 import flet as ft
 
 def main(page: ft.Page):
@@ -36,6 +38,18 @@ def main(page: ft.Page):
     container_1 = ft.Container(
         width=100,
         height=100,
+        gradient=ft.SweepGradient(
+            start_angle=math.pi * (1/3),
+            end_angle=math.pi * (2/3),
+            rotation=1,
+            colors=[
+                ft.colors.AMBER,
+                ft.colors.BLUE_400,
+                ft.colors.YELLOW_300
+            ],
+            center=ft.alignment.top_left,
+            tile_mode=ft.GradientTileMode.REPEATED
+        ),
         bgcolor="Red",
         border_radius=2,
         animate_opacity=300,
