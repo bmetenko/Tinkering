@@ -62,14 +62,33 @@ def main(page: ft.Page):
             else 1
         container_1.update()
 
+    def hover_opacity(e):
+        print(e.control.opacity)
+        if e.control.opacity >= 0.5:
+            e.control.opacity *= 0.90
+        else:
+            e.control.opacity = 1
+
+        e.control.update()
+
+    hover_container = ft.Container(
+        width=100,
+        height=100,
+        bgcolor=ft.colors.DEEP_ORANGE_50,
+        ink=False,
+        on_hover=hover_opacity
+    )
+
     page.add(
         container_1,
         ft.ElevatedButton(
             "Toggle container...",
             on_click=opacity_container_1,
             icon=ft.icons.FAVORITE_BORDER,
-            icon_color="blue"
-        )
+            icon_color="blue",
+            on_long_press=hover_opacity
+        ),
+        hover_container
     )
 
 
