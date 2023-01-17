@@ -64,20 +64,29 @@ def main(page: ft.Page):
             else 1
         container_1.update()
 
-    def hover_opacity(e):
-        if e.control.opacity >= 0.5:
+    text_3 = ft.Text(
+        f"Opacity: 1.00"
+    )
+
+    def hover_opacity(e, text_element=text_3):
+        if e.control.opacity >= 0.1:
             e.control.opacity *= 0.90
         else:
             e.control.opacity = 1
 
+        text_element.value = f"Opacity: {e.control.opacity:.2f}"
+
         e.control.update()
+        text_element.update()
 
     hover_container = ft.Container(
         width=100,
         height=100,
         bgcolor=ft.colors.DEEP_ORANGE_50,
         ink=False,
-        on_hover=hover_opacity
+        on_hover=hover_opacity,
+        content=ft.Text("Hover over to change opacity.", color=ft.colors.GREEN),
+        alignment=ft.alignment.center,
     )
     
     button = ft.ElevatedButton(
@@ -89,8 +98,8 @@ def main(page: ft.Page):
         )
 
     app_items.append(button)
-
     app_items.append(hover_container)
+    app_items.append(text_3)
 
     page.add(
         ft.ResponsiveRow(
