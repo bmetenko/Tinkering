@@ -4,6 +4,7 @@ import flet as ft
 
 def main(page: ft.Page):
 
+    app_items = []
     text_1 = ft.Text(
         value="Introductory App in Flet",
         color="red",
@@ -11,21 +12,19 @@ def main(page: ft.Page):
         text_align=ft.TextAlign.CENTER,
         expand=1
     )
-
-    page.controls.append(text_1)
-    page.update()
+    app_items.append(text_1)
 
     text_2 = ft.Text(
         "Move the slider please..."
     )
 
+    app_items.append(text_2)
+
     def change_expand(e):
         text_2.expand = int(e.control.value)
         text_2.update()
 
-    page.add(
-        text_2,
-        ft.Slider(
+    slider = ft.Slider(
             min=1,
             max=10,
             divisions=9,
@@ -33,7 +32,8 @@ def main(page: ft.Page):
             width=500,
             on_change_end=change_expand
         )
-    )
+
+    app_items.append(slider)
 
     container_1 = ft.Container(
         width=100,
@@ -56,6 +56,8 @@ def main(page: ft.Page):
         border=ft.border.all(2, ft.colors.BLUE_300)
     )
 
+    app_items.append(container_1)
+
     def opacity_container_1(e):
         container_1.opacity = 0 \
             if bool(container_1.opacity) \
@@ -63,7 +65,6 @@ def main(page: ft.Page):
         container_1.update()
 
     def hover_opacity(e):
-        print(e.control.opacity)
         if e.control.opacity >= 0.5:
             e.control.opacity *= 0.90
         else:
@@ -78,17 +79,24 @@ def main(page: ft.Page):
         ink=False,
         on_hover=hover_opacity
     )
-
-    page.add(
-        container_1,
-        ft.ElevatedButton(
+    
+    button = ft.ElevatedButton(
             "Toggle container...",
             on_click=opacity_container_1,
             icon=ft.icons.FAVORITE_BORDER,
             icon_color="blue",
             on_long_press=hover_opacity
-        ),
-        hover_container
+        )
+
+    app_items.append(button)
+
+    app_items.append(hover_container)
+
+    page.add(
+        ft.ResponsiveRow(
+            app_items,
+            alignment=ft.MainAxisAlignment.CENTER
+        )
     )
 
 
