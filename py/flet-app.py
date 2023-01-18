@@ -2,9 +2,28 @@ import math
 
 import flet as ft
 
-def main(page: ft.Page):
+def parse_file(e: ft.FilePickerResultEvent):
+    selected_files = (
+            ", ".join(map(lambda f: f.name, e.files)) if e.files else "Cancelled!"
+        )
+    print(e)
+    print(selected_files)
 
+def main(page: ft.Page):
     app_items = []
+
+    file_picker = ft.FilePicker(
+        on_result = parse_file   
+    )
+
+    file_button = ft.ElevatedButton(
+        "Upload File:",
+        icon=ft.icons.UPLOAD_FILE_OUTLINED,
+        on_click=lambda _: file_picker.pick_files(
+            allow_multiple=True
+        )
+    )
+
     text_1 = ft.Text(
         value="Introductory App in Flet",
         color="red",
@@ -91,6 +110,8 @@ def main(page: ft.Page):
             on_long_press=hover_opacity
         )
 
+    app_items.append(file_button)
+    app_items.append(file_picker)
     app_items.append(text_1)
     app_items.append(text_2)
     app_items.append(slider)
