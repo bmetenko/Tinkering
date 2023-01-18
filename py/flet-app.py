@@ -12,13 +12,10 @@ def main(page: ft.Page):
         text_align=ft.TextAlign.CENTER,
         expand=1
     )
-    app_items.append(text_1)
 
     text_2 = ft.Text(
         "Move the slider please..."
     )
-
-    app_items.append(text_2)
 
     def change_expand(e):
         text_2.expand = int(e.control.value)
@@ -33,7 +30,6 @@ def main(page: ft.Page):
             on_change_end=change_expand
         )
 
-    app_items.append(slider)
 
     container_1 = ft.Container(
         width=100,
@@ -55,8 +51,6 @@ def main(page: ft.Page):
         animate_opacity=300,
         border=ft.border.all(2, ft.colors.BLUE_300)
     )
-
-    app_items.append(container_1)
 
     def opacity_container_1(e):
         container_1.opacity = 0 \
@@ -97,6 +91,10 @@ def main(page: ft.Page):
             on_long_press=hover_opacity
         )
 
+    app_items.append(text_1)
+    app_items.append(text_2)
+    app_items.append(slider)
+    app_items.append(container_1)
     app_items.append(button)
     app_items.append(hover_container)
     app_items.append(text_3)
