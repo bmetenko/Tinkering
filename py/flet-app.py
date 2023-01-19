@@ -6,7 +6,17 @@ def parse_file(e: ft.FilePickerResultEvent):
     selected_files = (
             ", ".join(map(lambda f: f.name, e.files)) if e.files else "Cancelled!"
         )
-    print(e)
+
+    file_contents = []
+    for file in e.files:
+        file_path = file.path
+        file_name = file.name
+        with open(file_path, "r") as f:
+            if ".md" in file_name or ".txt" in file_name:
+                file_contents.append("".join(f.readlines()))
+
+    
+    print(file_contents)
     print(selected_files)
 
 def main(page: ft.Page):
