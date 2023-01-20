@@ -120,6 +120,31 @@ def main(page: ft.Page):
             on_long_press=hover_opacity
         )
 
+    def toggle_icon(e):
+        e.control.selected = not e.control.selected
+        e.control.update()
+
+    icon_row = ft.Row(
+        [
+            ft.IconButton(
+                icon=ft.icons.BATTERY_1_BAR,
+                selected_icon=ft.icons.BATTERY_FULL_ROUNDED,
+                selected=False,
+                style=ft.ButtonStyle(color={"selected": "blue", "": "yellow"}),
+                icon_size=20,
+                on_click=toggle_icon
+                ),
+            ft.IconButton(
+                icon=ft.icons.AC_UNIT_SHARP,
+                icon_color=ft.colors.RED,
+                icon_size=20,
+                selected_icon=ft.icons.ACCESS_ALARM_SHARP,
+                on_click=toggle_icon
+                )
+        ],
+        alignment="center"
+    )
+
     app_items.append(file_button)
     app_items.append(file_picker)
     app_items.append(text_1)
@@ -129,6 +154,7 @@ def main(page: ft.Page):
     app_items.append(button)
     app_items.append(hover_container)
     app_items.append(text_3)
+    app_items.append(icon_row)
 
     page.add(
         ft.ResponsiveRow(
