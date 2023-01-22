@@ -20,19 +20,33 @@ def parse_file(e: ft.FilePickerResultEvent):
     print(selected_files)
 
 def swap_theme(page, control):
-    theme_state_light = (page.theme_mode == ft.ThemeMode.LIGHT)
-    page.theme_mode = ft.ThemeMode.DARK if theme_state_light else ft.ThemeMode.LIGHT
-    control.label = f"Swap mode: Current ({'Light' if theme_state_light else 'Dark'})" 
+    check = control.control.value
+    page.theme_mode = ft.ThemeMode.DARK if check else ft.ThemeMode.LIGHT
+    string_val = 'Light' if not check else 'Dark'
+    control.control.label = f"Swap mode: Current ({string_val})" 
+    control.control.thumb_color = {
+            ft.MaterialState.HOVERED: ft.colors.BLUE_400 if not check else ft.colors.YELLOW_400,
+            ft.MaterialState.FOCUSED: ft.colors.BLUE_200 if not check else ft.colors.YELLOW_200,
+            ft.MaterialState.DEFAULT: ft.colors.BLUE_100 if not check else ft.colors.YELLOW_100
+            }
+    control.control.track_color = ft.colors.WHITE30 if check else ft.colors.BLACK87
     page.update()
+    
 
 
 def main(page: ft.Page):
     app_items = []
-    
+
     page.theme_mode = ft.ThemeMode.LIGHT
     mode_switch = ft.Switch(
         label="Swap mode: Current (Light)",
-        on_change=lambda e: swap_theme(page, e)
+        on_change=lambda e: swap_theme(page, e),
+        thumb_color={
+            ft.MaterialState.HOVERED: ft.colors.BLUE_400,
+            ft.MaterialState.FOCUSED: ft.colors.BLUE_200,
+            ft.MaterialState.DEFAULT: ft.colors.BLUE_100
+            },
+        track_color=ft.colors.BLACK87
     )
 
     file_picker = ft.FilePicker(
@@ -153,12 +167,13 @@ def main(page: ft.Page):
                 icon_size=20,
                 selected_icon=ft.icons.ACCESS_ALARM_SHARP,
                 on_click=toggle_icon
-                )
+                ),
+            mode_switch
         ],
         alignment="center"
     )
     
-    app_items.append(mode_switch)
+    # app_items.append(mode_switch)
     app_items.append(file_button)
     app_items.append(file_picker)
     app_items.append(text_1)
