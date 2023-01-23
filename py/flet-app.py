@@ -1,6 +1,7 @@
 import math
 
 import flet as ft
+from flet.plotly_chart import PlotlyChart
 
 def parse_file(e: ft.FilePickerResultEvent):
     selected_files = (
@@ -18,6 +19,24 @@ def parse_file(e: ft.FilePickerResultEvent):
     
     print(file_contents)
     print(selected_files)
+
+def gen_graph():
+    import plotly.express as px
+
+    df = px.data.gapminder()
+    df = df.query("continent == 'Americas'")
+
+    figure = px.scatter(
+        df,
+        x="pop",
+        y="gdpPercap",
+        hover_data=["year", "lifeExp"],
+        color="country",
+        labels={"pop": "population of Americas"},
+        height=500,
+    )
+
+    return figure
 
 def swap_theme(page, control):
     check = control.control.value
@@ -184,6 +203,7 @@ def main(page: ft.Page):
     app_items.append(hover_container)
     app_items.append(text_3)
     app_items.append(icon_row)
+    app_items.append(PlotlyChart(gen_graph(), expand=True))
 
     page.add(
         ft.ResponsiveRow(
