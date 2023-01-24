@@ -28,12 +28,17 @@ def gen_graph():
 
     figure = px.scatter(
         df,
-        x="pop",
-        y="gdpPercap",
-        hover_data=["year", "lifeExp"],
-        color="country",
-        labels={"pop": "population of Americas"},
-        height=500,
+        x="gdpPercap", 
+        y="lifeExp", 
+        animation_frame="year", 
+        animation_group="country",
+        size="pop", 
+        color="country", 
+        hover_name="country", 
+        log_x = True, 
+        size_max=45, 
+        range_x=[100,100000], 
+        range_y=[25,90]
     )
 
     return figure
@@ -56,6 +61,7 @@ def swap_theme(page, control):
 def main(page: ft.Page):
     app_items = []
 
+    page.scroll = "always"
     page.theme_mode = ft.ThemeMode.LIGHT
     mode_switch = ft.Switch(
         label="Swap mode: Current (Light)",
@@ -213,4 +219,4 @@ def main(page: ft.Page):
     )
 
 
-ft.app(target=main)
+ft.app(target=main, view=ft.WEB_BROWSER)
