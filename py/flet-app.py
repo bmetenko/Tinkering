@@ -24,22 +24,17 @@ def gen_graph():
     import plotly.express as px
 
     df = px.data.gapminder()
-    df = df.query("continent == 'Americas'")
 
-    figure = px.scatter(
-        df,
-        x="gdpPercap", 
-        y="lifeExp", 
+    figure = px.bar(
+        df, 
+        x="continent", 
+        y="pop", 
+        color="continent", 
         animation_frame="year", 
-        animation_group="country",
-        size="pop", 
-        color="country", 
-        hover_name="country", 
-        log_x = True, 
-        size_max=45, 
-        range_x=[100,100000], 
-        range_y=[25,90]
-    )
+        animation_group="country", 
+        range_y=[0,4000000000]
+        )
+
 
     return figure
 
@@ -176,6 +171,38 @@ def main(page: ft.Page):
         e.control.selected = not e.control.selected
         e.control.update()
 
+    dlg = ft.AlertDialog(
+        title=ft.Text("This message will disappear..."), on_dismiss=lambda e: print("Dialog dismissed!")
+    )
+
+    def open_dlg(e):
+        page.dialog = dlg
+        dlg.open = True
+        page.update()
+
+    def open_dlg_modal(e):
+        page.dialog = icon_modal
+        icon_modal.open = True
+        page.update()
+
+    def close_dlg_modal(e):
+        page.dialog = icon_modal
+        icon_modal.open = False
+        page.update()
+
+    icon_modal = ft.AlertDialog(
+        title=ft.Text("Icon Dialog"),
+        modal=True,
+        content=ft.Text("Select an option:"),
+        actions=[
+            ft.TextButton("Yes", on_click=close_dlg_modal),
+            ft.TextButton("No", on_click=close_dlg_modal),
+        ],
+        actions_alignment=ft.MainAxisAlignment.END,
+        on_dismiss=lambda e: print("Modal dialog dismissed!"),
+    )
+
+
     icon_row = ft.Row(
         [
             ft.IconButton(
@@ -193,6 +220,14 @@ def main(page: ft.Page):
                 selected_icon=ft.icons.ACCESS_ALARM_SHARP,
                 on_click=toggle_icon
                 ),
+            ft.IconButton(
+                icon=ft.icons.ACCESS_TIME,
+                on_click=open_dlg_modal
+            ),
+            ft.IconButton(
+                icon=ft.icons.ACCOUNT_BALANCE,
+                on_click=open_dlg
+            ),
             mode_switch
         ],
         alignment="center"
