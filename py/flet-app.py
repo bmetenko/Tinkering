@@ -2,6 +2,7 @@ import math
 
 import flet as ft
 from flet.plotly_chart import PlotlyChart
+import plotly.express as px
 
 def parse_file(e: ft.FilePickerResultEvent):
     selected_files = (
@@ -21,8 +22,6 @@ def parse_file(e: ft.FilePickerResultEvent):
     print(selected_files)
 
 def gen_graph():
-    import plotly.express as px
-
     df = px.data.gapminder()
 
     figure = px.bar(
@@ -55,6 +54,35 @@ def swap_theme(page, control):
 
 def main(page: ft.Page):
     app_items = []
+
+    mini_gap = px.data.gapminder()[0:25]
+
+    gap_cols = [
+        ft.DataColumn(ft.Text(col), numeric=isinstance(mini_gap[col][0], (int, float))) 
+        for col in mini_gap.columns
+        ]
+
+    print([
+        [
+            [f"{str(i)}" for i in row]
+        ]
+            for row in mini_gap.itertuples()
+    ])
+
+    gap_rows = [
+        ft.DataRow(
+            cells=[ft.DataCell(ft.Text(f"{str(i)}")) for i in row[1:]]
+            ) 
+            for row in mini_gap.itertuples()
+    ]
+
+    print(gap_cols)
+    print(gap_rows)
+
+    gap_mini_df = ft.DataTable(
+        columns=gap_cols,
+        rows=gap_rows
+    )
 
     page.scroll = "always"
     page.theme_mode = ft.ThemeMode.LIGHT
@@ -244,7 +272,8 @@ def main(page: ft.Page):
     app_items.append(hover_container)
     app_items.append(text_3)
     app_items.append(icon_row)
-    app_items.append(PlotlyChart(gen_graph(), expand=True))
+    # app_items.append(PlotlyChart(gen_graph(), expand=True))
+    app_items.append(gap_mini_df)
 
     page.add(
         ft.ResponsiveRow(
@@ -254,4 +283,4 @@ def main(page: ft.Page):
     )
 
 
-ft.app(target=main, view=ft.WEB_BROWSER)
+ft.app(target=main)
