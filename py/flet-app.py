@@ -57,8 +57,14 @@ def main(page: ft.Page):
 
     mini_gap = px.data.gapminder()[0:25]
 
-    gap_cols = [
-        ft.DataColumn(ft.Text(col), numeric=isinstance(mini_gap[col][0], (int, float))) 
+    gap_cols = \
+        [
+        ft.DataColumn(
+            ft.Text(str(col).capitalize()), 
+            numeric=isinstance(
+                mini_gap[col][0], (int, float)
+                )
+            ) 
         for col in mini_gap.columns
         ]
 
@@ -71,7 +77,12 @@ def main(page: ft.Page):
 
     gap_rows = [
         ft.DataRow(
-            cells=[ft.DataCell(ft.Text(f"{str(i)}")) for i in row[1:]]
+            cells=[
+                ft.DataCell(
+                    ft.Text(f"{str(i)}")
+                    ) 
+                    for i in row[1:]
+                ]
             ) 
             for row in mini_gap.itertuples()
     ]
@@ -81,7 +92,25 @@ def main(page: ft.Page):
 
     gap_mini_df = ft.DataTable(
         columns=gap_cols,
-        rows=gap_rows
+        rows=gap_rows,
+        bgcolor="lightblue",
+        border=ft.border.all(2, "gray"),
+        border_radius=5,
+        vertical_lines=ft.border.BorderSide(3, "gray"),
+        horizontal_lines=ft.border.BorderSide(3, "black"),
+        sort_column_index=0,
+        sort_ascending=True,
+        heading_row_color=ft.colors.BLACK38,
+        heading_row_height=100,
+        data_row_color={"hovered": "0x30FF0000"},
+        show_checkbox_column=True,
+        divider_thickness=0,
+        column_spacing=200,
+    )
+
+    gap_mini_container = ft.Row(
+        [gap_mini_df],
+        scroll="always"
     )
 
     page.scroll = "always"
@@ -273,7 +302,7 @@ def main(page: ft.Page):
     app_items.append(text_3)
     app_items.append(icon_row)
     # app_items.append(PlotlyChart(gen_graph(), expand=True))
-    app_items.append(gap_mini_df)
+    app_items.append(gap_mini_container)
 
     page.add(
         ft.ResponsiveRow(
