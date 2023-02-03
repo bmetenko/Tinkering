@@ -12,8 +12,7 @@ app = fa.FastAPI()
 
 @app.get("/")
 def root():
-    return {"message": "Attempts at a square packing API based on rect pack, "
-                       "specify a size for canvas using /assign/?canvas=5"}
+    return {"message": "Attempts at a square packing API based on rect pack."}
 
 
 @app.get("/create/{canvas_id}")
