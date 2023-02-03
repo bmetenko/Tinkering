@@ -15,7 +15,7 @@ def root():
     return {"message": "Attempts at a square packing API based on rect pack."}
 
 
-@app.get("/create/{canvas_id}")
-def create(canvas_id: int, canvas: Canvas):
-    return {"item_id": canvas_id, **canvas.dict()}
+@app.post("/create/")
+def create(canvas: Canvas):
+    return canvas
 
