@@ -8,7 +8,7 @@ from pandas.io.formats.style import Styler
 class MyStyler(Styler):
     env = Environment(
         loader=ChoiceLoader([
-            FileSystemLoader(""),
+            FileSystemLoader("templates"),
             Styler.loader,
         ])
     )
@@ -22,10 +22,30 @@ data = {
 
 df = pd.DataFrame(data)
 
+
+
 # MyStyler(df)
 
-print(MyStyler(df).to_html(
+# print(MyStyler(df).to_html(
+#     table_title="Extending Example",
+#     rows=df.to_dict(orient='records'),
+#     columns=df.columns.to_list()
+# ))
+
+env = Environment(loader=FileSystemLoader("templates/"))
+template = env.get_template("template.j2")
+
+content = template.render(
     table_title="Extending Example",
     rows=df.to_dict(orient='records'),
     columns=df.columns.to_list()
-))
+)
+
+print(content)
+
+import os
+
+os.makedirs("out/", exist_ok=True)
+
+with open("out/index.html", mode="w", encoding="UTF-8") as f:
+    f.write(content)
