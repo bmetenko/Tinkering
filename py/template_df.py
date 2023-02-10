@@ -32,13 +32,19 @@ df = pd.DataFrame(data)
 #     columns=df.columns.to_list()
 # ))
 
+table_params = {
+    "header_color": "green",
+    "background_color": "red"
+}
+
 env = Environment(loader=FileSystemLoader("templates/"))
 template = env.get_template("template.j2")
 
 content = template.render(
     table_title="Extending Example",
     rows=df.to_dict(orient='records'),
-    columns=df.columns.to_list()
+    columns=df.columns.to_list(),
+    **table_params
 )
 
 print(content)

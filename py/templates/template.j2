@@ -37,7 +37,8 @@ table td {
 
 table tr>th {
 text-align: center;
-color: blue;
+color: {{ header_color|default("blue", true) }};
+background-color: {{ background_color|default("yellow", true) }};
 }
 
 </style>
