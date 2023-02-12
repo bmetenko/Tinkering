@@ -2,6 +2,7 @@ library(bslib)
 library(shiny)
 library(rmarkdown)
 library(plotly)
+library(bsicons)
 
 library(plotly)
 
@@ -57,7 +58,24 @@ ui <- fluidPage(
         full_screen = TRUE,
         theme_color = "success"
     ),
-    "Hello, world!"
+  value_box(
+    title = "Hello World", 
+    value = "42",
+    showcase = bs_icon("globe2"),
+    p("We live here..."),
+    p("For better or for worse...")
+  ),
+  card(
+    card_body_fill(
+      gap = "0.5rem", class = "p-3",
+      div(class = "bg-secondary", "1 Mississippi"),
+      div(class = "bg-secondary", "2 Mississippi"),
+      div(class = "bg-secondary", "3 Mississippi"),
+      div(
+        lapply(seq_along(1:9), function(x) bs_icon(paste0(x, "-square")))
+      )
+    )
+  )
 )
 
 server <- function(input, output, session) {
