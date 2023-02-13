@@ -46,7 +46,7 @@ light_theme <- bs_theme(bootswatch = "minty", version=5)
 dark_theme <- bs_theme(bootswatch = "cyborg", version=5)
 
 ui <- fluidPage(
-    theme=light_theme,
+    # theme=light_theme,
     checkboxInput("dark_mode_toggle", "Dark Mode"),
     value_box(
         title = "Personal Savings Rate",
@@ -68,11 +68,39 @@ ui <- fluidPage(
   card(
     card_body_fill(
       gap = "0.5rem", class = "p-3",
-      div(class = "bg-secondary", "1 Mississippi"),
-      div(class = "bg-secondary", "2 Mississippi"),
-      div(class = "bg-secondary", "3 Mississippi"),
+      navs_tab_card(
+        nav(
+          "First",
+          card_title("1st"),
+          card_body(
+            (
+              div(class = "bg-secondary", "1 Mississippi")
+            ),
+          )
+        ),
+        nav(
+            "Second",
+            card_title("2nd"),
+            card_body(
+              (
+              div(class = "bg-secondary", "2 Mississippi")
+              )
+            )
+         ),
+         nav(
+            "Third",
+            card_title("3rd"),
+            card_body(
+              div(class = "bg-secondary", "3 Mississippi"),
+            ),
+            card_footer(
+              "Final Card"
+            )
+         )
+        ),
       div(
-        lapply(seq_along(1:9), function(x) bs_icon(paste0(x, "-square")))
+        lapply(seq_along(1:9), function(x) bs_icon(paste0(x, "-square"))),
+        style="display: flex; justify-content: space-evenly;"
       )
     )
   )
