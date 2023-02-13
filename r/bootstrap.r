@@ -10,14 +10,14 @@ sparkline <- plot_ly(economics) |>
   add_lines(
     x = ~date, y = ~psavert,
     color = I("blue"), span = I(1),
-    fill = 'yellow', alpha = 0.3,
-    name="Personal Savings Rate"
+    fill = "yellow", alpha = 0.3,
+    name = "Personal Savings Rate"
   ) |>
     add_lines(
     x = ~date, y = ~uempmed,
     color = I("red"), span = I(2),
-    fill = 'green', alpha = 0.3,
-    name="Unemployment"
+    fill = "green", alpha = 0.3,
+    name = "Unemployment"
   ) |>
   layout(
     xaxis = list(visible = F, showgrid = F, title = ""),
@@ -42,11 +42,11 @@ sparkline <- plot_ly(economics) |>
 
 
 
-light_theme <- bs_theme(bootswatch = "minty", version=5)
-dark_theme <- bs_theme(bootswatch = "cyborg", version=5)
+light_theme <- bs_theme(bootswatch = "minty", version = 5)
+dark_theme <- bs_theme(bootswatch = "cyborg", version = 5)
 
 ui <- fluidPage(
-    # theme=light_theme,
+    theme = light_theme,
     checkboxInput("dark_mode_toggle", "Dark Mode"),
     value_box(
         title = "Personal Savings Rate",
@@ -59,7 +59,7 @@ ui <- fluidPage(
         theme_color = "success"
     ),
   value_box(
-    title = "Hello World", 
+    title = "Hello World",
     value = "42",
     showcase = bs_icon("globe2"),
     p("We live here..."),
@@ -100,14 +100,13 @@ ui <- fluidPage(
         ),
       div(
         lapply(seq_along(1:9), function(x) bs_icon(paste0(x, "-square"))),
-        style="display: flex; justify-content: space-evenly;"
+        style = "display: flex; justify-content: space-evenly;"
       )
     )
   )
 )
 
 server <- function(input, output, session) {
-    bs_themer()
     observe(
         session$setCurrentTheme(
             if (isTRUE(input$dark_mode_toggle)) dark_theme else light_theme
