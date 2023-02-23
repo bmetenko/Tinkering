@@ -16,3 +16,13 @@ def html_from_file(file_name):
         )
     
 html_from_file(html_source)
+
+col_1, col_2 = st.columns(2)
+
+with col_1:
+    st.date_input("Choose a date:")
+
+with col_2:
+    st.write("Choose a date please.")
+    st.write("Or don't...")
+    st.write("I'm not your boss.")

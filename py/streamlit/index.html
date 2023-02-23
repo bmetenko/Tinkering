@@ -1,3 +1,18 @@
 <script>
- console.log("escaped from streamlit")   
+ console.log("escaped from streamlit");
+ streamlitAppBody = window.parent.document;
+ text_divs = Array.from(
+    streamlitAppBody.querySelectorAll(
+        ".stMarkdown > div"
+    )
+ );
+
+ console.log(text_divs);
+
+ const boss_div = text_divs.find((el) => el.innerText === "I'm not your boss.");
+ boss_div.style.color="red";
 </script>
+
+<style>
+
+</style>
