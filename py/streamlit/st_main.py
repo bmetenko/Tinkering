@@ -15,7 +15,7 @@ def html_from_file(file_name):
             width=0
         )
     
-html_from_file(html_source)
+
 
 col_1, col_2 = st.columns(2)
 
@@ -26,3 +26,5 @@ with col_2:
     st.write("Choose a date please.")
     st.write("Or don't...")
     st.write("I'm not your boss.")
+
+html_from_file(html_source)

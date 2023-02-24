@@ -9,10 +9,18 @@
 
  console.log(text_divs);
 
+ columns = Array.from(
+    streamlitAppBody.querySelectorAll(
+        '[data-testid=column]'
+    )
+ )
+ console.log(columns)
+ columns.forEach(element => {
+    element.style.backgroundColor = "blue";
+    element.style.padding = "10px";
+    element.style.borderRadius = "5px";
+ });
+
  const boss_div = text_divs.find((el) => el.innerText === "I'm not your boss.");
  boss_div.style.color="red";
 </script>
-
-<style>
-
-</style>
