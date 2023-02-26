@@ -45,7 +45,22 @@ def index() -> pc.Component:
                     }
                 )
             ),
-            
+            pc.accordion(
+                pc.accordion_item(
+                    pc.accordion_button(
+                        pc.heading("Chart Info"),
+                        pc.accordion_icon()
+                    ),
+                    pc.accordion_panel(
+                        pc.center(
+                            pc.text(
+                                "Internal text."
+                            )
+                        )
+                    ),
+                    width="100%"
+                )
+            )
         ),
         padding_top="10%",
     )
