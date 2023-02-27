@@ -8,10 +8,11 @@ docs_url = "https://pynecone.io/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
 
 
-class State(pc.State):
-    """The app state."""
+class ToggleState(pc.State):
+    switched_container: bool = False
 
-    pass
+    def change(self):
+        self.switched_container = not (self.switched_container)
 
 
 def index() -> pc.Component:
@@ -53,10 +54,42 @@ def index() -> pc.Component:
                     ),
                     pc.accordion_panel(
                         pc.center(
-                            pc.text(
-                                "Internal text."
-                            )
-                        )
+                            pc.vstack(
+                                pc.button("Toggle", on_click=ToggleState.change),
+                                pc.cond(
+                                    ToggleState.switched_container,
+                                    pc.text("Text is blue", color="blue"),
+                                    pc.text("Text is red", color="red"),
+                                ),
+                                pc.tabs(
+                                    pc.tab_list(
+                                        pc.tab("Tab 1"),
+                                        pc.tab("Tab 2"),
+                                        pc.tab("Tab 3"),
+                                    ),
+                                    pc.tab_panels(
+                                        pc.tab_panel(
+                                            pc.center(
+                                                pc.text("Text from tab 1.")
+                                                )
+                                            ),
+                                        pc.tab_panel(
+                                            pc.center(
+                                                pc.text("Text from tab 2.")
+                                                )
+                                            ),
+                                        pc.tab_panel(
+                                            pc.center(
+                                                pc.text("Text from tab 3.")
+                                                )
+                                            ),
+                                    )
+                                )
+                            ),
+                        ),
+                        border_width="thick",
+                        border_color="purple",
+                        padding="1em",
                     ),
                     width="100%"
                 )
@@ -67,6 +100,6 @@ def index() -> pc.Component:
 
 
 # Add state and page to the app.
-app = pc.App(state=State)
+app = pc.App(state=ToggleState)
 app.add_page(index)
 app.compile()
