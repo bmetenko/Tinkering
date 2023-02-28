@@ -63,27 +63,48 @@ def index() -> pc.Component:
                                 ),
                                 pc.tabs(
                                     pc.tab_list(
-                                        pc.tab("Tab 1"),
-                                        pc.tab("Tab 2"),
-                                        pc.tab("Tab 3"),
+                                        pc.tab("W"),
+                                        pc.tab("S"),
+                                        pc.tab("I"),
                                     ),
                                     pc.tab_panels(
                                         pc.tab_panel(
                                             pc.center(
-                                                pc.text("Text from tab 1.")
+                                                    pc.alert(
+                                                        pc.alert_icon(),
+                                                        pc.alert_title(
+                                                            "Warning label."
+                                                            ),
+                                                        status="warning",
+                                                    ),
                                                 )
                                             ),
                                         pc.tab_panel(
                                             pc.center(
-                                                pc.text("Text from tab 2.")
+                                                pc.alert(
+                                                    pc.alert_icon(),
+                                                    pc.alert_title(
+                                                        "Success label."
+                                                        ),
+                                                    status="success",
+                                                    ),
                                                 )
                                             ),
                                         pc.tab_panel(
                                             pc.center(
-                                                pc.text("Text from tab 3.")
+                                                pc.alert(
+                                                        pc.alert_icon(),
+                                                        pc.alert_title(
+                                                            "Information label."
+                                                            ),
+                                                        status="info",
+                                                    ),
                                                 )
                                             ),
-                                    )
+                                    ),
+                                    variant="enclosed-colored",
+                                    is_fitted=True,
+                                    is_lazy=True
                                 )
                             ),
                         ),
