@@ -8,11 +8,29 @@ docs_url = "https://pynecone.io/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
 
 
-class ToggleState(pc.State):
+class AppState(pc.State):
     switched_container: bool = False
+    color = [
+        "red",
+        "green",
+        "blue",
+    ]
 
     def change(self):
         self.switched_container = not (self.switched_container)
+
+
+def colored_box(color):
+    return pc.box(
+        pc.center(
+            pc.text(color),
+            padding="5px",
+            border_radius="2px"
+        ), 
+        bg=color, 
+        padding="5px", 
+        color="white"
+        )
 
 
 def index() -> pc.Component:
@@ -55,9 +73,9 @@ def index() -> pc.Component:
                     pc.accordion_panel(
                         pc.center(
                             pc.vstack(
-                                pc.button("Toggle", on_click=ToggleState.change),
+                                pc.button("Toggle", on_click=AppState.change),
                                 pc.cond(
-                                    ToggleState.switched_container,
+                                    AppState.switched_container,
                                     pc.text("Text is blue", color="blue"),
                                     pc.text("Text is red", color="red"),
                                 ),
@@ -66,6 +84,7 @@ def index() -> pc.Component:
                                         pc.tab("W"),
                                         pc.tab("S"),
                                         pc.tab("I"),
+                                        pc.tab("A")
                                     ),
                                     pc.tab_panels(
                                         pc.tab_panel(
@@ -93,14 +112,28 @@ def index() -> pc.Component:
                                         pc.tab_panel(
                                             pc.center(
                                                 pc.alert(
-                                                        pc.alert_icon(),
-                                                        pc.alert_title(
-                                                            "Information label."
-                                                            ),
-                                                        status="info",
+                                                    pc.alert_icon(),
+                                                    pc.alert_title(
+                                                        "Information label."
+                                                        ),
+                                                    status="info",
                                                     ),
                                                 )
                                             ),
+                                        pc.tab_panel(
+                                            pc.center(
+                                                pc.alert(
+                                                    pc.alert_icon(),
+                                                    pc.alert_title(
+                                                        pc.responsive_grid(
+                                                            pc.foreach(AppState.color, colored_box),
+                                                            columns=[3],
+                                                        )
+                                                    ),
+                                                    status="info"
+                                                )
+                                            )
+                                        )
                                     ),
                                     variant="enclosed-colored",
                                     is_fitted=True,
@@ -121,6 +154,6 @@ def index() -> pc.Component:
 
 
 # Add state and page to the app.
-app = pc.App(state=ToggleState)
+app = pc.App(state=AppState)
 app.add_page(index)
 app.compile()
