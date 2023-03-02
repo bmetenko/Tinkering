@@ -3,10 +3,23 @@
 from pcconfig import config
 
 import pynecone as pc
+import plotly as pl
+import plotly.graph_objects as go
 
 docs_url = "https://pynecone.io/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
 
+line_plotly = go.Figure(
+    [
+        go.Scatter(
+            x = [1, 2, 3, 4, 5, 6, 7],
+            y = [2, 6, 7, 4, 6, 1, 2],
+            marker=dict(
+                color="red"
+            )
+        )
+    ]
+)
 
 class AppState(pc.State):
     switched_container: bool = False
@@ -36,32 +49,37 @@ def colored_box(color):
 def index() -> pc.Component:
     return pc.center(
         pc.vstack(
-            pc.chart(
-                pc.area(
-                    data=pc.data(
-                        "area",
-                        x = [1, 4, 5, 6, 7, 1, 5, 6],
-                        y = [2, 3, 4, 5, 6, 7, 8, 9]
-                    ),
-                    style = {
-                        "data":{
-                            "fill": "green",
-                            "stroke": "yellow",
-                            "strokeWidth": 1
+            pc.hstack(
+                pc.chart(
+                    pc.area(
+                        data=pc.data(
+                            "area",
+                            x = [1, 4, 5, 6, 7, 1, 5, 6],
+                            y = [2, 3, 4, 5, 6, 7, 8, 9]
+                        ),
+                        style = {
+                            "data":{
+                                "fill": "green",
+                                "stroke": "yellow",
+                                "strokeWidth": 1
+                            }
                         }
-                    }
+                    ),
+                    pc.area(
+                        data=pc.data(
+                            "line",
+                            x = [1, 2, 3, 4, 5, 6, 7],
+                            y = [2, 6, 7, 4, 6, 1, 2]
+                        ),
+                        style={
+                            "data":{
+                                "fill": "red"
+                            }
+                        }
+                    ),
                 ),
-                pc.area(
-                    data=pc.data(
-                        "line",
-                        x = [1, 2, 3, 4, 5, 6, 7],
-                        y = [2, 6, 7, 4, 6, 1, 2]
-                    ),
-                    style={
-                        "data":{
-                            "fill": "red"
-                        }
-                    }
+                pc.plotly(
+                    data=line_plotly
                 )
             ),
             pc.accordion(
