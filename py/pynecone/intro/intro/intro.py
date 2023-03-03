@@ -1,7 +1,8 @@
 # type: ignore
-"""Welcome to Pynecone! This file outlines the steps to create a basic app."""
-from pcconfig import config
+import random
+import string
 
+from pcconfig import config
 import pynecone as pc
 import plotly as pl
 import plotly.graph_objects as go
@@ -20,6 +21,25 @@ line_plotly = go.Figure(
         )
     ]
 )
+
+letters = string.ascii_lowercase
+
+class Idea(pc.Model, table=True):
+    author: str
+    text: str
+    feasibility100: int
+    practicality100: int
+
+with pc.session() as session:
+    session.add(
+        Idea(
+            author=''.join(random.choice(letters) for i in range(3)),
+            text=''.join(random.choice(letters) for i in range(10)),
+            feasibility100=random.choice(list(range(100))),
+            practicality100=random.choice(list(range(100)))
+        )
+    )
+    session.commit()
 
 class AppState(pc.State):
     switched_container: bool = False
