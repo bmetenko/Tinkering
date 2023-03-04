@@ -30,6 +30,15 @@ class Idea(pc.Model, table=True):
     feasibility100: int
     practicality100: int
 
+
+def pc_idea(idea: Idea):
+    return pc.box(
+        pc.heading(idea.author),
+        pc.text(idea.text),
+        pc.text(f"feazblt:{idea.feasibility100}"),
+        pc.text(f"praktklt:{idea.practicality100}")
+    )
+
 with pc.session() as session:
     session.add(
         Idea(
@@ -51,6 +60,24 @@ class AppState(pc.State):
 
     def change(self):
         self.switched_container = not (self.switched_container)
+
+    def get_ideas(self):
+        with pc.session() as session:
+            self.ideas = (
+                session.query(Idea)
+                .all()
+            )
+
+        return self.ideas
+
+    def pc_idea_stream(self):
+        self.get_ideas()
+        contents = []
+        for id in self.ideas:
+            contents.append(pc_idea(id))
+
+        return pc.box(contents)
+
 
 
 def colored_box(color):
@@ -185,6 +212,9 @@ def index() -> pc.Component:
                     ),
                     width="100%"
                 )
+            ),
+            pc.responsive_grid(
+                # pc.foreach(AppState.get_ideas, pc_idea)
             )
         ),
         padding_top="10%",
