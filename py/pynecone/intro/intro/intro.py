@@ -1,6 +1,7 @@
 # type: ignore
 import random
 import string
+from typing import List
 
 from pcconfig import config
 import pynecone as pc
@@ -27,26 +28,29 @@ letters = string.ascii_lowercase
 class Idea(pc.Model, table=True):
     author: str
     text: str
-    feasibility100: int
-    practicality100: int
+    feasibility: int
+    practicality: int
 
-
-def pc_idea(idea: Idea):
-    return pc.box(
-        pc.heading(idea.author),
-        pc.text(idea.text),
-        pc.text(f"feazblt:{idea.feasibility100}"),
-        pc.text(f"praktklt:{idea.practicality100}")
+def pc_idea(idea_) -> pc.Box:
+    print(idea_.__dict__)
+    return pc.hstack(
+        pc.heading(idea_.author),
+        pc.text(idea_.text),
+        pc.text(idea_.feasibility),
+        pc.text(idea_.practicality)
     )
 
 with pc.session() as session:
-    session.add(
-        Idea(
-            author=''.join(random.choice(letters) for i in range(3)),
+    fz = int(random.choice(list(range(100))))
+    pt = int(random.choice(list(range(100))))
+    new_idea = Idea(
+            author=''.join(random.choice(letters) for i in range(5)),
             text=''.join(random.choice(letters) for i in range(10)),
-            feasibility100=random.choice(list(range(100))),
-            practicality100=random.choice(list(range(100)))
+            feasibility=fz,
+            practicality=pt
         )
+    session.add(
+        new_idea
     )
     session.commit()
 
@@ -57,26 +61,33 @@ class AppState(pc.State):
         "green",
         "blue",
     ]
+    ideas = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        print(self.__dict__)
 
     def change(self):
         self.switched_container = not (self.switched_container)
 
-    def get_ideas(self):
+    @pc.var
+    def get_ideas(self) -> List[Idea]:
         with pc.session() as session:
             self.ideas = (
                 session.query(Idea)
                 .all()
             )
 
+        print(self.ideas)
+
         return self.ideas
 
+    @pc.var
     def pc_idea_stream(self):
-        self.get_ideas()
         contents = []
         for id in self.ideas:
-            contents.append(pc_idea(id))
-
-        return pc.box(contents)
+            contents.append(id)
+        return contents
 
 
 
@@ -213,8 +224,11 @@ def index() -> pc.Component:
                     width="100%"
                 )
             ),
-            pc.responsive_grid(
-                # pc.foreach(AppState.get_ideas, pc_idea)
+            pc.hstack(
+                pc.responsive_grid(
+                    pc.foreach(AppState.get_ideas, pc_idea)
+                ),
+
             )
         ),
         padding_top="10%",
