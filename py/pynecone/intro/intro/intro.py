@@ -225,10 +225,17 @@ def index() -> pc.Component:
                 )
             ),
             pc.hstack(
+                pc.center(
                 pc.responsive_grid(
                     pc.foreach(AppState.get_ideas, pc_idea)
                 ),
-
+                overflow_y="scroll",
+                # padding="0",
+                height="4em",
+                # width="75%",
+                align_items="center",
+                ),
+                # height="10%",
             )
         ),
         padding_top="10%",
