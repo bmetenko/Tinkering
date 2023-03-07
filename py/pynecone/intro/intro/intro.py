@@ -40,6 +40,30 @@ def pc_idea(idea_) -> pc.Box:
         pc.text(idea_.practicality)
     )
 
+def nested_acc(level=5):
+    out = pc.accordion(
+        pc.accordion_item(
+            pc.accordion_button(
+                pc.heading("Example"),
+                pc.accordion_icon(),
+            ),
+            pc.accordion_panel(
+                pc.text(
+                    "final layer"
+                ) if level == 0
+                else (
+                    pc.hstack(
+                        pc.text(f"{level=}"),
+                        nested_acc(level - 1)
+                    )
+                )
+            ),
+        ),
+        width="100%",
+    )
+
+    return out
+
 with pc.session() as session:
     fz = int(random.choice(list(range(100))))
     pt = int(random.choice(list(range(100))))
@@ -202,7 +226,10 @@ def index() -> pc.Component:
                                                     pc.alert_icon(),
                                                     pc.alert_title(
                                                         pc.responsive_grid(
-                                                            pc.foreach(AppState.color, colored_box),
+                                                            pc.foreach(
+                                                                AppState.color, 
+                                                                colored_box
+                                                            ),
                                                             columns=[3],
                                                         )
                                                     ),
@@ -236,6 +263,9 @@ def index() -> pc.Component:
                 align_items="center",
                 ),
                 # height="10%",
+            ),
+            pc.hstack(
+                nested_acc(3)
             )
         ),
         padding_top="10%",
