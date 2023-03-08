@@ -3,10 +3,12 @@ import random
 import string
 from typing import List
 
+import numpy as np
 from pcconfig import config
 import pynecone as pc
 import plotly as pl
 import plotly.graph_objects as go
+import pandas as pd
 
 docs_url = "https://pynecone.io/docs/getting-started/introduction"
 filename = f"{config.app_name}/{config.app_name}.py"
@@ -22,6 +24,10 @@ line_plotly = go.Figure(
         )
     ]
 )
+
+big_df = pd.DataFrame(np.random.randn(16, 100))
+big_df_style = big_df.style.set_sticky(axis="index")
+big_df_html = big_df_style.to_html()
 
 letters = string.ascii_lowercase
 
@@ -266,6 +272,13 @@ def index() -> pc.Component:
             ),
             pc.hstack(
                 nested_acc(3)
+            ),
+            pc.html(
+                # big_df,
+                # big_df_style,
+                big_df_html,
+                width="25em",
+                overflow="scroll"
             )
         ),
         padding_top="10%",
