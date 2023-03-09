@@ -11,7 +11,6 @@ import plotly.graph_objects as go
 import pandas as pd
 
 docs_url = "https://pynecone.io/docs/getting-started/introduction"
-filename = f"{config.app_name}/{config.app_name}.py"
 
 line_plotly = go.Figure(
     [
@@ -86,7 +85,7 @@ with pc.session() as session:
 
 class AppState(pc.State):
     switched_container: bool = False
-    color = [
+    color: List[str] = [
         "red",
         "green",
         "blue",
@@ -131,12 +130,25 @@ def colored_box(color):
         bg=color, 
         padding="5px", 
         color="white"
-        )
+    )
 
 
 def index() -> pc.Component:
     return pc.center(
         pc.vstack(
+            pc.text(
+                "Welcome",
+                background="""
+                linear-gradient(
+                    90deg, rgba(2,0,36,1) 0%, 
+                    rgba(9,9,121,1) 35%, 
+                    rgba(0,212,255,1) 100%
+                    )
+                """,
+                padding="1em",
+                color="white",
+                width="stretch"
+            ),
             pc.hstack(
                 pc.chart(
                     pc.area(
@@ -263,22 +275,19 @@ def index() -> pc.Component:
                     pc.foreach(AppState.get_ideas, pc_idea)
                 ),
                 overflow_y="scroll",
-                # padding="0",
                 height="4em",
-                # width="75%",
                 align_items="center",
                 ),
-                # height="10%",
             ),
             pc.hstack(
                 nested_acc(3)
             ),
             pc.html(
-                # big_df,
-                # big_df_style,
                 big_df_html,
                 width="25em",
-                overflow="scroll"
+                overflow="scroll",
+                border_color="red",
+                border_width="0.2em"
             )
         ),
         padding_top="10%",
