@@ -136,6 +136,25 @@ def colored_box(color):
 def index() -> pc.Component:
     return pc.center(
         pc.vstack(
+            pc.html(
+                """
+                <style>
+                #bounce {
+                    animation: bounce 0.5s infinite alternate;
+                }
+
+                @keyframes bounce {
+                from {
+                    transform: translateY(0);
+                    }
+                to {
+                    transform: translateY(-10px);
+                    }
+                }
+
+                </style>
+                """
+            ),
             pc.text(
                 "Welcome",
                 background="""
@@ -147,7 +166,8 @@ def index() -> pc.Component:
                 """,
                 padding="1em",
                 color="white",
-                width="stretch"
+                width="stretch",
+                id="bounce"
             ),
             pc.hstack(
                 pc.chart(
