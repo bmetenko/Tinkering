@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_extras.badges import badge
 from streamlit_extras.app_logo import add_logo
+from streamlit_extras.colored_header import colored_header
 
 st.set_page_config(
     page_title="Hello",
@@ -31,11 +32,21 @@ add_logo(logo_url)
 
 badge(type="github", name="bmetenko")
 
+
+colored_header(
+    label="Welcome to the Pandas Optimization App",
+    description="This app helps you optimize your pandas dataframes for speed and memory. ",
+    color_name="violet-70",
+)
+
 st.write(
     """
-    # Welcome to the Pandas Optimization App
-    
-    This app helps you optimize your pandas dataframes for speed and memory. 
     Click on the pages on the left to learn more!
+    """
+)
+
+st.markdown(
+    """
+    _Actually, this is just a toy website for testing streamlit components, but don't tell anyone._
     """
 )

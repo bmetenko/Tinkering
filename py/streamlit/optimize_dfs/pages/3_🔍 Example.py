@@ -3,14 +3,26 @@ import time
 import streamlit as st
 import pandas as pd
 import numpy as np
+from streamlit_extras.colored_header import colored_header
+from streamlit_extras.app_logo import add_logo
 
-st.write("""
-# Optimizations for Iris Dataset
+logo_url = "https://seeklogo.com/images/S/streamlit-logo-1A3B208AE4-seeklogo.com.png"
+add_logo(logo_url)
 
-Here, we'll apply some of the optimizations discussed on the previous page 
-to the classic Iris dataset.
+
+colored_header(
+    label="Optimizations for Iris Dataset",
+    description="Batteries? included",
+    color_name="orange-70",
+)
+
+st.markdown("---")
+
+st.subheader("""
+Here, we'll apply some of the optimizations discussed on the previous page to the classic Iris dataset.
 """)
 
+st.markdown("---")
 
 iris = pd.read_csv("https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data", header=None)
 iris.columns = ["sepal_length", "sepal_width", "petal_length", "petal_width", "class"]
@@ -72,6 +84,10 @@ st.write(f"Time to optimize: {elapsed_time:.10f} seconds")
 # iris["petal_area"].apply(np.sqrt, inplace=True)
 
 # Calculate and display the memory usage and elapsed time
+
+
+st.markdown("---")
+
 st.subheader("Optimizations Telemetry")
 
 memory_usage_mb = iris.memory_usage(deep=True).sum() / 1024 ** 2
@@ -80,3 +96,6 @@ st.write(f" - - Memory Usage: {memory_usage_mb:.2e} MB")
 st.write(f" - - Original Memory Usage: {original_memory_usage_mb:.2e} MB")
 
 st.write(f" - - Difference: {np.round(original_memory_usage_mb / memory_usage_mb, 1):.1f}x less memory")
+
+
+st.markdown("---")
