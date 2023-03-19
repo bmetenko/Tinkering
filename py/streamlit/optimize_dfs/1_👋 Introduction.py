@@ -64,4 +64,4 @@ st.markdown(
 
 want_to_contribute = st.button("Move to next page!")
 if want_to_contribute:
-    switch_page("📚Theory")
+    switch_page("theory")
