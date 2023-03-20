@@ -99,3 +99,16 @@ st.write(f" - - Difference: {np.round(original_memory_usage_mb / memory_usage_mb
 
 
 st.markdown("---")
+
+
+
+prev_page = st.button("Back one page?")
+if prev_page:
+    from streamlit_extras.switch_page_button import switch_page
+    switch_page("theory")
+
+
+go_back = st.button("Go back to the beginning!")
+if go_back:
+    from streamlit_extras.switch_page_button import switch_page
+    switch_page("introduction")

@@ -1,6 +1,7 @@
 import streamlit as st
 from streamlit_extras.colored_header import colored_header
 from streamlit_extras.app_logo import add_logo
+from streamlit_extras.stodo import to_do
 
 logo_url = "https://seeklogo.com/images/S/streamlit-logo-1A3B208AE4-seeklogo.com.png"
 add_logo(logo_url)
@@ -25,3 +26,24 @@ st.write("""
     
     To learn more about these optimizations, click on the next page on the left!
 """)
+
+
+st.write("To Learn")
+to_do(
+    [(st.write, "Pandas DataType Conversion")],
+    "dtypes",
+)
+
+next_page = st.button("Continue? 3, 2, 1...", disabled=not st.session_state['dtypes'])
+
+if next_page:
+    from streamlit_extras.switch_page_button import switch_page
+    switch_page("example")
+
+
+
+go_back = st.button("Go Back!")
+if go_back:
+    from streamlit_extras.switch_page_button import switch_page
+    switch_page("introduction")
+
