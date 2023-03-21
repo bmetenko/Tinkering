@@ -12,6 +12,11 @@ st.set_page_config(
     page_icon="👋",
 )
 
+if 'prev' in st.session_state.keys():
+    previous_page = st.session_state['prev']
+    st.write(f"Welcome back from the {previous_page} page.")
+
+st.session_state['prev'] = 'introduction'
 
 rain(
     emoji="👋",
@@ -62,6 +67,7 @@ st.markdown(
     """
 )
 
-want_to_contribute = st.button("Move to next page!")
-if want_to_contribute:
+next_page = st.button("Move to next page!")
+if next_page:
+    st.session_state['prev'] = 'introduction'
     switch_page("theory")

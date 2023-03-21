@@ -9,6 +9,11 @@ from streamlit_extras.app_logo import add_logo
 logo_url = "https://seeklogo.com/images/S/streamlit-logo-1A3B208AE4-seeklogo.com.png"
 add_logo(logo_url)
 
+if 'prev' in st.session_state.keys():
+    previous_page = st.session_state['prev']
+    st.write(f"Welcome back from the {previous_page} page.")
+
+st.session_state['prev'] = 'example'
 
 colored_header(
     label="Optimizations for Iris Dataset",
@@ -105,10 +110,12 @@ st.markdown("---")
 prev_page = st.button("Back one page?")
 if prev_page:
     from streamlit_extras.switch_page_button import switch_page
+    st.session_state['prev'] = 'example'
     switch_page("theory")
 
 
 go_back = st.button("Go back to the beginning!")
 if go_back:
     from streamlit_extras.switch_page_button import switch_page
+    st.session_state['prev'] = 'example'
     switch_page("introduction")

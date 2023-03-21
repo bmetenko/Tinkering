@@ -6,6 +6,12 @@ from streamlit_extras.stodo import to_do
 logo_url = "https://seeklogo.com/images/S/streamlit-logo-1A3B208AE4-seeklogo.com.png"
 add_logo(logo_url)
 
+if 'prev' in st.session_state.keys():
+    previous_page = st.session_state['prev']
+    st.write(f"Welcome back from the {previous_page} page.")
+
+st.session_state['prev'] = 'theory'
+
 
 colored_header(
     label="Pandas Optimization Theory",
@@ -38,6 +44,7 @@ next_page = st.button("Continue? 3, 2, 1...", disabled=not st.session_state['dty
 
 if next_page:
     from streamlit_extras.switch_page_button import switch_page
+    st.session_state['prev'] = 'theory'
     switch_page("example")
 
 
@@ -45,5 +52,6 @@ if next_page:
 go_back = st.button("Go Back!")
 if go_back:
     from streamlit_extras.switch_page_button import switch_page
+    st.session_state['prev'] = 'theory'
     switch_page("introduction")
 
