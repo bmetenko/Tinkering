@@ -8,7 +8,7 @@ add_logo(logo_url)
 
 if 'prev' in st.session_state.keys():
     previous_page = st.session_state['prev']
-    st.write(f"Welcome back from the {previous_page} page.")
+    st.write(f"Welcome from the {previous_page} page.")
 
 st.session_state['prev'] = 'theory'
 
