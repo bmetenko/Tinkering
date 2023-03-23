@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import streamlit as st
 from streamlit_extras.badges import badge
 from streamlit_extras.app_logo import add_logo
@@ -10,6 +12,25 @@ from streamlit_extras.switch_page_button import switch_page
 st.set_page_config(
     page_title="Hello",
     page_icon="👋",
+)
+
+### Source: https://www.svgbackgrounds.com/
+with open(Path.cwd()/"assets"/"flat-mountains.svg") as f:
+    svg_content = f.readlines()
+
+with open(Path.cwd()/"assets"/"flat-mountains.css") as f:
+    xml_content = "".join(f.readlines())
+
+
+# print(xml_content)
+
+st.markdown(
+    f'''
+    <style>
+    {xml_content}
+    </style>
+    ''',
+    unsafe_allow_html=True
 )
 
 if 'prev' in st.session_state.keys():
@@ -66,6 +87,8 @@ st.markdown(
     _Actually, this is just a toy website for testing streamlit components, but don't tell anyone._
     """
 )
+
+# st.write(svg_content[0], unsafe_allow_html=True)
 
 next_page = st.button("Move to next page!")
 if next_page:
