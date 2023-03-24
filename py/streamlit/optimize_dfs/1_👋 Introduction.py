@@ -64,6 +64,12 @@ with echo_expander():
             url='/Theory'
         )
 
+    with st.expander("Echo Container Disassembly"):
+        import dis
+        import inspect
+        st.write(dis.Bytecode(echo_expander).dis())
+        st.write(inspect.getsource(echo_expander))
+
 logo_url = "https://seeklogo.com/images/S/streamlit-logo-1A3B208AE4-seeklogo.com.png"
 add_logo(logo_url)
 
