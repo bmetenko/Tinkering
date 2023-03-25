@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import streamlit as st
+import streamlit_echarts as ec
 from streamlit_extras.badges import badge
 from streamlit_extras.app_logo import add_logo
 from streamlit_extras.colored_header import colored_header
@@ -32,6 +33,52 @@ st.markdown(
     ''',
     unsafe_allow_html=True
 )
+
+option = {
+    "graphic": {
+      "elements": [
+        {
+          "type": 'group',
+          "left": 'center',
+          "top": 'center',
+          "children": [
+            {
+            "type": 'rect',
+            "x": i * 20,
+            "shape": {
+              "x": 0,
+              "y": -40,
+              "width": 10,
+              "height": 80
+            },
+            "style": {
+              "fill": '#5470c6'
+            },
+            "keyframeAnimation": {
+              "duration": 1000,
+              "delay": i * 200,
+              "loop": "true",
+              "keyframes": [
+                {
+                  "percent": 0.5,
+                  "scaleY": 0.3,
+                  "easing": 'cubicIn'
+                },
+                {
+                  "percent": 1,
+                  "scaleY": 1,
+                  "easing": 'cubicOut'
+                } 
+              ]
+            }
+          } for i in range(3)
+          ]
+        }
+      ]
+    }
+  }
+
+ec.st_echarts(options=option)
 
 if 'prev' in st.session_state.keys():
     previous_page = st.session_state['prev']
