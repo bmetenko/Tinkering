@@ -1,6 +1,7 @@
 import time
 
 import streamlit as st
+import streamlit_echarts as ec
 import pandas as pd
 import numpy as np
 from streamlit_extras.colored_header import colored_header
@@ -105,6 +106,27 @@ st.write(f" - - Difference: {np.round(original_memory_usage_mb / memory_usage_mb
 
 st.markdown("---")
 
+
+options = {
+    "xAxis": {
+        "type": "category",
+        "data": ["Old", "New"],
+        "name": "Category",
+        "nameLocation": "middle",
+    },
+    "yAxis": {
+        "type": "value",
+        "name": "Time",
+    },
+    "series": [
+        {
+            "data": [original_memory_usage_mb, memory_usage_mb],
+            "type": "bar"
+        }
+    ]
+}
+
+ec.st_echarts(options=options)
 
 
 prev_page = st.button("Back one page?")
