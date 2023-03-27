@@ -78,7 +78,23 @@ option = {
     }
   }
 
-ec.st_echarts(options=option)
+events = {
+    "click": "function(params) { console.log(params.name) }"
+}
+
+from pyecharts.charts import WordCloud
+from pyecharts import options as opts
+
+chart = WordCloud(
+    init_opts=opts.InitOpts(
+            animation_opts=opts.AnimationOpts(
+                animation_delay=100, animation_easing="elasticOut"
+            )
+        )
+).add("", [("Welcome", 200) for i in range(10)], shape="circle")
+ec.st_pyecharts(chart)
+
+ec.st_echarts(options=option, events=events)
 
 if 'prev' in st.session_state.keys():
     previous_page = st.session_state['prev']
