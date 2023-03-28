@@ -84,17 +84,23 @@ events = {
 
 from pyecharts.charts import WordCloud
 from pyecharts import options as opts
+import numpy as np
 
 chart = WordCloud(
     init_opts=opts.InitOpts(
             animation_opts=opts.AnimationOpts(
-                animation_delay=100, animation_easing="elasticOut"
+                animation_delay=1000, 
+                animation_easing="easeOut"
             )
         )
-).add("", [("Welcome", 200) for i in range(10)], shape="circle")
+).add("", [(
+    "Welcome", np.random.randint(0, 4)) for i in range(50)
+    ], shape="octagon"
+    )
+
 ec.st_pyecharts(chart)
 
-ec.st_echarts(options=option, events=events)
+# ec.st_echarts(options=option, events=events)
 
 if 'prev' in st.session_state.keys():
     previous_page = st.session_state['prev']
