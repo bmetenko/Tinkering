@@ -52,3 +52,41 @@ st.image(image_convert_from_single_channel(laplacian), clamp=True, channels='BGR
 st.image(image_convert_from_single_channel(sobelx), clamp=True, channels='BGR')
 "# Sobel Y"
 st.image(image_convert_from_single_channel(sobely), clamp=True, channels='BGR')
+
+"## Sobel X - Y"
+st.image(image_convert_from_single_channel(
+    np.subtract(sobelx, sobely)
+    ), clamp=True, channels='BGR')
+
+"## Sobel Y - X"
+st.image(image_convert_from_single_channel(
+    np.subtract(sobelx, sobely)
+    ), clamp=True, channels='BGR')
+
+
+"## Sobel Y * X"
+st.image(image_convert_from_single_channel(
+    np.multiply(sobelx, sobely)
+    ), clamp=True, channels='BGR')
+
+"## Sobel Y / X"
+st.image(image_convert_from_single_channel(
+    np.divide(sobelx, sobely)
+    ), clamp=True, channels='BGR')
+
+"## Sobel Y <dot> X"
+st.image(image_convert_from_single_channel(
+    np.dot(sobelx, sobely)
+    ), clamp=True, channels='BGR')
+
+"## Sobel Y <dot> X(T)"
+st.image(image_convert_from_single_channel(
+    np.dot(sobelx, sobely.T)
+    ), clamp=True, channels='BGR')
+
+"## Laplacian of a laplacian"
+st.image(
+    image_convert_from_single_channel(
+    cv.Laplacian(laplacian,cv.CV_64F)
+    ),
+    clamp=True, channels='BGR')
