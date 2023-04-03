@@ -90,3 +90,10 @@ st.image(
     cv.Laplacian(laplacian,cv.CV_64F)
     ),
     clamp=True, channels='BGR')
+
+
+go_back = st.button("Go back to the beginning!")
+if go_back:
+    from streamlit_extras.switch_page_button import switch_page
+    st.session_state['prev'] = 'image_bounds'
+    switch_page("introduction")

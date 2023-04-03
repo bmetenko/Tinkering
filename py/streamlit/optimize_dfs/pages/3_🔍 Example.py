@@ -141,3 +141,29 @@ if go_back:
     from streamlit_extras.switch_page_button import switch_page
     st.session_state['prev'] = 'example'
     switch_page("introduction")
+
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+""
+secret_page = st.button('do not press')
+if secret_page:
+    from streamlit_extras.switch_page_button import switch_page
+    st.session_state['prev'] = 'example'
+    switch_page("image_bounds")
