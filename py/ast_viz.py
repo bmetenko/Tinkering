@@ -11,10 +11,6 @@ def main():
     dump = ast.dump(ast_tree, indent=2)
     print(dump)
 
-    # visitor = NewVisitor()
-    # visitor.visit(ast_tree)
-    # visitor.print_all()
-
 
 class NewVisitor(ast.NodeVisitor):
     

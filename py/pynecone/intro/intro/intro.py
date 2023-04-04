@@ -4,9 +4,9 @@ import string
 from typing import List
 
 import numpy as np
-from pcconfig import config
+# from pcconfig import config
 import pynecone as pc
-import plotly as pl
+# import plotly as pl
 import plotly.graph_objects as go
 import pandas as pd
 
