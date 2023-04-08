@@ -1,3 +1,4 @@
+from textual import log
 from textual.app import App, ComposeResult
 from textual.containers import Container
 from textual.widgets import Header, Footer
@@ -36,13 +37,19 @@ class Stopwatch(App):
         new_timer = StopwatchWidget()
         self.query_one("#timers").mount(new_timer)
         new_timer.scroll_visible()
+        log(f"Added timer {new_timer}")
 
     def action_remove_timer(self) -> None:
         timers = self.query("StopwatchWidget")
+        
+        log("Removed timer: {timers.last()}")
+
         if timers:
             timers.last().remove()
 
+        
     def action_quit(self) -> None:
+        log("[bold red]DANGER![/] App called to quit...")
         quit()
 
 if __name__ == "__main__":
