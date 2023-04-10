@@ -5,13 +5,12 @@ from textual.containers import Container
 from textual.widgets import Header, Footer
 from stopwatch_widget import StopwatchWidget 
 
-global count 
-count = 3
-
 class Stopwatch(App):
     """
     # Todo: Docstring
     """
+
+    timer_count = 3
     
     CSS_PATH = "stopwatch_style.css"
 
@@ -43,8 +42,8 @@ class Stopwatch(App):
         
         global count
 
-        alpha = 1 - 0.05 * (count % 20)
-        count += 1
+        alpha = 1 - 0.05 * (self.timer_count % 20)
+        self.timer_count += 1
         new_timer.styles.background = Color(19, 224, 24, a=alpha)
 
         new_timer.scroll_visible()
@@ -56,7 +55,7 @@ class Stopwatch(App):
         timers = self.query("StopwatchWidget")
         
         log("Removed timer: {timers.last()}")
-        count -= 1
+        self.timer_count -= 1
 
         if timers:
             timers.last().remove()
