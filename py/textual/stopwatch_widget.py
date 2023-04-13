@@ -3,6 +3,7 @@ from time import monotonic
 from textual.app import ComposeResult
 from textual.reactive import reactive
 from textual.widgets import Button, Static
+from textual.color import Color
 
 class TimeDisplay(Static):
     """Empty?"""
@@ -19,6 +20,9 @@ class TimeDisplay(Static):
                     self.update_time, 
                     pause=True
                 )
+        self.styles.opacity = 0.0 
+        self.styles.animate("opacity", value=1.0, duration=2.0)
+        self.styles.animate("color", value=Color.parse("purple"), duration=3.0)
 
     def update_time(self) -> None:
         """ Update time on widget. """
