@@ -3,6 +3,13 @@ from textual.app import App, ComposeResult
 from textual.containers import VerticalScroll
 from textual.widgets import Label, Button, Header, Input
 
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, GenerationConfig
+
+model_name = 'google/flan-t5-xl'
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
+
+config = GenerationConfig(max_new_tokens=200)
 
 class QuestionApp(App[str]):
     CSS = """
@@ -47,9 +54,18 @@ class QuestionApp(App[str]):
         except ValueError:
             return
         
+        self.TITLE = "Loading..."
+        
         text_log.mount(Label(str(value)))
 
+        tokens = tokenizer(value, return_tensors="pt")
+        outputs = model.generate(**tokens, generation_config=config)
+        out_text = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+
+        text_log.mount(Label(" ".join(out_text)))
+
         self.query_one(Input).value = ""
+        self.TITLE = "A Question App for LLMs"
 
 
 if __name__ == "__main__":
