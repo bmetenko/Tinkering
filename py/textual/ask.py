@@ -1,6 +1,6 @@
 from textual.binding import Binding
 from textual.app import App, ComposeResult
-from textual.containers import VerticalScroll
+from textual.containers import VerticalScroll, HorizontalScroll
 from textual.widgets import Label, Button, Header, Input
 
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM, GenerationConfig
@@ -9,7 +9,11 @@ model_name = 'google/flan-t5-xl'
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = AutoModelForSeq2SeqLM.from_pretrained(model_name)
 
-config = GenerationConfig(max_new_tokens=200)
+config = GenerationConfig(max_new_tokens=400)
+
+global accumulated_text 
+
+accumulated_text= ""
 
 class QuestionApp(App[str]):
     CSS = """
@@ -43,9 +47,12 @@ class QuestionApp(App[str]):
         yield Header(show_clock=True)
         yield Label("What's your question?", id="question")
         yield Input(placeholder="Type it here")
-        yield VerticalScroll(id="history")
+        yield HorizontalScroll(VerticalScroll(id="history"))
 
     def action_submit_prompt(self) -> None:
+
+        global accumulated_text
+
         text_log = self.query_one(VerticalScroll)
 
         text_value = self.query_one(Input).value
@@ -56,13 +63,19 @@ class QuestionApp(App[str]):
         
         self.TITLE = "Loading..."
         
-        text_log.mount(Label(str(value)))
+        question = "Question:" + str(value)
+        text_log.mount(Label(question))
 
-        tokens = tokenizer(value, return_tensors="pt")
+        accumulated_text += question
+
+        tokens = tokenizer(accumulated_text, return_tensors="pt")
         outputs = model.generate(**tokens, generation_config=config)
         out_text = tokenizer.batch_decode(outputs, skip_special_tokens=True)
 
-        text_log.mount(Label(" ".join(out_text)))
+        answer = "Answer:" + " ".join(out_text)
+        text_log.mount(Label(answer))
+
+        accumulated_text += answer
 
         self.query_one(Input).value = ""
         self.TITLE = "A Question App for LLMs"
