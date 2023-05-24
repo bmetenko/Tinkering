@@ -42,4 +42,13 @@ with ste.elements("title"): # type: ignore
     )
     
 
+with st.expander("Streamlit Expander", True):
+    with ste.elements("Intenal Expander"): # type: ignore
+        # ste.mui.Typography("Test")
+        with ste.mui.Accordion():
+            with ste.mui.AccordionSummary(expandIcon=ste.mui.icon.ExpandMore()):
+                ste.mui.Typography("Internal Expander from MUI")
+
+            with ste.mui.AccordionDetails():
+                ste.mui.Alert("Internal Expander content", severity="warning")
     
