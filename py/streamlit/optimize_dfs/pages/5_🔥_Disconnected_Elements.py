@@ -2,6 +2,7 @@ import streamlit as st
 import streamlit_elements as ste
 
 
+# region Typography
 with ste.elements("title"): # type: ignore
     ste.mui.Typography(
         "Disconnected Elements", 
@@ -40,8 +41,10 @@ with ste.elements("title"): # type: ignore
             "padding": "5px"
         }
     )
-    
 
+# endregion
+    
+# region Expanders
 with st.expander("Streamlit Expander", True):
     with ste.elements("Intenal Expander"): # type: ignore
         # ste.mui.Typography("Test")
@@ -51,4 +54,25 @@ with st.expander("Streamlit Expander", True):
 
             with ste.mui.AccordionDetails():
                 ste.mui.Alert("Internal Expander content", severity="warning")
+
+# endregion
+
+# region Grid
+
+with ste.elements("grid"): # type: ignore
+    layout = [
+        # Parameters: element_identifier, x_pos, y_pos, width, height, [item properties...]
+        ste.dashboard.Item("1st", 0, 0, 2, 2),
+        ste.dashboard.Item("2nd", 2, 0, 2, 2, isDraggable=False, moved=False),
+        ste.dashboard.Item("3rd", 0, 2, 2, 2, isResizable=False),
+        ]
     
+    with ste.dashboard.Grid(layout):
+        ste.mui.Paper("First item (✅ drag and ✅ resize)", key="1st", sx={"padding": "1em"})
+        ste.mui.Paper("Second item (❌ drag)", key="2nd", sx={"padding": "1em"})
+        ste.mui.Paper("Third item (❌ resize)", key="3rd", sx={"padding": "1em"})
+
+# endregion
+
+# Continue: https://okld-gallery.streamlit.app/?p=elements
+# Ref: https://mui.com/material-ui/react-accordion/
