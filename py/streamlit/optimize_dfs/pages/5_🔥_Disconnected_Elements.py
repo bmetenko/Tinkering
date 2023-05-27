@@ -60,6 +60,18 @@ with st.expander("Streamlit Expander", True):
 # region Grid
 
 with ste.elements("grid"): # type: ignore
+
+    if "first_item_resize" not in st.session_state:
+        st.session_state.first_item_resize = None
+
+    if st.session_state.first_item_resize is not None:
+        text = f"{st.session_state.first_item_resize.target.value} resized or text changed since resize is odd."
+
+    else:
+        text = "Resize item 1 ..."
+
+    ste.mui.Typography(text)
+
     layout = [
         # Parameters: element_identifier, x_pos, y_pos, width, height, [item properties...]
         ste.dashboard.Item("1st", 0, 0, 2, 2),
@@ -68,9 +80,15 @@ with ste.elements("grid"): # type: ignore
         ]
     
     with ste.dashboard.Grid(layout):
-        ste.mui.Paper("First item (✅ drag and ✅ resize)", key="1st", sx={"padding": "1em"})
+        ste.mui.Paper(
+            "First item (✅ drag and ✅ resize)", 
+            key="1st", 
+            sx={"padding": "1em"},
+            onChange=ste.sync("first_item_resize"))
         ste.mui.Paper("Second item (❌ drag)", key="2nd", sx={"padding": "1em"})
         ste.mui.Paper("Third item (❌ resize)", key="3rd", sx={"padding": "1em"})
+
+        ste.mui.TextField(label="Input some text here", onChange=ste.sync("first_item_resize"))
 
 # endregion
 
