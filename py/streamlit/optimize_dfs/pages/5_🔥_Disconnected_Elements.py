@@ -1,6 +1,14 @@
+import numpy as np
 import streamlit as st
 import streamlit_elements as ste
 
+i0 = np.random.randint(0, 100, size=100)
+i1 = np.random.randint(0, 100, size=100)
+j = zip(i0, i1)
+
+data = [
+    { "id": i, "x": str(j[0]), "y": str(j[1])} for i, j in enumerate(j) 
+]
 
 # region Typography
 with ste.elements("title"): # type: ignore
@@ -89,6 +97,20 @@ with ste.elements("grid"): # type: ignore
         ste.mui.Paper("Third item (❌ resize)", key="3rd", sx={"padding": "1em"})
 
         ste.mui.TextField(label="Input some text here", onChange=ste.sync("first_item_resize"))
+
+    with ste.mui.Box(sx={"height": 500}): # type: ignore
+        ste.nivo.Voronoi(
+        data=data,
+        xDomain=[ 0, 100 ],
+        yDomain=[ 0, 100 ],
+        enableLinks=True,
+        linkLineColor="#cccccc",
+        cellLineColor="#c6432d",
+        pointSize=6,
+        pointColor="#5c2dc8",
+        margin={ "top": 1, "right": 1, "bottom": 1, "left": 1 }
+        )
+
 
 # endregion
 
