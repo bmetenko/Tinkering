@@ -111,6 +111,13 @@ with ste.elements("grid"): # type: ignore
         margin={ "top": 1, "right": 1, "bottom": 1, "left": 1 }
         )
 
+    with ste.mui.Box(sx={"display": "flex", "justifyContent": "center"}):
+        ste.media.Player(
+            url="https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            loop=True,
+            pip=True,
+            # onReady=lambda: print("loaded video...")
+        )
 
 # endregion
 
