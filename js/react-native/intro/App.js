@@ -8,6 +8,22 @@ import {
   SafeAreaView,
 } from "react-native";
 
+const ItemContainer = ({items}) => {
+
+  return (
+    <>
+      <ul className="ItemContainerBase">
+          {items.map(x => {
+            return <li>
+              <Text>{String(x)} {'\n'}</Text>
+              </li>;
+          })
+          }
+      </ul>
+    </>
+  )
+}
+
 const scrollItems = Array.from({ length: 400 }, () =>
   Math.floor(Math.random() * 40)
 );
@@ -20,12 +36,7 @@ export default function App() {
         <StatusBar style="auto" />
       </View> */}
       <SafeAreaView>
-        <div>
-          {scrollItems.map(x => {
-            return <Text>{String(x)} {'\n'}</Text>;
-          })
-          }
-        </div>
+        <ItemContainer items={scrollItems} />
       </SafeAreaView>
     </>
   );
