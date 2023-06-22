@@ -4,6 +4,21 @@ from reactpy import component, html, run, hooks
 def hello_world():
     return html.h1("Hello, World!")
 
+@component
+def Photo():
+
+    def handle_photo_click():
+        print("Photo clicked.")
+        
+    return html.img(
+        {
+            "src": "https://picsum.photos/id/456/500/300",
+            "style": {"width": "50%"},
+            "alt": "Puppy",
+            "on_click": handle_photo_click()
+        }
+    )
+
 
 def increment(last_count):
     return last_count + 1
@@ -36,6 +51,7 @@ def Counter():
         ),
         html.button({"on_click": lambda event: set_count(increment)}, "+"),
         html.button({"on_click": lambda event: set_count(decrement)}, "-"),
+        Photo()
     )
 
 run(Counter)
