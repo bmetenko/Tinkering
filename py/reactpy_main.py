@@ -9,15 +9,18 @@ def Photo():
 
     def handle_photo_click():
         print("Photo clicked.")
-        
-    return html.img(
-        {
-            "src": "https://picsum.photos/id/456/500/300",
-            "style": {"width": "50%"},
-            "alt": "Puppy",
-            "on_click": handle_photo_click()
-        }
-    )
+
+    return html.button(
+        { "on_click": handle_photo_click() },
+        html.img(
+            {
+                "src": "https://picsum.photos/id/456/500/300",
+                "style": {"width": "50%"},
+                "alt": "Puppy",
+                "on_click": handle_photo_click()
+            }
+            ),
+        )
 
 
 def increment(last_count):
