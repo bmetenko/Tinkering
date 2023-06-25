@@ -1,22 +1,36 @@
-import argparse
+import os
+# import argparse
 
-var p = newParser:
-  flag("-a", "--apple")
-  flag("-b", help="Show a banana")
-  option("-o", "--output", help="Output to this file")
-  command("somecommand"):
-    arg("name")
-    arg("others", nargs = -1)
-    run:
-      echo opts.name
-      echo opts.others
-      echo opts.parentOpts.apple
-      echo opts.parentOpts.b
-      echo opts.parentOpts.output
-      echo opts.parentOpts.output_opt.get()
+# let p = newParser("example"):
+#   help("A demonstration of this library in a program named {prog}")
 
-try:
-  p.run(@["--apple", "-o=foo", "somecommand", "myname", "thing1", "thing2"])
-except UsageError as e:
-  stderr.writeLine getCurrentExceptionMsg()
-  quit(1)
+#   option("-c", "--config", help="Configuration file")
+
+#[
+    Simpler Approach first
+    #[
+        Nested Comments are interesting.
+
+        #[
+            How far can this go?
+        ]#
+    ]#
+]#
+
+proc main() =
+  let args = commandLineParams()
+  
+  # Check the number of arguments
+  if args.len < 2:
+    echo "Usage: myprogram <arg1> <arg2>"
+    quit(1)
+  
+  # Accessing individual arguments
+  let arg1 = args[0]
+  let arg2 = args[1]
+  
+  # Process the arguments
+  echo "Argument 1: ", arg1
+  echo "Argument 2: ", arg2
+
+main()
