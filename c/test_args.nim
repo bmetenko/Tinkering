@@ -1,5 +1,6 @@
 import os
 import strutils
+import std/times
 # import argparse
 
 # let p = newParser("example"):
@@ -31,22 +32,36 @@ proc main() =
 
   var start = "0"
   var arg_end = "0"
+  var date_format = "ddMMMyyyy"
+
+  var arg_val: string = ""
 
   for arg in args:
-    var arg_val: string = ""
     echo arg
 
     if arg.contains("="):
-      arg_val = arg1.split("=")[1]
+      arg_val = arg.split("=")[1]
       echo arg_val
 
-    if arg.contains("-start"):
-      echo "argument start is ", arg_val
-      start = arg_val
+      if arg.contains("-start"):
+        echo "argument start is ", arg_val
+        start = arg_val
 
-    if arg.contains("-end"):
-      echo "argument end is ", arg_val
-      arg_end = arg_val
+      if arg.contains("-end"):
+        echo "argument end is ", arg_val
+        arg_end = arg_val
+
+      if arg.contains("-format"):
+        echo "argument format is ", arg_val
+        date_format = arg_val
+
+    arg_val = ""
+
+  let day_start = parse(start, date_format)
+  let day_end = parse(arg_end, date_format)
+
+  echo day_start.format("yyyy-MM-dd")
+  echo day_end.format("yyyy-MM-dd")
 
   
   # Process the arguments
