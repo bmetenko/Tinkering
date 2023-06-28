@@ -24,7 +24,7 @@ proc main() =
   
   # Check the number of arguments
   if args.len < 2:
-    echo "Usage: test_args -start=06Jun2023 -end=07Jun2023"
+    echo "Usage: test_args -start=06Jun2023 -end=07Jun2023 -format=ddMMMyyyy"
     quit(1)
   
   let arg1 = args[0]
@@ -69,7 +69,9 @@ proc main() =
   echo "Argument 2: ", arg2
 
   echo "\n"
-  echo "starting with: ", start
-  echo "ending with: ", arg_end
+  echo "starting with: ", start, ", ", day_start.weekday
+  echo "ending with: ", arg_end, ", ", day_end.weekday
+
+  echo "between these is: ", (day_end - day_start).inDays, " days"
 
 main()
