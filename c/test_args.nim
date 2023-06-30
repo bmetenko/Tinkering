@@ -72,6 +72,36 @@ proc main() =
   echo "starting with: ", start, ", ", day_start.weekday
   echo "ending with: ", arg_end, ", ", day_end.weekday
 
-  echo "between these is: ", (day_end - day_start).inDays, " days"
+  let between_dates = (day_end - day_start)
+
+  type 
+    DateRange = object
+      rangeStart: DateTime
+      rangeEnd: DateTime
+
+  # List-like iterator
+  iterator items(range: DateRange): DateTime =
+    var i = range.rangeStart
+    while i <= range.rangeEnd:
+      yield i
+      i = i + initDuration(days = 1)
+
+  # Enumerate-Like iterator
+  # Uses values from items function as enumerated indeces though,
+  # simplifying this to integer values might be better... 
+  iterator pairs(range: DateRange): tuple[a: DateTime, b: string] =
+    for i in range:  # uses CustomRange.items
+      yield (i, i.format("yyyy-MM-dd"))
+
+  # Example: enumarate-like
+  for i, c in DateRange(rangeStart: day_start, rangeEnd: day_end):
+    echo i, " - ", c
+
+  # Example: list-like
+  for j in DateRange(rangeStart: day_start, rangeEnd: day_end):
+    echo " - ", j
+  
+  echo "between these is: ", between_dates.inDays, " days"
+  echo "which is also: ", between_dates.inHours, " hours"
 
 main()
