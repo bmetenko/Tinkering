@@ -1,12 +1,10 @@
 import os
 import strutils
 import std/times
-# import argparse
 
-# let p = newParser("example"):
-#   help("A demonstration of this library in a program named {prog}")
 
-#   option("-c", "--config", help="Configuration file")
+# Usage:
+# nim c -r -d:release test_args.nim -start=04Jan2023 -end=03Jun2023 -format=ddMMMyyyy -outFormat=yyyyMMdd
 
 #[
     Simpler Approach first
@@ -24,7 +22,7 @@ proc main() =
   
   # Check the number of arguments
   if args.len < 2:
-    echo "Usage: test_args -start=06Jun2023 -end=07Jun2023 -format=ddMMMyyyy"
+    echo "Usage: test_args -start=06Jun2023 -end=07Jun2023 -format=ddMMMyyyy -outFormat=ddMMMyyyy"
     quit(1)
   
   let arg1 = args[0]
@@ -33,6 +31,7 @@ proc main() =
   var start = "0"
   var arg_end = "0"
   var date_format = "ddMMMyyyy"
+  var out_format = date_format
 
   var arg_val: string = ""
 
@@ -55,13 +54,17 @@ proc main() =
         echo "argument format is ", arg_val
         date_format = arg_val
 
+      if arg.contains("-outFormat"):
+        echo "argument outFormat is ", arg_val
+        out_format = arg_val
+
     arg_val = ""
 
   let day_start = parse(start, date_format)
   let day_end = parse(arg_end, date_format)
 
-  echo day_start.format("yyyy-MM-dd")
-  echo day_end.format("yyyy-MM-dd")
+  echo day_start.format(out_format)
+  echo day_end.format(out_format)
 
   
   # Process the arguments
@@ -69,8 +72,8 @@ proc main() =
   echo "Argument 2: ", arg2
 
   echo "\n"
-  echo "starting with: ", start, ", ", day_start.weekday
-  echo "ending with: ", arg_end, ", ", day_end.weekday
+  echo "starting with: ", day_start.format(out_format), ", ", day_start.weekday
+  echo "ending with: ", day_end.format(out_format), ", ", day_end.weekday
 
   let between_dates = (day_end - day_start)
 
@@ -91,16 +94,16 @@ proc main() =
   # simplifying this to integer values might be better... 
   iterator pairs(range: DateRange): tuple[a: DateTime, b: string] =
     for i in range:  # uses CustomRange.items
-      yield (i, i.format("yyyy-MM-dd"))
-
-  # Example: enumarate-like
-  for i, c in DateRange(rangeStart: day_start, rangeEnd: day_end):
-    echo i, " - ", c
+      yield (i, i.format(out_format))
 
   # Example: list-like
   for j in DateRange(rangeStart: day_start, rangeEnd: day_end):
     echo " - ", j
   
+  # Example: enumarate-like
+  for i, c in DateRange(rangeStart: day_start, rangeEnd: day_end):
+    echo i, " - ", c
+
   echo "between these is: ", between_dates.inDays, " days"
   echo "which is also: ", between_dates.inHours, " hours"
 
