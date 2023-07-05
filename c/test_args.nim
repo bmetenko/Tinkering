@@ -109,6 +109,8 @@ proc main() =
   echo "between these is: ", between_dates.inDays, " days"
   echo "which is also: ", between_dates.inHours, " hours"
 
-  echo "ran in this many seconds: ", cpuTime() - startTime
+  echo "ran in this many seconds: ", (cpuTime() - startTime)
+
+  echo "$(value) printout overload string for duration: ", $(between_dates)
 
 main()
