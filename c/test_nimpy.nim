@@ -8,3 +8,15 @@ proc greet(name: string): string {.exportpy.} =
     nimble install nimpy
     nim c --app:lib --out:test_nimpy.so --threads:on test_nimpy
 ]#
+
+
+proc check_py_call(): string {.exportpy.} =
+  let os = pyImport("os")
+  echo "Current dir is: ", os.getcwd().to(string)
+
+# sum(range(1, 5))
+  let py = pyBuiltinsModule()
+  let s = py.sum(py.range(0, 5)).to(int)
+  assert s == 10
+
+  return $(s)

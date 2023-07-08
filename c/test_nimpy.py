@@ -5,3 +5,6 @@ assert mymodule.greet(name="world") == "Hello, world!"
 
 print("Passed all tests here...")
 print(f"{mymodule.greet(name='world')=}")
+
+
+print(f"{mymodule.check_py_call()}")
