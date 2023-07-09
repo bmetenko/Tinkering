@@ -20,3 +20,7 @@ proc check_py_call(): string {.exportpy.} =
   assert s == 10
 
   return $(s)
+
+
+proc tupleDiff(a, b: tuple[x, y: int]): tuple[x, y: int] {.exportpy: "tuple_diff".} =
+  result = (a.x - b.x, a.y - b.y)
