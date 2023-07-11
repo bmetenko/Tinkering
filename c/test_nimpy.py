@@ -19,10 +19,12 @@ import timeit
 
 a = timeit.timeit("""
 mymodule.tuple_diff(t1, t2)
-""", number=1000, setup='import test_nimpy as mymodule; t1 = (1,2); t2 = (3,4);')
+""", number=10000, setup='import test_nimpy as mymodule; t1 = (1,2); t2 = (3,4);')
 
 b = timeit.timeit("""
 (t1[i] - t2[i] for i in range(2))
-""", number=1000)
+""", number=10000)
 
 print(f"{a=}, {b=}")
+
+print(mymodule.nim_json()) # type: ignore
