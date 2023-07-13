@@ -33,3 +33,16 @@ proc nimOutConfig(): JsonNode {.exportpy: "nim_json".} =
                 "nested" : [1, 2, 3.5, {"InArray" : 5}],
                 "dictLike" : { "Nested" : "Value" }
               }
+
+iterator testIterator(s: string): int {.exportpy: "iter_from_nim".} =
+  for i in 0 ..< s.len:
+    yield i
+
+
+type
+  Obj = object
+    a, b: int
+    c: string
+
+proc validateMyObj(o: Obj): bool {.exportpy: "validate_obj".} =
+  o.a == 5 and o.b == 3 and o.c == "hello"

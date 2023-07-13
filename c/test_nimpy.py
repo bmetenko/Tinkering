@@ -28,3 +28,22 @@ b = timeit.timeit("""
 print(f"{a=}, {b=}")
 
 print(mymodule.nim_json()) # type: ignore
+
+
+from dataclasses import dataclass
+
+@dataclass
+class Obj:
+    a: int
+    b: int
+    c: str
+
+
+a_test = Obj(a=5, b=3, c="hello")
+
+print(a_test)
+print(mymodule.validate_obj(a_test)) # type: ignore
+## ODDLY this is false, because we have to reference
+#  and create the object internal to Nim for it to correctly validate?
+
+# Need to import as a py object??
