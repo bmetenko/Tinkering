@@ -39,7 +39,9 @@ class Obj:
     c: str
 
 
-a_test = Obj(a=5, b=3, c="hello")
+print(dir(mymodule))
+
+a_test = mymodule.MyRefObj(a=5, b=3, c="hello")
 
 print(a_test)
 print(mymodule.validate_obj(a_test)) # type: ignore

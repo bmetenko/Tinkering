@@ -40,9 +40,11 @@ iterator testIterator(s: string): int {.exportpy: "iter_from_nim".} =
 
 
 type
-  Obj = object
+  Obj = ref object of PyNimObjectExperimental
     a, b: int
     c: string
 
-proc validateMyObj(o: Obj): bool {.exportpy: "validate_obj".} =
+  MyRefObj = ref Obj
+
+proc validateMyObj(o: MyRefObj): bool {.exportpy: "validate_obj".} =
   o.a == 5 and o.b == 3 and o.c == "hello"
