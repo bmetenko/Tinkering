@@ -2,7 +2,7 @@ import numpy as np
 from lets_plot import (
     LetsPlot, ggplot, geom_density,
     ggsize, scale_fill_brewer, theme,
-    ggsave, aes, geom_histogram,
+    ggsave, aes, geom_text, geom_line,
     facet_wrap, geom_bar, geom_point
 )
 
@@ -33,10 +33,19 @@ main_plot = (
     ggsize(700, 300) +
     geom_bar() +
     geom_point() +
+    # pass in custom values as well.
+    geom_text(
+        aes(x=[1, 2, 3], y=[1, 2, 3], label=['a', 'b', 'c']),
+        nudge_x=0,
+        nudge_y=-0.25,
+        check_overlap=True,
+        size=24,
+    ) +
+    geom_line(aes(x=[1, 2, 3], y=[1, 2, 3]), color='red') +
     geom_density(color='dark_green', alpha=.7) +
     scale_fill_brewer(type='seq') +
     theme(panel_grid_major_x='blank') +
-    facet_wrap('cond')
+    facet_wrap('cond', ncol=2)
 )
 
-ggsave(main_plot, filename="testplot2.png")
+ggsave(main_plot, filename="test_plot2.png")
