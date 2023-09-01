@@ -3,7 +3,8 @@ from lets_plot import (
     LetsPlot, ggplot, geom_density,
     ggsize, scale_fill_brewer, theme,
     ggsave, aes, geom_text, geom_line,
-    facet_wrap, geom_bar, geom_point
+    facet_wrap, geom_bar, geom_point,
+    geom_lollipop
 )
 
 LetsPlot.setup_html()
@@ -42,6 +43,7 @@ main_plot = (
         size=24,
     ) +
     geom_line(aes(x=[1, 2, 3], y=[1, 2, 3]), color='red') +
+    geom_lollipop(aes(color='cond'), size=0.1, shape=22, fill='black') +
     geom_density(color='dark_green', alpha=.7) +
     scale_fill_brewer(type='seq') +
     theme(panel_grid_major_x='blank') +
