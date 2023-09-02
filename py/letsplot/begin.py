@@ -4,7 +4,7 @@ from lets_plot import (
     ggsize, scale_fill_brewer, theme,
     ggsave, aes, geom_text, geom_line,
     facet_wrap, geom_bar, geom_point,
-    geom_lollipop
+    geom_lollipop, geom_smooth
 )
 
 LetsPlot.setup_html()
@@ -44,6 +44,8 @@ main_plot = (
     ) +
     geom_line(aes(x=[1, 2, 3], y=[1, 2, 3]), color='red') +
     geom_lollipop(aes(color='cond'), size=0.1, shape=22, fill='black') +
+    geom_smooth(color='red', deg=2, se=False, size=1, method='loess', span=.1, level=.3, seed=42) +
+    geom_smooth(color='blue') +
     geom_density(color='dark_green', alpha=.7) +
     scale_fill_brewer(type='seq') +
     theme(panel_grid_major_x='blank') +
