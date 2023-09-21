@@ -3,6 +3,7 @@ import click
 """
 usage: python3 -m click_hello hello --name=Dan --count=2
 chained call: python3 -m click_hello start hello --name=Dan --count=2 end
+python3 -m click_hello hello // also works
 
 """
 
@@ -73,4 +74,4 @@ main_group.add_command(hello)
 main_group.add_command(end_of_program)
 
 if __name__ == '__main__':
-    main_group()
+    main_group(default_map={"name": "user", "count": 1, "debug": True})
