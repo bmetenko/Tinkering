@@ -1,4 +1,5 @@
 import click
+import rich
 
 """
 usage: python3 -m click_hello hello --name=Dan --count=2
@@ -26,6 +27,7 @@ def main_group(ctx, debug, count, name):
     ctx.obj['DEBUG'] = debug
     ctx.obj['name'] = name
     ctx.obj['count'] = count
+
 
 @main_group.command()
 @click.option(
@@ -56,7 +58,8 @@ def hello(ctx, name, count):
 @main_group.command('start')
 @click.pass_context
 def start_of_program(ctx):
-    click.echo(ctx)
+    click.echo(rich.inspect(ctx))
+
     click.echo(click.style("- start of program -", blink=True, fg="red", bold=True))
 
 
@@ -72,6 +75,10 @@ def end_of_program():
 main_group.add_command(start_of_program)
 main_group.add_command(hello)
 main_group.add_command(end_of_program)
+
+@main_group.command('text')
+def long_text_example():
+    click.echo_via_pager("\n".join(f"Line {idx}" for idx in range(20)))
 
 if __name__ == '__main__':
     main_group(default_map={"name": "user", "count": 1, "debug": True})
