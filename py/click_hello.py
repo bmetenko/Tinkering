@@ -21,12 +21,17 @@ python3 -m click_hello hello // also works
     # prompt='name',
     help='who to greet.'
 )
+@click.option(
+    '--seconds',
+    help='number of seconds to wait.'
+)
 @click.pass_context
-def main_group(ctx, debug, count, name):
+def main_group(ctx, debug, count, name, seconds):
     ctx.ensure_object(dict)
     ctx.obj['DEBUG'] = debug
     ctx.obj['name'] = name
     ctx.obj['count'] = count
+    ctx.obj['seconds'] = seconds
 
 
 @main_group.command()
@@ -80,5 +85,18 @@ main_group.add_command(end_of_program)
 def long_text_example():
     click.echo_via_pager("\n".join(f"Line {idx}" for idx in range(20)))
 
+
+@main_group.command('time')
+@click.pass_context
+def wait_for(ctx):
+    import time
+    seconds = ctx.obj['seconds']
+
+    with click.progressbar([i for i in range(0, int(seconds))]) as bar:
+        for x in bar:
+            print(f" sleep({x} / {seconds})...")
+            time.sleep(1)
+
+
 if __name__ == '__main__':
-    main_group(default_map={"name": "user", "count": 1, "debug": True})
+    main_group(default_map={"name": "user", "count": 1, "debug": True, 'seconds': '5'})
