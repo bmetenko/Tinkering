@@ -22,16 +22,21 @@ python3 -m click_hello hello // also works
     help='who to greet.'
 )
 @click.option(
-    '--seconds',
+    '-s',
+    count=True
+)
+@click.option(
+    '--full_seconds',
     help='number of seconds to wait.'
 )
 @click.pass_context
-def main_group(ctx, debug, count, name, seconds):
+def main_group(ctx, debug, count, name, s, full_seconds):
     ctx.ensure_object(dict)
     ctx.obj['DEBUG'] = debug
     ctx.obj['name'] = name
     ctx.obj['count'] = count
-    ctx.obj['seconds'] = seconds
+    ctx.obj['seconds'] = s
+    ctx.obj['full_seconds'] = full_seconds
 
 
 @main_group.command()
@@ -81,6 +86,7 @@ main_group.add_command(start_of_program)
 main_group.add_command(hello)
 main_group.add_command(end_of_program)
 
+
 @main_group.command('text')
 def long_text_example():
     click.echo_via_pager("\n".join(f"Line {idx}" for idx in range(20)))
@@ -91,12 +97,19 @@ def long_text_example():
 def wait_for(ctx):
     import time
     seconds = ctx.obj['seconds']
+    full_seconds = ctx.obj['full_seconds']
 
+    ## python3 -m click_hello -ssss time
     with click.progressbar([i for i in range(0, int(seconds))]) as bar:
+        for x in bar:
+            print(f" counted sleep({x} / {seconds})...")
+            time.sleep(1)
+
+    with click.progressbar([i for i in range(0, int(full_seconds))]) as bar:
         for x in bar:
             print(f" sleep({x} / {seconds})...")
             time.sleep(1)
 
 
 if __name__ == '__main__':
-    main_group(default_map={"name": "user", "count": 1, "debug": True, 'seconds': '5'})
+    main_group(default_map={"name": "user", "count": 1, "debug": True, 'full_seconds': '0', 's': 0})
