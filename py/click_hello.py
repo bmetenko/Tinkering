@@ -29,14 +29,20 @@ python3 -m click_hello hello // also works
     '--full_seconds',
     help='number of seconds to wait.'
 )
+@click.option(
+    '--time_unit_override',
+    type=click.Choice(['minute(s)', 'second(s)', 'hour(s)'], case_sensitive=False),
+    default='second(s)'
+)
 @click.pass_context
-def main_group(ctx, debug, count, name, s, full_seconds):
+def main_group(ctx, debug, count, name, s, full_seconds, time_unit_override):
     ctx.ensure_object(dict)
     ctx.obj['DEBUG'] = debug
     ctx.obj['name'] = name
     ctx.obj['count'] = count
     ctx.obj['seconds'] = s
     ctx.obj['full_seconds'] = full_seconds
+    ctx.obj['time_unit_override'] = time_unit_override
 
 
 @main_group.command()
@@ -98,17 +104,25 @@ def wait_for(ctx):
     import time
     seconds = ctx.obj['seconds']
     full_seconds = ctx.obj['full_seconds']
+    time_unit = ctx.obj['time_unit_override']
+
+    multiply = 1
+    if time_unit == 'minute(s)':
+        multiply = 60
+
+    if time_unit == 'hour(s)':
+        multiply = 360
 
     ## python3 -m click_hello -ssss time
     with click.progressbar([i for i in range(0, int(seconds))]) as bar:
         for x in bar:
-            print(f" counted sleep({x} / {seconds})...")
-            time.sleep(1)
+            print(f" counted sleep({x} / {seconds} {time_unit})...")
+            time.sleep(multiply)
 
     with click.progressbar([i for i in range(0, int(full_seconds))]) as bar:
         for x in bar:
-            print(f" sleep({x} / {seconds})...")
-            time.sleep(1)
+            print(f" counted sleep({x} / {seconds} {time_unit})...")
+            time.sleep(multiply)
 
 
 if __name__ == '__main__':
