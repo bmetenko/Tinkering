@@ -1,3 +1,5 @@
+import os
+
 import click
 import rich
 
@@ -18,12 +20,14 @@ python3 -m click_hello hello // also works
 )
 @click.option(
     '--name',
-    # prompt='name',
-    help='who to greet.'
+    default=lambda: os.environ.get("USER", ""),
+    help='who to greet.',
+    show_default="current user"
 )
 @click.option(
     '-s',
-    count=True
+    count=True,
+    help='iterable count of s for unit time.'
 )
 @click.option(
     '--full_seconds',
@@ -74,6 +78,7 @@ def hello(ctx, name, count):
 @main_group.command('start')
 @click.pass_context
 def start_of_program(ctx):
+    """Start of Program Message"""
     click.echo(rich.inspect(ctx))
 
     click.echo(click.style("- start of program -", blink=True, fg="red", bold=True))
@@ -81,6 +86,7 @@ def start_of_program(ctx):
 
 @main_group.command('end')
 def end_of_program():
+    """End of Program Message"""
     click.echo(
         click.style("- end of", blink=True, fg="cyan", bold=True) +
         " " +
@@ -95,12 +101,14 @@ main_group.add_command(end_of_program)
 
 @main_group.command('text')
 def long_text_example():
+    """Scrollable Text Example"""
     click.echo_via_pager("\n".join(f"Line {idx}" for idx in range(20)))
 
 
 @main_group.command('time')
 @click.pass_context
 def wait_for(ctx):
+    """ Wait For (x) (unit time) """
     import time
     seconds = ctx.obj['seconds']
     full_seconds = ctx.obj['full_seconds']
@@ -126,4 +134,4 @@ def wait_for(ctx):
 
 
 if __name__ == '__main__':
-    main_group(default_map={"name": "user", "count": 1, "debug": True, 'full_seconds': '0', 's': 0})
+    main_group(default_map={"count": 1, "debug": True, 'full_seconds': '0', 's': 0})
