@@ -1,0 +1,2 @@
+[console_scripts]
+click_utils = click_hello:main_group
