@@ -8,11 +8,17 @@ usage: python3 -m click_hello hello --name=Dan --count=2
 chained call: python3 -m click_hello start hello --name=Dan --count=2 end
 python3 -m click_hello hello // also works
 
+if installed using: pip install --editable .
+- click_utils --name=dan --name=theo hello
 """
 
 
 @click.group(chain=True)
-@click.option('--debug/--no-debug', default=False)
+@click.option(
+    '--debug/--no-debug',
+    is_flag=True,
+    default=False
+)
 @click.option(
     '--count',
     default=1,
@@ -20,9 +26,10 @@ python3 -m click_hello hello // also works
 )
 @click.option(
     '--name',
-    default=lambda: os.environ.get("USER", ""),
+    default=lambda: [os.environ.get("USER", "")],
     help='who to greet.',
-    show_default="current user"
+    show_default="current user",
+    multiple=True
 )
 @click.option(
     '-s',
@@ -50,27 +57,16 @@ def main_group(ctx, debug, count, name, s, full_seconds, time_unit_override):
 
 
 @main_group.command()
-@click.option(
-    '--count',
-    default=1,
-    help='number of hellos.'
-)
-@click.option(
-    '--name',
-    # prompt='name',
-    help='who to greet.'
-)
 @click.pass_context
-def hello(ctx, name, count):
+def hello(ctx):
     """Simple program that greets NAME for a total of COUNT times."""
 
-    # start_of_program()
-    if not name or not count:
-        name = ctx.obj['name']
-        count = ctx.obj['count']
+    name = ctx.obj['name']
+    count = ctx.obj['count']
 
     for x in range(count):
-        click.echo(f"Hello {name}!")
+        for _name in name:
+            click.echo(f"Hello {_name}!")
 
     # end_of_program()
 
