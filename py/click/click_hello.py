@@ -9,9 +9,8 @@ chained call: python3 -m click_hello start hello --name=Dan --count=2 end
 python3 -m click_hello hello // also works
 
 if installed using: pip install --editable .
-- click_utils --name=dan --name=theo hello
+- click_utils --name=reese --name=glen hello
 """
-
 
 @click.group(chain=True)
 @click.option(
@@ -31,6 +30,9 @@ if installed using: pip install --editable .
     show_default="current user",
     multiple=True
 )
+@click.option('--upper', 'transform', flag_value='upper',
+              default=True)
+@click.option('--lower', 'transform', flag_value='lower')
 @click.option(
     '-s',
     count=True,
@@ -46,7 +48,7 @@ if installed using: pip install --editable .
     default='second(s)'
 )
 @click.pass_context
-def main_group(ctx, debug, count, name, s, full_seconds, time_unit_override):
+def main_group(ctx, debug, count, name, transform, s, full_seconds, time_unit_override):
     ctx.ensure_object(dict)
     ctx.obj['DEBUG'] = debug
     ctx.obj['name'] = name
@@ -54,6 +56,7 @@ def main_group(ctx, debug, count, name, s, full_seconds, time_unit_override):
     ctx.obj['seconds'] = s
     ctx.obj['full_seconds'] = full_seconds
     ctx.obj['time_unit_override'] = time_unit_override
+    ctx.obj['transformation'] = transform
 
 
 @main_group.command()
@@ -63,6 +66,14 @@ def hello(ctx):
 
     name = ctx.obj['name']
     count = ctx.obj['count']
+
+    transform_text = ctx.obj['transformation']
+
+    if transform_text == 'lower':
+        name = [str(i).lower() for i in name]
+
+    if transform_text == 'upper':
+        name = [str(i).upper() for i in name]
 
     for x in range(count):
         for _name in name:
@@ -117,7 +128,7 @@ def wait_for(ctx):
     if time_unit == 'hour(s)':
         multiply = 360
 
-    ## python3 -m click_hello -ssss time
+    # python3 -m click_hello -ssss time
     with click.progressbar([i for i in range(0, int(seconds))]) as bar:
         for x in bar:
             print(f" counted sleep({x} / {seconds} {time_unit})...")
@@ -130,4 +141,4 @@ def wait_for(ctx):
 
 
 if __name__ == '__main__':
-    main_group(default_map={"count": 1, "debug": True, 'full_seconds': '0', 's': 0})
+    main_group(default_map={"count": 1, "debug": True, 'full_seconds': '0', 's': 0, 'transformation': 'lower'})
