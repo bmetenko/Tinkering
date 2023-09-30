@@ -1,4 +1,5 @@
 import os
+import logging
 
 import click
 import rich
@@ -21,7 +22,8 @@ if installed using: pip install --editable .
 @click.option(
     '--count',
     default=1,
-    help='number of hellos.'
+    help='number of hellos.',
+    type=click.IntRange(0, 5, clamp=True)
 )
 @click.option(
     '--name',
@@ -66,6 +68,13 @@ def hello(ctx):
 
     name = ctx.obj['name']
     count = ctx.obj['count']
+    click.echo(int(count))
+
+    if int(count) == 5:
+        click.secho('Count is clamped to 5.', fg='red')
+
+    if int(count) == 0:
+        click.secho('Count cannot be negative.', fg='red')
 
     transform_text = ctx.obj['transformation']
 
