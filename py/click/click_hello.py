@@ -13,6 +13,7 @@ if installed using: pip install --editable .
 - click_utils --name=reese --name=glen hello
 """
 
+
 @click.group(chain=True)
 @click.option(
     '--debug/--no-debug',
@@ -68,7 +69,7 @@ def hello(ctx):
 
     name = ctx.obj['name']
     count = ctx.obj['count']
-    click.echo(int(count))
+    # click.echo(int(count))
 
     if int(count) == 5:
         click.secho('Count is clamped to 5.', fg='red')
@@ -147,6 +148,27 @@ def wait_for(ctx):
         for x in bar:
             print(f" counted sleep({x} / {seconds} {time_unit})...")
             time.sleep(multiply)
+
+
+@main_group.command('path_copy')
+def path_copy():
+    """ Copy path to clipboard """
+
+    import platform
+    import os
+    import subprocess
+
+    current_dir = os.getcwd()
+
+    if platform.system() == 'Darwin':
+        cmd = 'echo ' + str(current_dir).strip() + '|pbcopy'
+        subprocess.check_call(cmd, shell=True)
+
+    if platform.system() == 'Windows':
+        cmd = 'echo ' + str(current_dir).strip() + '|clip'
+        return subprocess.check_call(cmd, shell=True)
+
+
 
 
 if __name__ == '__main__':
