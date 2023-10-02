@@ -149,6 +149,7 @@ def wait_for(ctx):
             print(f" counted sleep({x} / {seconds} {time_unit})...")
             time.sleep(multiply)
 
+    click.secho('Wait operation complete.', bg='green', fg='blue')
 
 @main_group.command('path_copy')
 def path_copy():
@@ -160,13 +161,24 @@ def path_copy():
 
     current_dir = os.getcwd()
 
+    copied = False
     if platform.system() == 'Darwin':
         cmd = 'echo ' + str(current_dir).strip() + '|pbcopy'
         subprocess.check_call(cmd, shell=True)
+        copied = True
 
     if platform.system() == 'Windows':
         cmd = 'echo ' + str(current_dir).strip() + '|clip'
-        return subprocess.check_call(cmd, shell=True)
+        subprocess.check_call(cmd, shell=True)
+        copied = True
+
+    if copied:
+        click.echo(f'`{current_dir}` path copied successfully.')
+
+        return
+
+    click.echo('Unrecognized system, copy failed.')
+
 
 
 
