@@ -139,15 +139,23 @@ def wait_for(ctx):
         multiply = 360
 
     # python3 -m click_hello -ssss time
-    with click.progressbar([i for i in range(0, int(seconds))]) as bar:
-        for x in bar:
-            print(f" counted sleep({x} / {seconds} {time_unit})...")
-            time.sleep(multiply)
+    # with click.progressbar([i for i in range(0, int(seconds))]) as bar:
+    #     for x in bar:
+    #         print(f" counted sleep({x} / {seconds} {time_unit})...")
+    #         time.sleep(multiply)
 
-    with click.progressbar([i for i in range(0, int(full_seconds))]) as bar:
-        for x in bar:
-            print(f" counted sleep({x} / {seconds} {time_unit})...")
-            time.sleep(multiply)
+    # fix error here
+    # if full_seconds is not None:
+    #     rich.print(full_seconds)
+    #     with click.progressbar([i for i in range(0, int(full_seconds))]) as bar:
+    #         for x in bar:
+    #             print(f" counted sleep({x} / {full_seconds} {time_unit})...")
+    #             time.sleep(multiply)
+
+    from rich.progress import track
+    for i in track((range(0, int(seconds))), description="Processing..."):
+        print(f" counted sleep({i} / {seconds} {time_unit})...")
+        time.sleep(multiply)
 
     click.secho('Wait operation complete.', bg='green', fg='blue')
 
@@ -158,6 +166,17 @@ def path_copy():
     import platform
     import os
     import subprocess
+
+    from rich.console import Console
+
+    from rich.theme import Theme
+    custom_theme = Theme({
+        "info": "dim cyan",
+        "warning": "magenta",
+        "danger": "bold red"
+    })
+
+    console = Console(theme=custom_theme)
 
     current_dir = os.getcwd()
 
@@ -173,14 +192,19 @@ def path_copy():
         copied = True
 
     if copied:
-        click.echo(f'`{current_dir}` path copied successfully.')
+        console.rule("[info]Complete")
+
+        from rich import print
+        from rich.panel import Panel
+        from rich.text import Text
+        panel = Panel(Text(f'`{current_dir}` path copied successfully.', justify="center"))
+
+        print(panel)
 
         return
 
+    console.rule("[danger]Error")
     click.echo('Unrecognized system, copy failed.')
-
-
-
 
 
 if __name__ == '__main__':
