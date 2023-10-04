@@ -159,6 +159,31 @@ def wait_for(ctx):
 
     click.secho('Wait operation complete.', bg='green', fg='blue')
 
+
+@main_group.command('walk')
+def walk_path():
+    """ Describe current path """
+    import os
+
+    from rich.console import Console
+    from rich import print
+    from rich.panel import Panel
+    from rich.text import Text
+    from rich.theme import Theme
+
+    custom_theme = Theme({
+        "info": "dim cyan",
+        "warning": "magenta",
+        "danger": "bold red"
+    })
+
+    console = Console(theme=custom_theme)
+
+    current_dir = os.getcwd()
+    for root, dirs, files in os.walk(current_dir):
+        panel = Panel(Text(f'`{root=}: [{dirs=}], // {files=} //`', justify="center"))
+        print(panel)
+
 @main_group.command('path_copy')
 def path_copy():
     """ Copy path to clipboard """
@@ -168,8 +193,8 @@ def path_copy():
     import subprocess
 
     from rich.console import Console
-
     from rich.theme import Theme
+
     custom_theme = Theme({
         "info": "dim cyan",
         "warning": "magenta",
