@@ -164,12 +164,16 @@ def wait_for(ctx):
 def walk_path():
     """ Describe current path """
     import os
+    import pathlib
 
     from rich.console import Console
     from rich import print
-    from rich.panel import Panel
+    from rich.filesize import decimal
     from rich.text import Text
     from rich.theme import Theme
+    from rich.tree import Tree
+    from rich.markup import escape
+    from rich.panel import Panel
 
     custom_theme = Theme({
         "info": "dim cyan",
@@ -180,9 +184,36 @@ def walk_path():
     console = Console(theme=custom_theme)
 
     current_dir = os.getcwd()
-    for root, dirs, files in os.walk(current_dir):
-        panel = Panel(Text(f'`{root=}: [{dirs=}], // {files=} //`', justify="center"))
-        print(panel)
+
+    first_tree = Tree(
+        f":open_file_folder: [link file://{current_dir}]{current_dir}",
+        guide_style="bold bright_blue",
+    )
+
+    def walk(dir_here, tree):
+        paths = sorted(
+            pathlib.Path(dir_here).iterdir(),
+            key=lambda p: (p.is_file(), p.name.lower()),
+        )
+
+        for path in paths:
+            if path.is_dir():
+                branch = tree.add(
+                    f"[bold yellow]:open_file_folder: [link file://{path}]{escape(path.name)}",
+                )
+                walk(path, branch)
+            else:
+                text_filename = Text(path.name, "green")
+                text_filename.highlight_regex(r"\..*$", "bold red")
+                text_filename.stylize(f"link file://{path}")
+                file_size = path.stat().st_size
+                text_filename.append(f" ({decimal(file_size)})", "green")
+                icon = "🐍 " if path.suffix == ".py" else "📄 "
+                tree.add(Text(icon) + text_filename)
+
+    walk(pathlib.Path(current_dir), first_tree)
+    print(Panel(first_tree))
+
 
 @main_group.command('path_copy')
 def path_copy():
