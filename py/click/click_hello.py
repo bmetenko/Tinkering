@@ -165,6 +165,7 @@ def walk_path():
     """ Describe current path """
     import os
     import pathlib
+    from itertools import cycle
 
     from rich.console import Console
     from rich import print
@@ -181,13 +182,14 @@ def walk_path():
         "danger": "bold red"
     })
 
-    console = Console(theme=custom_theme)
+    # console = Console(theme=custom_theme)
+
 
     current_dir = os.getcwd()
 
     first_tree = Tree(
         f":open_file_folder: [link file://{current_dir}]{current_dir}",
-        guide_style="bold bright_blue",
+        guide_style="bold black",
     )
 
     def walk(dir_here, tree):
@@ -195,6 +197,9 @@ def walk_path():
             pathlib.Path(dir_here).iterdir(),
             key=lambda p: (p.is_file(), p.name.lower()),
         )
+
+        color1 = cycle(['red', 'green', 'blue'])
+        color2 = cycle(['bold red', 'bold green', 'bold blue'])
 
         for path in paths:
             if path.is_dir():
@@ -208,8 +213,14 @@ def walk_path():
                 text_filename.stylize(f"link file://{path}")
                 file_size = path.stat().st_size
                 text_filename.append(f" ({decimal(file_size)})", "green")
-                icon = "🐍 " if path.suffix == ".py" else "📄 "
-                tree.add(Text(icon) + text_filename)
+                icon = "📄 "
+                if path.suffix == ".py":
+                    icon = "🐍 "
+
+                if path.suffix == ".txt":
+                    icon = "📘 "
+
+                tree.add(Panel(Text(icon) + text_filename, style=next(color1)))
 
     walk(pathlib.Path(current_dir), first_tree)
     print(Panel(first_tree))
