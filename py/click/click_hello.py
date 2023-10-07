@@ -199,7 +199,7 @@ def walk_path():
         )
 
         color1 = cycle(['red', 'green', 'blue'])
-        color2 = cycle(['bold red', 'bold green', 'bold blue'])
+        # color2 = cycle(['bold red', 'bold green', 'bold blue'])
 
         for path in paths:
             if path.is_dir():
