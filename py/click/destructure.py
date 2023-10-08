@@ -1,12 +1,14 @@
 import dis, io
 
 from rich.tree import Tree
+from rich.text import Text
 from rich import print
 
 import click_hello
 
 
 def test_hello():
+    [i for i in ['a', 'b', 'c']]
     print("Hello")
 
 
@@ -18,9 +20,15 @@ first_tree = Tree(
 )
 
 for instr in test_dis:
+    print(instr)
     branch = first_tree.add(
-            f"[bold yellow]{instr}",
+            f"[bold yellow]{instr.opname}",
         )
+
+    branch.add(Text(f"Value: {instr.argval}", style='blue'))
+    print(type(instr.argval))
+    if type(instr.argval).__name__ == 'code':
+        print(dir(instr.argval))
 
 print(first_tree)
 # import types
