@@ -26,9 +26,16 @@ for instr in test_dis:
         )
 
     branch.add(Text(f"Value: {instr.argval}", style='blue'))
-    print(type(instr.argval))
+
     if type(instr.argval).__name__ == 'code':
         print(dir(instr.argval))
+        next_dis = dis.Bytecode(instr.argval)
+
+        for inst in next_dis:
+            branch2 = branch.add(
+                f"[bold yellow]{inst.opname}",
+            )
+            branch2.add(Text(f"Value: {inst.argval}", style='green'))
 
 print(first_tree)
 # import types
