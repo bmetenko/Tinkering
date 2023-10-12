@@ -10,7 +10,11 @@ import click_hello
 
 
 def test_hello():
-    [i for i in ['a', 'b', 'c']]
+    if True:
+        a = [i for i in ['a', 'b', 'c']]
+        print(a)
+    else:
+        print((1,2))
     print("Hello")
 
 
@@ -33,8 +37,12 @@ def next_tree(diss, init_tree):
             guide_style=color
         )
 
-        val_branch = branch.add(Panel(Text(f"Value: `{instr.argval}`", style='yellow'), style=color))
+        branch_text =f"Value: `{instr.argval}`"
 
+        if instr.is_jump_target:
+            branch_text += f" : [jump target] offset: {instr.offset}"
+
+        val_branch = branch.add(Panel(Text(branch_text, style='yellow'), style=color))
         if type(instr.argval).__name__ == 'code':
             next_diss = dis.Bytecode(instr.argval)
 
