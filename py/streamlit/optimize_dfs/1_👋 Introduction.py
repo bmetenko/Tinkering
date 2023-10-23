@@ -9,6 +9,7 @@ from streamlit_card import card
 from streamlit_extras.echo_expander import echo_expander
 from streamlit_extras.let_it_rain import rain
 from streamlit_extras.switch_page_button import switch_page
+from streamlit_extras.vertical_slider import vertical_slider
 
 st.set_page_config(
     page_title="Hello",
@@ -164,6 +165,23 @@ st.markdown(
 )
 
 # st.write(svg_content[0], unsafe_allow_html=True)
+
+def example():
+    st.write("## Vertical Slider Example, buggy in current iteration...")
+    vertical_slider(
+        key="slider",
+        default_value=25,
+        step=1,
+        min_value=0,
+        max_value=100,
+        # track_color="gray",  # optional
+        # thumb_color="blue",  # optional
+        # slider_color="red",  # optional
+    )
+    st.write(f'value: {st.session_state["slider"]}')
+
+with st.sidebar as sidebar:
+    example()
 
 next_page = st.button("Move to next page!")
 if next_page:
