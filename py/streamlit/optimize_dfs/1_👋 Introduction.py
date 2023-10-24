@@ -10,6 +10,7 @@ from streamlit_extras.echo_expander import echo_expander
 from streamlit_extras.let_it_rain import rain
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.vertical_slider import vertical_slider
+from streamlit_extras.toggle_switch import st_toggle_switch
 
 st.set_page_config(
     page_title="Hello",
@@ -109,12 +110,24 @@ if 'prev' in st.session_state.keys():
 
 st.session_state['prev'] = 'introduction'
 
-rain(
-    emoji="👋",
-    font_size=30,
-    falling_speed=25,
-    animation_length="infinite",
-)
+with st.sidebar:
+    make_it_rain = st_toggle_switch(
+        label="Enable emoji rain?",
+        # key="switch_1",
+        default_value=True,
+        label_after=False,
+        inactive_color="#D3D3FF",
+        active_color="#115600",
+        track_color="#29B5FF",
+    )
+
+if make_it_rain:
+    rain(
+        emoji="👋",
+        font_size=30,
+        falling_speed=25,
+        animation_length="infinite",
+    )
 
 with echo_expander():
     c0, c1 = st.columns(2)
