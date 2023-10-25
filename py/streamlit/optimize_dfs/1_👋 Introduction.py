@@ -1,5 +1,6 @@
 from pathlib import Path
 
+import numpy as np
 import streamlit as st
 import streamlit_echarts as ec
 from streamlit_extras.badges import badge
@@ -11,6 +12,9 @@ from streamlit_extras.let_it_rain import rain
 from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.vertical_slider import vertical_slider
 from streamlit_extras.toggle_switch import st_toggle_switch
+from streamlit_extras.tags import tagger_component
+from pyecharts.charts import WordCloud
+from pyecharts import options as opts
 
 st.set_page_config(
     page_title="Hello",
@@ -24,6 +28,22 @@ with open(Path.cwd()/"assets"/"flat-mountains.svg") as f:
 with open(Path.cwd()/"assets"/"flat-mountains.css") as f:
     xml_content = "".join(f.readlines())
 
+def tags():
+    tagger_component(
+        "Feature request",
+        ["accepted", "🚩triaged", "backlog"],
+        color_name=['blue', 'orange', 'red']
+    )
+    tagger_component(
+        "Animal tags",
+        ["turtle", "rabbit", "lion"],
+        color_name=["green", "lightblue", "yellow"],
+    )
+    tagger_component(
+        "Next Feature",
+        ["prediction"],
+        color_name=["violet"],
+    )
 
 # print(xml_content)
 
@@ -84,9 +104,7 @@ events = {
     "click": "function(params) { console.log(params.name) }"
 }
 
-from pyecharts.charts import WordCloud
-from pyecharts import options as opts
-import numpy as np
+
 
 chart = WordCloud(
     init_opts=opts.InitOpts(
@@ -120,6 +138,8 @@ with st.sidebar:
         active_color="#115600",
         track_color="#29B5FF",
     )
+
+
 
 if make_it_rain:
     rain(
@@ -195,6 +215,7 @@ def example():
 
 with st.sidebar as sidebar:
     example()
+    tags()
 
 next_page = st.button("Move to next page!")
 if next_page:
