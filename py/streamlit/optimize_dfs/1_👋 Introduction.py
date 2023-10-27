@@ -14,6 +14,7 @@ from streamlit_extras.vertical_slider import vertical_slider
 from streamlit_extras.toggle_switch import st_toggle_switch
 from streamlit_extras.tags import tagger_component
 from streamlit_extras.row import row
+from streamlit_extras.grid import grid
 
 from pyecharts.charts import WordCloud
 from pyecharts import options as opts
@@ -51,6 +52,49 @@ def tags():
             ["prediction"],
             color_name=["violet"],
         )
+
+    grid2 = grid([2,3,2], vertical_align="bottom")
+    with grid2.expander("grid0", expanded=True):
+        tagger_component(
+            "Feature request",
+            ["accepted", "🚩triaged", "backlog"],
+            color_name=['blue', 'orange', 'red']
+        )
+    with grid2.expander("grid1", expanded=True):
+        tagger_component(
+            "Animal tags",
+            ["turtle", "rabbit", "lion"],
+            color_name=["green", "lightblue", "yellow"],
+        )
+
+    with grid2.expander("grid1", expanded=True):
+        tagger_component(
+            "Next Feature",
+            ["prediction"],
+            color_name=["violet"],
+        )
+
+    grid2 = grid(1, 2, vertical_align="bottom")
+    with grid2.expander("grid0", expanded=True):
+        tagger_component(
+            "Feature request",
+            ["accepted", "🚩triaged", "backlog"],
+            color_name=['blue', 'orange', 'red']
+        )
+    with grid2.expander("grid1", expanded=True):
+        tagger_component(
+            "Animal tags",
+            ["turtle", "rabbit", "lion"],
+            color_name=["green", "lightblue", "yellow"],
+        )
+
+    with grid2.expander("grid1", expanded=True):
+        tagger_component(
+            "Next Feature",
+            ["prediction"],
+            color_name=["violet"],
+        )
+
 
 # print(xml_content)
 
