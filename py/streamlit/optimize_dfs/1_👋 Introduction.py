@@ -13,8 +13,9 @@ from streamlit_extras.switch_page_button import switch_page
 from streamlit_extras.vertical_slider import vertical_slider
 from streamlit_extras.toggle_switch import st_toggle_switch
 from streamlit_extras.tags import tagger_component
-from streamlit_extras.row import row
+from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_extras.grid import grid
+from streamlit_extras.function_explorer import function_explorer
 
 from pyecharts.charts import WordCloud
 from pyecharts import options as opts
@@ -31,27 +32,8 @@ with open(Path.cwd()/"assets"/"flat-mountains.svg") as f:
 with open(Path.cwd()/"assets"/"flat-mountains.css") as f:
     xml_content = "".join(f.readlines())
 
-def tags():
-    row2 = row([2, 3, 2], vertical_align="bottom")
-    with row2.expander("test0", expanded=True):
-        tagger_component(
-            "Feature request",
-            ["accepted", "🚩triaged", "backlog"],
-            color_name=['blue', 'orange', 'red']
-        )
 
-    with row2.expander("test1", expanded=True):
-        tagger_component(
-            "Animal tags",
-            ["turtle", "rabbit", "lion"],
-            color_name=["green", "lightblue", "yellow"],
-        )
-    with row2.expander("test2", expanded=True):
-        tagger_component(
-            "Next Feature",
-            ["prediction"],
-            color_name=["violet"],
-        )
+def tags():
 
     grid2 = grid([2,3,2], vertical_align="bottom")
     with grid2.expander("grid0", expanded=True):
@@ -268,6 +250,11 @@ with st.sidebar as sidebar:
     example()
 
 tags()
+
+
+add_vertical_space(3)
+function_explorer(add_vertical_space)
+add_vertical_space(2)
 
 next_page = st.button("Move to next page!")
 if next_page:
