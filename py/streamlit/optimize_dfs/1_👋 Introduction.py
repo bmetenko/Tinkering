@@ -16,6 +16,8 @@ from streamlit_extras.tags import tagger_component
 from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_extras.grid import grid
 from streamlit_extras.function_explorer import function_explorer
+from streamlit_extras.markdownlit import mdlit
+from streamlit_extras.stoggle import stoggle
 
 from pyecharts.charts import WordCloud
 from pyecharts import options as opts
@@ -246,6 +248,7 @@ def example():
     )
     st.write(f'value: {st.session_state["slider"]}')
 
+
 with st.sidebar as sidebar:
     example()
 
@@ -255,6 +258,19 @@ tags()
 add_vertical_space(3)
 function_explorer(add_vertical_space)
 add_vertical_space(2)
+
+mdlit("""
+??? toggle
+    @(🎁)(Click me!)(https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+    ??? 2nd toggle
+        [violet]Nested[/violet] contenet <-
+    """)
+
+mdlit(
+    """
+
+    """
+)
 
 next_page = st.button("Move to next page!")
 if next_page:
