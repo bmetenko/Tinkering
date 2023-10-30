@@ -1,6 +1,8 @@
 from pathlib import Path
+from io import StringIO
 
 import numpy as np
+import pandas as pd
 import streamlit as st
 import streamlit_echarts as ec
 from streamlit_extras.badges import badge
@@ -17,7 +19,8 @@ from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_extras.grid import grid
 from streamlit_extras.function_explorer import function_explorer
 from streamlit_extras.markdownlit import mdlit
-from streamlit_extras.stoggle import stoggle
+# noinspection PyProtectedMember
+from lets_plot import ggplot, geom_point, ggsize, aes, _kbridge, theme
 
 from pyecharts.charts import WordCloud
 from pyecharts import options as opts
@@ -26,6 +29,23 @@ st.set_page_config(
     page_title="Hello",
     page_icon="👋",
 )
+# LetsPlot.setup_html()
+
+df = pd.read_csv("https://raw.githubusercontent.com/JetBrains/lets-plot-docs/master/data/iris.csv")
+p = ggplot(df) \
+    + geom_point(aes('petal_length', 'petal_width', color='species'), size=5) \
+    + ggsize(600, 400) \
+    + theme()
+
+# noinspection PyProtectedMember
+plot_html = _kbridge._generate_static_html_page(p.as_dict(), True)
+# viz_html = HTML(filename=fullpath_html)
+
+with st.expander("Let's Plot bridge", 1):
+    st.markdown(
+        "<center>" + plot_html + "</center>",
+        unsafe_allow_html=True
+    )
 
 ### Source: https://www.svgbackgrounds.com/
 with open(Path.cwd()/"assets"/"flat-mountains.svg") as f:
@@ -265,12 +285,6 @@ mdlit("""
     ??? 2nd toggle
         [violet]Nested[/violet] contenet <-
 """)
-
-mdlit(
-    """
-
-    """
-)
 
 next_page = st.button("Move to next page!")
 if next_page:
