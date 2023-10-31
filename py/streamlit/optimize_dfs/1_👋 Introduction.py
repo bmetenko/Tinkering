@@ -19,6 +19,7 @@ from streamlit_extras.add_vertical_space import add_vertical_space
 from streamlit_extras.grid import grid
 from streamlit_extras.function_explorer import function_explorer
 from streamlit_extras.markdownlit import mdlit
+from streamlit_extras.stylable_container import stylable_container
 # noinspection PyProtectedMember
 from lets_plot import ggplot, geom_point, ggsize, aes, _kbridge, theme
 
@@ -42,10 +43,30 @@ plot_html = _kbridge._generate_static_html_page(p.as_dict(), True)
 # viz_html = HTML(filename=fullpath_html)
 
 with st.expander("Let's Plot bridge", 1):
-    st.markdown(
-        "<center>" + plot_html + "</center>",
-        unsafe_allow_html=True
-    )
+    with stylable_container(
+            key="plot-background",
+            css_styles="""
+        center {
+            background-color: white;
+            color: black;
+            border-radius: 20px;
+            padding: 5px 10px;
+            margin: 5px 10px;
+        }
+        center{
+            border-color: red;
+            border-width: 0.5em;
+            border-style: solid;
+            &:hover {
+                border-color: blue;
+            }
+        }
+        """,
+    ):
+        st.markdown(
+            "<center>" + plot_html + "</center>",
+            unsafe_allow_html=True
+        )
 
 ### Source: https://www.svgbackgrounds.com/
 with open(Path.cwd()/"assets"/"flat-mountains.svg") as f:
