@@ -20,6 +20,9 @@ from streamlit_extras.grid import grid
 from streamlit_extras.function_explorer import function_explorer
 from streamlit_extras.markdownlit import mdlit
 from streamlit_extras.stylable_container import stylable_container
+from streamlit_extras.metric_cards import style_metric_cards
+from streamlit_extras.card import card
+from streamlit_extras.chart_container import chart_container
 # noinspection PyProtectedMember
 from lets_plot import ggplot, geom_point, ggsize, aes, _kbridge, theme
 
@@ -28,7 +31,8 @@ from pyecharts import options as opts
 
 st.set_page_config(
     page_title="Hello",
-    page_icon="👋",
+    page_icon="🎃",
+
 )
 # LetsPlot.setup_html()
 
@@ -41,6 +45,13 @@ p = ggplot(df) \
 # noinspection PyProtectedMember
 plot_html = _kbridge._generate_static_html_page(p.as_dict(), True)
 # viz_html = HTML(filename=fullpath_html)
+
+st.markdown(
+    "<style>"
+    ".streamlit-expanderContent{background-color:black !important;}"
+    "</style>",
+    unsafe_allow_html=True
+)
 
 with st.expander("Let's Plot bridge", 1):
     with stylable_container(
@@ -63,10 +74,30 @@ with st.expander("Let's Plot bridge", 1):
         }
         """,
     ):
-        st.markdown(
-            "<center>" + plot_html + "</center>",
-            unsafe_allow_html=True
-        )
+        with chart_container(df):
+            st.markdown(
+                "<center>" + plot_html + "</center>",
+                unsafe_allow_html=True
+            )
+
+# card(
+#     title="Welcome",
+#     text="If you dare!",
+#     image="https://placekitten.com/500/500",
+# )
+style_metric_cards(
+    background_color="red",
+    box_shadow=False,
+    border_color='green',
+    border_size_px=4,
+    border_radius_px=3,
+    border_left_color='yellow'
+)
+
+st.metric(
+    delta_color='normal',
+    label="Tacky Coloring", value=5000, delta=15000
+)
 
 ### Source: https://www.svgbackgrounds.com/
 with open(Path.cwd()/"assets"/"flat-mountains.svg") as f:
@@ -219,7 +250,7 @@ with st.sidebar:
 
 if make_it_rain:
     rain(
-        emoji="👋",
+        emoji="🎃",
         font_size=30,
         falling_speed=25,
         animation_length="infinite",
