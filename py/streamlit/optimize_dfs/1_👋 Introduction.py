@@ -1,5 +1,6 @@
 from pathlib import Path
 from io import StringIO
+import hashlib
 
 import numpy as np
 import pandas as pd
@@ -246,6 +247,20 @@ with st.sidebar:
         track_color="#29B5FF",
     )
 
+    with st.expander("MD5", True):
+        uploaded_file = st.file_uploader(
+            "MD5 of file:",
+            accept_multiple_files=False,
+            key="file"
+        )
+
+        if uploaded_file is not None:
+            bytes_data = uploaded_file.getvalue()
+
+            st.write(
+                hashlib.md5(bytes_data).hexdigest()
+            )
+
 
 
 if make_it_rain:
@@ -321,8 +336,8 @@ def example():
     st.write(f'value: {st.session_state["slider"]}')
 
 
-with st.sidebar as sidebar:
-    example()
+# with st.sidebar as sidebar:
+#     example()
 
 tags()
 
@@ -337,6 +352,9 @@ mdlit("""
     ??? 2nd toggle
         [violet]Nested[/violet] contenet <-
 """)
+
+
+
 
 next_page = st.button("Move to next page!")
 if next_page:
