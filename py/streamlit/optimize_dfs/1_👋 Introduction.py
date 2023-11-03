@@ -247,9 +247,24 @@ with st.sidebar:
         track_color="#29B5FF",
     )
 
-    with st.expander("MD5", True):
+    st.radio(
+        "Checksum to generate",
+        ["MD5", "SHA256", "SHA1"],
+        horizontal=True,
+        key='sum'
+    )
+
+    checksum_dict = {
+        "MD5": hashlib.md5,
+        "SHA256": hashlib.sha256,
+        "SHA1": hashlib.sha1
+    }
+
+    sum_name = st.session_state['sum']
+    with st.expander(sum_name, True):
+
         uploaded_file = st.file_uploader(
-            "MD5 of file:",
+            f"{sum_name} of file:",
             accept_multiple_files=False,
             key="file"
         )
@@ -258,7 +273,7 @@ with st.sidebar:
             bytes_data = uploaded_file.getvalue()
 
             st.write(
-                hashlib.md5(bytes_data).hexdigest()
+                checksum_dict[sum_name](bytes_data).hexdigest()
             )
 
 
