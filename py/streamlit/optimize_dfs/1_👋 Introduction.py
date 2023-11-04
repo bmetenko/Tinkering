@@ -30,6 +30,8 @@ from lets_plot import ggplot, geom_point, ggsize, aes, _kbridge, theme
 from pyecharts.charts import WordCloud
 from pyecharts import options as opts
 
+from utils.hash_utils import get_callables_from_package
+
 st.set_page_config(
     page_title="Hello",
     page_icon="🎃",
@@ -247,18 +249,14 @@ with st.sidebar:
         track_color="#29B5FF",
     )
 
+    checksum_dict = get_callables_from_package(hashlib)
+
     st.radio(
         "Checksum to generate",
-        ["MD5", "SHA256", "SHA1"],
+        hashlib.algorithms_guaranteed,
         horizontal=True,
         key='sum'
     )
-
-    checksum_dict = {
-        "MD5": hashlib.md5,
-        "SHA256": hashlib.sha256,
-        "SHA1": hashlib.sha1
-    }
 
     sum_name = st.session_state['sum']
     with st.expander(sum_name, True):
