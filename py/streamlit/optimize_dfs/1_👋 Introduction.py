@@ -32,11 +32,12 @@ from pyecharts import options as opts
 
 from utils.hash_utils import get_callables_from_package
 
-st.set_page_config(
-    page_title="Hello",
-    page_icon="🎃",
-
-)
+# avoids need for refresh on startup
+# st.set_page_config(
+#     page_title="Hello",
+#     page_icon="🎃",
+#
+# )
 # LetsPlot.setup_html()
 
 df = pd.read_csv("https://raw.githubusercontent.com/JetBrains/lets-plot-docs/master/data/iris.csv")
@@ -251,9 +252,13 @@ with st.sidebar:
 
     checksum_dict = get_callables_from_package(hashlib)
 
+    check_more = st.checkbox(
+        "Show more checksum below",
+    )
+
     st.radio(
         "Checksum to generate",
-        hashlib.algorithms_guaranteed,
+        hashlib.algorithms_guaranteed if not check_more else hashlib.algorithms_available,
         horizontal=True,
         key='sum'
     )
