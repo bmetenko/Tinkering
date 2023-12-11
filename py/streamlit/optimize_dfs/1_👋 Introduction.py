@@ -252,6 +252,10 @@ with st.sidebar:
 
     checksum_dict = get_callables_from_package(hashlib)
 
+    check_multiple = st.checkbox(
+        "Allow multiple files..."
+    )
+
     check_more = st.checkbox(
         "Show more checksum below",
     )
@@ -268,16 +272,29 @@ with st.sidebar:
 
         uploaded_file = st.file_uploader(
             f"{sum_name} of file:",
-            accept_multiple_files=False,
-            key="file"
+            accept_multiple_files=check_multiple,
+            key="file",
         )
 
         if uploaded_file is not None:
-            bytes_data = uploaded_file.getvalue()
+            if check_multiple:
+                for file in uploaded_file:
+                    bytes_data = file.getvalue()
+                    st.markdown(
+                        f"#### {file.name}"
+                    )
+                    st.write(
+                        checksum_dict[sum_name](bytes_data).hexdigest()
+                    )
+            else:
 
-            st.write(
-                checksum_dict[sum_name](bytes_data).hexdigest()
-            )
+                bytes_data = uploaded_file.getvalue()
+                st.markdown(
+                    f"#### {uploaded_file.name}"
+                )
+                st.write(
+                    checksum_dict[sum_name](bytes_data).hexdigest()
+                )
 
 
 
