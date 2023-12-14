@@ -17,4 +17,23 @@
         <rect x="10" y="46" width="10" height="7.5" fill="brown" />
     </g>
 
+    <g id='gingerbread-man'>
+        <circle class="head" cx="75" cy="10" r="5" fill="#cd803d" />
+        <rect class="mouth" x="73" y="10.5" width="4" height="0.75" rx="1" fill="none" stroke="white"
+            stroke-width="0.25px" />
+        <line class="limb" x1="65" x2="85" y1="20" y2="15" stroke="#cd803d" stroke-width="7px" stroke-linecap="round" />
+        <line class="limb" x1="70" x2="75" y1="30" y2="17.5" stroke="#cd803d" stroke-width="7px"
+            stroke-linecap="round" />
+
+        <line class="limb" x1="75" x2="82.5" y1="17.5" y2="30" stroke="#cd803d" stroke-width="7px"
+            stroke-linecap="round" />
+
+
+        <circle class="eye" cx="72.5" cy="8" r="1" fill="white" />
+        <circle class="eye" cx="77.5" cy="8" r="1" fill="white" />
+        <circle class="button" cx="75" cy="16" r="1" />
+        <circle class="button" cx="75" cy="21" r="1" />
+
+    </g>
+
 </svg>
