@@ -50,6 +50,18 @@
             stroke-width: 0.45px;
             fill: brown;
         }
+
+        .knob {
+            fill: #cd803d;
+            stroke: black;
+            stroke-width: 0.25px;
+        }
+
+        .stair {
+            fill: #444;
+            stroke: black;
+            stroke-width: 0.15px;
+        }
     </style>
 
     <g id='ornament'>
@@ -93,6 +105,8 @@
         <line class="borders" x1="45" x2="49" y1="14" y2="14" />
         <line class="borders" x1="47" x2="47" y1="12" y2="16" />
         <rect class="door" width="2.5" height="7" x="41.5" y="12" rx="0.5"/>
+        <circle class="knob" cx="43" cy="15.5" r=".5" />
+        <rect width="3.5" height="0.5" x="41" y="19" />    
     </g>
 
 </svg>
