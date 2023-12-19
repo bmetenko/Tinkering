@@ -63,6 +63,11 @@
             stroke-width: 0.15px;
         }
     </style>
+    <defs>
+        <clipPath id="ornament-clip-path">
+            <circle cx="50" cy="65" r="25" />
+        </clipPath>
+    </defs>
 
     <g id='ornament'>
         <g id="ornament-loop">
@@ -74,6 +79,16 @@
         <g id="ornament-cap">
             <rect x="42.5" y="35" width="15" height="7.5" fill="#F79257" />
         </g>
+
+
+        <polyline
+            clip-path="url(#ornament-clip-path)"
+            points="10,60 30,75 50,60 70,75 90, 60"
+            fill="none"
+            stroke="#9C2D2A"
+            stroke-width="20"
+        />
+
     </g>
     <g id='tree'>
         <polygon points="0,45 15,15 30,45" fill="#234236" />
