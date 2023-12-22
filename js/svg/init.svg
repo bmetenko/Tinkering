@@ -125,13 +125,18 @@
 
     <g id="paths">
         <path id="burger" d="
-        M 20, 15
-        L 30, 15
+        M 25, 15
+        L 30, 10
         M 20, 10
         L 30, 10
-        M 20, 5
-        L 30, 5
-        " stroke="yellow" stroke-width="2" />
+        M 25, 5
+        L 30, 10
+        " 
+        stroke="yellow" 
+        stroke-width="2" 
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        />
 
     </g>
 
