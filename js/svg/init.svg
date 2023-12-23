@@ -123,7 +123,39 @@
         <rect width="3.5" height="0.5" x="41" y="19" />
     </g>
 
-    <g id="paths">
+    <g id="paths-1" transform="rotate(0 0 0) translate(10, 5)">
+        <path id="burger" d="
+        M 25, 15
+        L 30, 10
+        M 20, 10
+        L 30, 10
+        M 25, 5
+        L 30, 10
+        " 
+        stroke="yellow" 
+        stroke-width="2" 
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        />
+
+    </g>
+    <g id="paths-1" transform="rotate(30 0 0) translate(10, 5)">
+        <path id="burger" d="
+        M 25, 15
+        L 30, 10
+        M 20, 10
+        L 30, 10
+        M 25, 5
+        L 30, 10
+        " 
+        stroke="yellow" 
+        stroke-width="2" 
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        />
+
+    </g>
+        <g id="paths-1" transform="rotate(60 0 0) translate(10, 5)">
         <path id="burger" d="
         M 25, 15
         L 30, 10
