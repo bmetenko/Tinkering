@@ -124,7 +124,7 @@
     </g>
 
     <g id="paths-1" transform="rotate(0 0 0) translate(10, 5)">
-        <path id="burger" d="
+        <path id="arrow1" d="
         M 25, 15
         L 30, 10
         M 20, 10
@@ -139,8 +139,8 @@
         />
 
     </g>
-    <g id="paths-1" transform="rotate(30 0 0) translate(10, 5)">
-        <path id="burger" d="
+    <g id="paths-2" transform="rotate(30 0 0) translate(10, 5)">
+        <path id="arrow2" d="
         M 25, 15
         L 30, 10
         M 20, 10
@@ -155,8 +155,8 @@
         />
 
     </g>
-        <g id="paths-1" transform="rotate(60 0 0) translate(10, 5)">
-        <path id="burger" d="
+        <g id="paths-3" transform="rotate(60 0 0) translate(10, 5)">
+        <path id="arrow3" d="
         M 25, 15
         L 30, 10
         M 20, 10
@@ -171,5 +171,12 @@
         />
 
     </g>
+
+    <g id="path-variables">
+        <!-- <line x1="75" x2="75" y1="0" y2="20" stroke="red" /> -->
+        <use href="#arrow1" transform="translate(55,10) rotate(-15 75 20)" />
+        <use href="#arrow1" transform="translate(55,10) rotate(-30 75 20)" />
+        <use href="#arrow1" transform="translate(55,10) rotate(-45 75 20)" />
+        </g>
 
 </svg>
