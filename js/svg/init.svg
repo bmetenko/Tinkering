@@ -174,9 +174,12 @@
 
     <g id="path-variables">
         <!-- <line x1="75" x2="75" y1="0" y2="20" stroke="red" /> -->
-        <use href="#arrow1" transform="translate(55,10) rotate(-15 75 20)" />
-        <use href="#arrow1" transform="translate(55,10) rotate(-30 75 20)" />
-        <use href="#arrow1" transform="translate(55,10) rotate(-45 75 20)" />
+        <g id="path-crossbow">
+
+        <use x="69" y ="7" href="#arrow1" transform="rotate(-15 75 20)" />
+        <use x="69" y ="10" href="#arrow1" transform="rotate(-30 75 20)" />
+        <use x="69" y ="15" href="#arrow1" transform="rotate(-45 75 20)" />
         </g>
+    </g>
 
 </svg>
