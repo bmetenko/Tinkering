@@ -131,12 +131,7 @@
         L 30, 10
         M 25, 5
         L 30, 10
-        " 
-        stroke="yellow" 
-        stroke-width="2" 
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        />
+        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
     </g>
     <g id="paths-2" transform="rotate(30 0 0) translate(10, 5)">
@@ -147,15 +142,10 @@
         L 30, 10
         M 25, 5
         L 30, 10
-        " 
-        stroke="yellow" 
-        stroke-width="2" 
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        />
+        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
     </g>
-        <g id="paths-3" transform="rotate(60 0 0) translate(10, 5)">
+    <g id="paths-3" transform="rotate(60 0 0) translate(10, 5)">
         <path id="arrow3" d="
         M 25, 15
         L 30, 10
@@ -163,12 +153,7 @@
         L 30, 10
         M 25, 5
         L 30, 10
-        " 
-        stroke="yellow" 
-        stroke-width="2" 
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        />
+        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
     </g>
 
@@ -176,9 +161,21 @@
         <!-- <line x1="75" x2="75" y1="0" y2="20" stroke="red" /> -->
         <g id="path-crossbow">
 
-        <use x="69" y ="7" href="#arrow1" transform="rotate(-15 75 20)" />
-        <use x="69" y ="10" href="#arrow1" transform="rotate(-30 75 20)" />
-        <use x="69" y ="15" href="#arrow1" transform="rotate(-45 75 20)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.95)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.90)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.85)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.80)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.75)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.70)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.65)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.60)" />
+            <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.55)" />
+            <use id="teal-arrow" x="69" y="7" href="#arrow1" transform="rotate(0 69 7) scale(0.50)"
+                filter="saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%)" />
+
+            <use href="#teal-arrow" x="50" y="50" transform="rotate(10)" />
+
         </g>
     </g>
 
