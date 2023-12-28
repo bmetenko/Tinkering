@@ -71,6 +71,12 @@
         <clipPath id="ornament-clip-path">
             <circle cx="50" cy="65" r="25" />
         </clipPath>
+
+        <radialGradient id="shine" cx="0.25" cy="0.25" r="0.35">
+            <stop offset="0%" stop-color="#e3a8b0" />
+            <stop offset="100%" stop-color="#D1495B" />
+        </radialGradient>
+
     </defs>
 
     <g id='ornament'>
@@ -79,6 +85,7 @@
         </g>
         <g id="ornament-body">
             <circle cx="50" cy="65" r="25" fill="#D1495B" />
+            <circle cx="50" cy="65" r="25" fill="url(#shine)" />
         </g>
         <g id="ornament-cap">
             <rect x="42.5" y="35" width="15" height="7.5" fill="#F79257" />
@@ -86,7 +93,7 @@
 
 
         <polyline clip-path="url(#ornament-clip-path)" points="10,60 30,75 50,60 70,75 90, 60" fill="none"
-            stroke="#9C2D2A" stroke-width="20" />
+            stroke="#9C2D2A" stroke-width="20" fill="url(#shine)" />
 
     </g>
     <g id='tree'>
@@ -123,42 +130,44 @@
         <rect width="3.5" height="0.5" x="41" y="19" />
     </g>
 
-    <g id="paths-1" transform="rotate(0 0 0) translate(10, 5)">
-        <path id="arrow1" d="
-        M 25, 15
-        L 30, 10
-        M 20, 10
-        L 30, 10
-        M 25, 5
-        L 30, 10
-        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
-    </g>
-    <g id="paths-2" transform="rotate(30 0 0) translate(10, 5)">
-        <path id="arrow2" d="
-        M 25, 15
-        L 30, 10
-        M 20, 10
-        L 30, 10
-        M 25, 5
-        L 30, 10
-        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 
-    </g>
-    <g id="paths-3" transform="rotate(60 0 0) translate(10, 5)">
-        <path id="arrow3" d="
-        M 25, 15
-        L 30, 10
-        M 20, 10
-        L 30, 10
-        M 25, 5
-        L 30, 10
-        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-
-    </g>
-
-    <g id="path-variables">
+    <g id="path-variables" transform="rotate(200)">
+        <!-- Made invisible -->
         <!-- <line x1="75" x2="75" y1="0" y2="20" stroke="red" /> -->
+        <g id="paths-1" transform="rotate(0 0 0) translate(10, 5)">
+            <path id="arrow1" d="
+        M 25, 15
+        L 30, 10
+        M 20, 10
+        L 30, 10
+        M 25, 5
+        L 30, 10
+        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+        </g>
+        <g id="paths-2" transform="rotate(30 0 0) translate(10, 5)">
+            <path id="arrow2" d="
+        M 25, 15
+        L 30, 10
+        M 20, 10
+        L 30, 10
+        M 25, 5
+        L 30, 10
+        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+        </g>
+        <g id="paths-3" transform="rotate(60 0 0) translate(10, 5)">
+            <path id="arrow3" d="
+        M 25, 15
+        L 30, 10
+        M 20, 10
+        L 30, 10
+        M 25, 5
+        L 30, 10
+        " stroke="yellow" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+
+        </g>
         <g id="path-crossbow">
 
             <use x="69" y="7" href="#arrow1" transform="rotate(0 69 7)" />
