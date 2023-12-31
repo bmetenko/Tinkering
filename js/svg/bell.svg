@@ -1,0 +1,32 @@
+<svg 
+  width="200"
+  height="200"
+  viewBox="-100 -100 200 200"
+  stroke="black"
+  stroke-width="2"
+>
+    <circle cx="0" cy="50" r="10" fill="#F79257" />
+    <circle cx="0" cy="-45" r="7" fill="#4F6D7A" />
+    <path
+    d="
+      M -50 40
+      L -50 50
+      L 50 50
+      L 50 40
+      Q 40 40 40 10
+      C 40 -60 -40 -60 -40 10
+      Q -40 40 -50 40
+      "
+    fill="#FDEA96"
+  />
+<!-- bottom left line -->
+<!-- straight line to right side-->
+<!-- line up to same as starting point but flipped sides-->
+<!-- bezier to start curve -->
+    <!-- internal control point -->
+<!-- cubic bezier to draw bell top -->
+    <!-- external control point -->
+<!-- bezier to come back -->
+  
+  
+</svg>
