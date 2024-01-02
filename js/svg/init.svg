@@ -66,6 +66,23 @@
             stroke: black;
             stroke-width: 0.15px;
         }
+
+        .text-group {
+        offset-path: path(
+            "M 10, 10 C 40, 35 60, 35 90, 10"
+        );
+        animation: text-scroll 6000ms infinite linear;
+        }
+
+        @keyframes text-scroll {
+        0% {
+            offset-distance: 0%;
+        }
+        100% {
+            offset-distance: 100%;
+        }
+        }
+
     </style>
     <defs>
         <clipPath id="ornament-clip-path">
@@ -90,7 +107,7 @@
         </g>
 
 
-        <polyline clip-path="url(#ornament-clip-path)" points="10,60 30,75 50,60 70,75 90, 60" fill="none"
+        <polyline clip-path="url(#ornament-clip-path)" points="10,60 30,75 50,60 70,75 90, 60"
             stroke="#9C2D2A" stroke-width="20" fill="url(#shine)" />
 
     </g>
@@ -207,10 +224,13 @@
     </g>
 
 
+    <g class='text-group'>
     <text fill="#0c004c" font-family="Tahoma" font-size="0.23em" font-weight="bold">
-        <textPath href="#garland">
+        <textPath id="text-path" href="#garland">
             -*- Happy Holidays! -*- Happy Holidays! -*- Happy Holidays! -*-
         </textPath>
     </text>
+    </g>
+
 
 </svg>
