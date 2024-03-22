@@ -1,5 +1,10 @@
+import hashlib
 import importlib
 import inspect
+import os, sys, time
+
+import rich
+from rich import print
 
 def get_callables_from_package(package):
 
@@ -14,3 +19,39 @@ def get_callables_from_package(package):
             callables_dict[member] = obj
 
     return callables_dict
+
+def list_hash_types() -> dict[str, str]:
+
+    checksum_dict = get_callables_from_package(hashlib)
+
+    return checksum_dict
+
+def calculate_hash(file_path, hash):
+    with open(file_path, "rb") as file:
+        for chunk in iter(lambda: file.read(4096), b""):
+            hash.update(chunk)
+    return hash.hexdigest()
+
+def calculate_md5_for_directory(directory_path: str, hash, sleep_seconds: float = 0.5):
+    if not os.path.isdir(directory_path):
+        print(f"Error: {directory_path} is not a valid directory.")
+        return
+
+    for file_name in os.listdir(directory_path):
+        file_path = os.path.join(directory_path, file_name)
+        if os.path.isfile(file_path):
+            checksum = calculate_hash(file_path, hash())
+            print(f"File: {file_name}, checksum: {checksum}")
+            time.sleep(sleep_seconds)  # Adjust the sleep duration as needed
+
+if __name__ == "__main__":
+
+    # rich.inspect(list_hash_types())
+
+    gen_sum = list_hash_types()['md5']
+
+    if len(sys.argv) != 2:
+        print("Usage: python script_name.py <directory_path>")
+    else:
+        directory_path = sys.argv[1]
+        calculate_md5_for_directory(directory_path, gen_sum)
