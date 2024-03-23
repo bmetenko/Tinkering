@@ -3,6 +3,7 @@ import importlib
 import inspect
 import os, sys, time
 
+import pandas as pd
 import rich
 from rich import print
 
@@ -35,8 +36,9 @@ def calculate_hash(file_path, hash):
 def calculate_md5_for_directory(directory_path: str, hash, sleep_seconds: float = 0.5):
     if not os.path.isdir(directory_path):
         print(f"Error: {directory_path} is not a valid directory.")
-        return
+        return None
 
+    out = []
     for file_name in os.listdir(directory_path):
         file_path = os.path.join(directory_path, file_name)
         if os.path.isfile(file_path):
@@ -44,14 +46,28 @@ def calculate_md5_for_directory(directory_path: str, hash, sleep_seconds: float 
             print(f"File: {file_name}, checksum: {checksum}")
             time.sleep(sleep_seconds)  # Adjust the sleep duration as needed
 
+            out.append({"file": file_name, "check": checksum})
+
+    return out
+
 if __name__ == "__main__":
 
     # rich.inspect(list_hash_types())
 
     gen_sum = list_hash_types()['md5']
 
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         print("Usage: python script_name.py <directory_path>")
     else:
         directory_path = sys.argv[1]
-        calculate_md5_for_directory(directory_path, gen_sum)
+        checksum_data = calculate_md5_for_directory(directory_path, gen_sum)
+
+    if checksum_data is None:
+        sys.exit(1)
+    
+    if len(sys.argv) > 2:
+        out_file_name = sys.argv[2]
+
+        df = pd.DataFrame(checksum_data)
+        if out_file_name.endswith("csv"):
+            df.to_csv(out_file_name)
