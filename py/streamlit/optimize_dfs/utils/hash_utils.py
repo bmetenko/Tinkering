@@ -6,6 +6,7 @@ import os, sys, time
 import pandas as pd
 import rich
 from rich import print
+from tqdm import tqdm
 
 def get_callables_from_package(package):
 
@@ -33,17 +34,23 @@ def calculate_hash(file_path, hash):
             hash.update(chunk)
     return hash.hexdigest()
 
-def calculate_md5_for_directory(directory_path: str, hash, sleep_seconds: float = 0.5):
+def calculate_md5_for_directory(
+    directory_path: str, 
+    hash, 
+    sleep_seconds: float = 0.5, 
+    silent: bool = False
+    ):
     if not os.path.isdir(directory_path):
         print(f"Error: {directory_path} is not a valid directory.")
         return None
 
     out = []
-    for file_name in os.listdir(directory_path):
+    for file_name in tqdm(os.listdir(directory_path)):
         file_path = os.path.join(directory_path, file_name)
         if os.path.isfile(file_path):
             checksum = calculate_hash(file_path, hash())
-            print(f"File: {file_name}, checksum: {checksum}")
+            if not silent:
+                print(f"File: {file_name}, checksum: {checksum}")
             time.sleep(sleep_seconds)  # Adjust the sleep duration as needed
 
             out.append({"file": file_name, "check": checksum})
@@ -55,12 +62,16 @@ if __name__ == "__main__":
     # rich.inspect(list_hash_types())
 
     gen_sum = list_hash_types()['md5']
+    print(sys.argv)
 
+    silent = False
     if len(sys.argv) < 2:
-        print("Usage: python script_name.py <directory_path>")
+        print("Usage: python script_name.py <directory_path> <csv_out_name> <silent>")
     else:
+        if len(sys.argv) < 3:
+            silent = sys.argv[3].lower() == 'true'
         directory_path = sys.argv[1]
-        checksum_data = calculate_md5_for_directory(directory_path, gen_sum)
+        checksum_data = calculate_md5_for_directory(directory_path, gen_sum, 0.5, silent)
 
     if checksum_data is None:
         sys.exit(1)
